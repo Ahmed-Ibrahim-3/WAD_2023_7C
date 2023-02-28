@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+    <head>
+        <title>
+            yumyay -
+                {%block title_block%}
+                {% endblock %}
+        </title>
+    </head>
+
+    {% block body_block %}
+        <nav>
+            <ul>
+                <li>Home</li>
+                <li>Cooking</li>
+                <li>Baking</li>
+                <li>Add recipe</li> <!--remove if not authorised when implemented-->
+                <li>Account</li>
+            </ul>
+        </nav>
+    {% endblock %}
+
+</html>

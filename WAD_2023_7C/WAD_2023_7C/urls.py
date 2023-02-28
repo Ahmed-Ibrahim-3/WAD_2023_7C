@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
 from yumyay import views
 
 urlpatterns = [
-    path('',views.index, name="index"),
+    path('home/', views.home, name="home"),
+    path('yumyay/', include('yumyay.urls')),
+    # The above maps any URLs starting with yumyay/ to be handled by yumyay\urls.py
     path('admin/', admin.site.urls),
 ]
