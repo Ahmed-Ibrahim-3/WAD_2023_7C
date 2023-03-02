@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% extends 'yumyay/base.html' %}
-{% load static %}
+{% load staticfiles %}
 <html lang="en">
 
 {% block title_block %}
@@ -13,3 +13,8 @@
 <!--    {% else %}-->
 <!--        <a href="{% url 'yumyay:home' %}">Log in</a>-->
 <!--    {% endif %}-->
+
+{% block body_block %}
+<p>{{ MEIDA_URL }}</p>
+    <img src="{{ MEDIA_URL }}recipe_images/cat.jpg" alt="Picture of a Cat." />
+{% endblock %}
