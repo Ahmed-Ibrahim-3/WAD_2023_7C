@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 {% extends 'yumyay/base.html' %}
-{% load staticfiles %}
+{% load static %}
 <html lang="en">
 
 {% block title_block %}
     Home
 {% endblock %}
 
-
+<body>
 <!--    {% if user.is_authenticated %}-->
 <!--        Welcome back {{user.username}}-->
 <!--    {% else %}-->
 <!--        <a href="{% url 'yumyay:home' %}">Log in</a>-->
 <!--    {% endif %}-->
 
-{% block body_block %}
-<p>{{ MEIDA_URL }}</p>
-    <img src="{{ MEDIA_URL }}recipe_images/cat.jpg" alt="Picture of a Cat." />
-{% endblock %}
+<h2>Recipe name</h2>
+<p>Description</p>
+<p>Username</p>
+<p>Rating</p>
+</body>
