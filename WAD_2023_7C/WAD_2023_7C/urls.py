@@ -14,13 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from django.urls import include
 from yumyay import views
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('home/', views.home, name="home"),
     path('yumyay/', include('yumyay.urls')),
     # The above maps any URLs starting with yumyay/ to be handled by yumyay\urls.py
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
