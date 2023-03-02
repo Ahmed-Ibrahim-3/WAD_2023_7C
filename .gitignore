@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#DS Store files
+WAD_2023_7C/media/recipe_images/.DS_Store
+WAD_2023_7C/media/.DS_Store
