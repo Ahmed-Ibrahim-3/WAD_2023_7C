@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 {% extends 'yumyay/base.html' %}
 {% load static %}
-<html lang="en">
+
 
 {% block title_block %}
     Home
 {% endblock %}
 
-<body>
-<!--    {% if user.is_authenticated %}-->
-<!--        Welcome back {{user.username}}-->
-<!--    {% else %}-->
-<!--        <a href="{% url 'yumyay:home' %}">Log in</a>-->
-<!--    {% endif %}-->
-
-<h2>Recipe name</h2>
-<p>Description</p>
-<p>Username</p>
-<p>Rating</p>
-</body>
+{% block body_block %}
+    <body>
+        <a href="{% url 'yumyay:log_in' %}">Log in</a>
+        <!--    {% if user.is_authenticated %}-->
+        <!--        Welcome back {{user.username}}-->
+        <!--    {% else %}-->
+        <!--        <a href="{% url 'yumyay:log_in' %}">Log in</a>-->
+        <!--    {% endif %}-->
+        <div id="top recipes">
+           <style>
+            h2 {text-align: left}
+            p {text-align: left}
+        </style>
+        <h2>Recipe name</h2>
+{#        <img src="" alt="Food">#}
+        <p>Description</p>
+        <p>Username</p>
+        <button>Rating</button>
+        </div>
+    </body>
+{% endblock %}

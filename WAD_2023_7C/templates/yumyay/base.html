@@ -10,16 +10,18 @@
         </title>
     </head>
 
-    {% block body_block %}
+    {% block header_block %}
         <nav>
             <ul>
-                <li>Home</li>
-                <li>Cooking</li>
-                <li>Baking</li>
-                <li>Add recipe</li> <!--remove if not authorised when implemented-->
-                <li>Account</li>
+                <li><a href="{% url 'yumyay:home' %}">Home</a></li>
+                <li><a href="{% url 'yumyay:cooking' %}">Cooking</a></li>
+                <li><a href="{% url 'yumyay:baking' %}">Baking</a></li>
+                <li><a href="{% url 'yumyay:add_recipe' %}">Add recipe</a></li> <!--remove if not authorised when implemented-->
+                <li><a href="{% url 'yumyay:account' %}">Account</a></li>
             </ul>
         </nav>
     {% endblock %}
 
+    {% block body_block %}
+    {%  endblock %}
 </html>

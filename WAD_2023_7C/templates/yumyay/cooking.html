@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'yumyay/base.html' %}
+
+{% load static %}
+
+{% block title_block %}
+    Cooking
+{%  endblock %}
+
+{% block body_block %}
+     <div id="searchbar">
+        <input type="text" placeholder="Search...">
+        <button type="submit">Search</button>
+     </div>
+{#    Cuisine pages #}
+    {% include 'yumyay/sidebar_top_recipe.html' %}
+{% endblock %}
