@@ -1,6 +1,7 @@
 from django import forms
-from yumyay.models import Category, Cuisine, Recipe
 from django.contrib.auth.models import User
+from yumyay.models import Recipe
+
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -9,18 +10,18 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password',)
 
-class RecipeForm(forms.ModelForm):
-    name = forms.CharField(max_length=128, help_text='Name: ', required=True)
-    # use class method to set author on form submit?
-    author = None
-    category = forms.ChoiceField(queryset=Category.objects.all(), required=True, help_text='Category: ')
-    cuisine = forms.ChoiceField(queryset=Cuisine.objects.all(), required=True, help_text='Cuisine: ')
-    # ingredients, instructions
-    image = forms.ImageField(help_text='An image related to the recipe: ')
 
-    def setAuthor(self, user):
-        author = user
-    
+class RecipeForm(forms.ModelForm):
+    name = forms.CharField(max_length=128, help_text="name of recipe:")
+    description = forms.CharField(max_length=1024, help_text="description of recipe:")
+    ingredients = forms.CharField(max_length=1024, help_text="ingredients:")
+    instructions = forms.CharField(max_length=1024, help_text="instructions:")
+    category = forms.ChoiceField(choices=("Cooking", "Baking"))
+    cuisine = forms.ChoiceField(choices=("Indian", "Thai", "Chinese", "Italian", "Mexican", "Greek",
+                                         "Cakes", "Brownies", "Bread", "Pastries", "Cupcakes", "Cookies"))
+    image = forms.ImageField()
+    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+
     class Meta:
         model = Recipe
-        fields = ('name', 'category', 'cuisine', 'image')
+        exclude = ('likes',)
