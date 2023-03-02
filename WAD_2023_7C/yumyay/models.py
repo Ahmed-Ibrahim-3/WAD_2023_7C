@@ -43,7 +43,7 @@ class Recipe(models.Model):
     ingredients = models.CharField(max_length=4096)
     instructions = models.CharField(max_length=4096)
     category = models.CharField(max_length=128, choices=CATEGORIES)
-    cuisines = models.CharField(max_length=128, choices=CUISINES)
+    cuisine = models.CharField(max_length=128, choices=CUISINES)
     image = models.ImageField()
     likes = models.IntegerField(default=0)
 
@@ -52,7 +52,7 @@ class Recipe(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE())
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     forename = models.CharField(max_length=128)
     surname = models.CharField(max_length=128)
     emailAddress = models.EmailField(max_length=128)
