@@ -8,23 +8,50 @@
 {% endblock %}
 
 {% block body_block %}
-    <body>
+
+
+
         <a href="{% url 'yumyay:log_in' %}">Log in</a>
-        <!--    {% if user.is_authenticated %}-->
-        <!--        Welcome back {{user.username}}-->
-        <!--    {% else %}-->
-        <!--        <a href="{% url 'yumyay:log_in' %}">Log in</a>-->
-        <!--    {% endif %}-->
-        <div id="top recipes">
-           <style>
-            h2 {text-align: left}
-            p {text-align: left}
-        </style>
-        <h2>Recipe name</h2>
-{#        <img src="" alt="Food">#}
-        <p>Description</p>
-        <p>Username</p>
-        <button>Rating</button>
+
+                        <!--    {% if user.is_authenticated %}-->
+                        <!--        Welcome back {{user.username}}-->
+                        <!--    {% else %}-->
+                        <!--        <a href="{% url 'yumyay:log_in' %}">Log in</a>-->
+                        <!--    {% endif %}-->
+
+    <div class="row w-50 mx-auto">
+    <div class="container-fluid outer_padding" style ="background-color: #5A8F5C; margin-right: 100px; margin-left: 100px;" >
+        <div class="col-sm-1 ">
+            <button type = "button" class="btn btn-primary" id = "home-buttons">
+                <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
+            </button>
         </div>
+            <div class="col-sm-10" >
+                <div class="row w-50 mx-auto">
+                    <div class="container-fluid padding" id="recipe-style" style="background-color: #FFEB7F">
+                    <div class="col-sm-6" >
+                            <h2>Recipe name</h2>
+                    {#        <img src="" alt="Food">#}
+                                <p>Username</p>
+                    </div>
+                    <div class="col-sm-6" >
+                        <p>Description</p>
+                        <button>Rating</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-sm-1">
+            <button type = "button" class="btn btn-primary" id = "home-buttons">
+                <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+            </button>
+        </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+    </div>
+
     </body>
 {% endblock %}
