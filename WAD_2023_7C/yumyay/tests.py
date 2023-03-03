@@ -3,8 +3,7 @@ from django.urls import reverse
 
 # Create your tests here.
 
-#Commented Tests on Purpose - waiting for migrations of models.
-'''class TestHomePageLoggedOut(TestCase):
+class TestHomePageLoggedOut(TestCase):
 
     def test_successful_deployment(self):
         response = self.client.get(reverse("yumyay:home"))
@@ -17,5 +16,5 @@ from django.urls import reverse
     
     def test_guest_home_2(self):
         response = self.client.get(reverse("yumyay:home"))
-        self.assertFalse(response.status_code, 404)
-        self.assertNotContains(response, "Log out")'''
+        self.assertNotEquals(response.status_code, 404)
+        self.assertNotContains(response, "Log out")
