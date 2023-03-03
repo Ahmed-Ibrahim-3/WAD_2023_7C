@@ -158,7 +158,6 @@ def populate():
     }
 
     def add_cuisine(name):
-        print("weeeeeeee")
         cuis = Cuisine.objects.get_or_create(name=name)[0]
         cuis.save()
         return name
@@ -166,9 +165,7 @@ def populate():
     def add_recipe(name, description, cuis, ingredients, instructions):
         recp = Recipe.objects.get_or_create(name=name, description=description,
                                             cuisine=cuis, ingredients=ingredients, instructions=instructions)[0]
-        print("wooooooo")
         recp.name = name
-        print(name)
         recp.description = description
         recp.cuisine = cuis
         recp.ingredients = ingredients
