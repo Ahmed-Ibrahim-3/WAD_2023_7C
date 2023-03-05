@@ -1,9 +1,8 @@
 const searchBar = document.querySelector('#searchbar > input')
-searchBar.addEventListener("input", () => {
+if(searchBar != null) searchBar.addEventListener("input", () => {
     let query = searchBar.value.toLowerCase()
     search(query)
 })
-
 
 function search(query){
     const recipes = document.querySelectorAll(".grid-item");

@@ -11,7 +11,9 @@
     Username
 {#    <img src="" alt="Food">#}
     <div class="like-info">{{ recipe.likes }} likes</div>
-    <div id='like-button' class='unliked' data-recipename='{{ recipe.name }}'>Like</div>
+    {% if user.is_authenticated %}
+        <div id='like-button' class='unliked' data-recipename='{{ recipe.name }}' data-username='{{ user.username }}'>Like</div>
+    {% endif %}
     <div id="ingredients">
         <h3>Ingredients</h3>
         <p>Blah blah blah</p>
