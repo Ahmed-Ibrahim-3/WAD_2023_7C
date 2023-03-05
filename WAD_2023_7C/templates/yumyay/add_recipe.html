@@ -5,9 +5,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add recipe</title>
+    {% block title_block %}
+    Add recipe
+    {% endblock %}
 </head>
-<body>
 
-</body>
+{% block body_block %}
+{#    form needs to be implemented this has just been created as a base for the css #}
+     <div class="container-fluid add-recipe" >
+        <div class="row w-50 mx-auto">
+            <form id="" method="" action="">
+                <label for="fname">First name:</label>
+                <input type="text" name="fname"><br><br>
+                <label for="description">Description:</label>
+                <input type="text" name="description"><br><br>
+                <label for="cuisine">Cuisine:</label>
+                <select name="cuisine">
+                      <option value="chinese">Chinese</option>
+                      <option value="greek">Greek</option>
+                      <option value="indian">Indian</option>
+                      <option value="italian">Italian</option>
+                      <option value="mexican">Mexican</option>
+                      <option value="thai">Thai</option>
+                </select> <br><br>
+                <label for="category">Category:</label>
+                <select name="category">
+                      <option value="bread">Bread</option>
+                      <option value="brownies">Brownies</option>
+                      <option value="cake">Cake</option>
+                      <option value="cupcakes">Cupcakes</option>
+                      <option value="cookies">Cookies</option>
+                      <option value="pastries">Pastries</option>
+                </select><br><br>
+                <label for="ingredients">Ingredients:</label>
+                <input type="text"name="ingredients"><br><br>
+                <label for="recipeImage">Image:</label>
+                <input type="image"name="recipeImage"><br><br>
+                <label for="instructions">Instructions:</label>
+                <input type="text"name="Instructions"><br><br>
+
+                </form>
+        </div>
+     </div>
+{% endblock %}
+
 </html>
