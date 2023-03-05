@@ -1,0 +1,11 @@
+/* css just for testing, change later */
+.liked{
+    background-color:green;
+}
+.unliked{
+    background-color:red;
+}
+#like-button{
+    width:100px;
+    height:100px;
+}
