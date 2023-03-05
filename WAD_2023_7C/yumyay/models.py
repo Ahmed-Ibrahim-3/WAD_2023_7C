@@ -44,6 +44,7 @@ class Recipe(models.Model):
     instructions = models.CharField(max_length=4096)
     category = models.CharField(max_length=128, choices=CATEGORIES)
     cuisine = models.CharField(max_length=128, choices=CUISINES)
+    author = models.CharField(max_length=64, default="")
     image = models.ImageField()
     likes = models.IntegerField(default=0)
 
