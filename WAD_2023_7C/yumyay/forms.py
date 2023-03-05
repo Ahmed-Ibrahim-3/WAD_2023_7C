@@ -19,7 +19,7 @@ class RecipeForm(forms.ModelForm):
     category = forms.ChoiceField(choices=("Cooking", "Baking"))
     cuisine = forms.ChoiceField(choices=("Indian", "Thai", "Chinese", "Italian", "Mexican", "Greek",
                                          "Cakes", "Brownies", "Bread", "Pastries", "Cupcakes", "Cookies"))
-    author = forms.CharField(max_length=64, help_text="Author name")
+    author = forms.CharField(widget=forms.HiddenInput)
     image = forms.ImageField()
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
 

@@ -16,7 +16,8 @@ def populate():
             'category': 'cooking',
             'cuisine': 'indian',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -27,7 +28,8 @@ def populate():
             'category': 'cooking',
             'cuisine': 'thai',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -38,7 +40,8 @@ def populate():
             'category': 'cooking',
             'cuisine': 'chinese',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -49,7 +52,8 @@ def populate():
             'category': 'cooking',
             'cuisine': 'italian',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -60,7 +64,8 @@ def populate():
             'category': 'cooking',
             'cuisine': 'mexican',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -71,7 +76,8 @@ def populate():
             'category': 'cooking',
             'cuisine': 'greek',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -82,7 +88,8 @@ def populate():
             'category': 'baking',
             'cuisine': 'cake',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -93,7 +100,8 @@ def populate():
             'category': 'baking',
             'cuisine': 'brownie',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -104,7 +112,8 @@ def populate():
             'category': 'baking',
             'cuisine': 'bread',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -115,7 +124,8 @@ def populate():
             'category': 'baking',
             'cuisine': 'pastries',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -126,7 +136,8 @@ def populate():
             'category': 'baking',
             'cuisine': 'cupcakes',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -137,7 +148,8 @@ def populate():
             'category': 'baking',
             'cuisine': 'cookies',
             'ingredients': 'content',
-            'instructions': 'content'
+            'instructions': 'content',
+            'author':'content'
 
         }
     ]
@@ -162,21 +174,22 @@ def populate():
         cuis.save()
         return name
 
-    def add_recipe(name, description, cuis, ingredients, instructions):
-        recp = Recipe.objects.get_or_create(name=name, description=description,
-                                            cuisine=cuis, ingredients=ingredients, instructions=instructions)[0]
+    def add_recipe(name, description, cuis, ingredients, instructions,author):
+        recp = Recipe.objects.get_or_create(name=name, description=description,cuisine=cuis,
+                                            ingredients=ingredients, instructions=instructions, author=author)[0]
         recp.name = name
         recp.description = description
         recp.cuisine = cuis
         recp.ingredients = ingredients
         recp.instructions = instructions
+        recp.author = author
         recp.save()
         return recp
 
     for cuisine, cuisine_data in cuisines.items():
         c = add_cuisine(cuisine_data['name'])
         for r in cuisine_data['recipes']:
-            add_recipe(r['name'], r['description'], c, r['ingredients'], r['instructions'])
+            add_recipe(r['name'], r['description'], c, r['ingredients'], r['instructions'],r['author'])
 
     for c in Cuisine.objects.all():
         for r in Recipe.objects.filter(cuisine=c):
