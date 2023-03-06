@@ -6,9 +6,6 @@
     color: black;
 }
 
-#nav-text{
-    color: black;
-}
 
 body{
     background-color: #D9D9D9;
@@ -107,6 +104,19 @@ img {
     margin-right: 100px;
     margin-left: 100px;
 }
+
+
+a[colour="yellow"] {
+    color: black;
+    background-color: #FFEB7F;
+    border-radius: 100px;
+}
+
+a[colour="black"] {
+    color: black;
+}
+
+
 
 #cuisine-header-bar{
     background-color: #5A8F5C;
