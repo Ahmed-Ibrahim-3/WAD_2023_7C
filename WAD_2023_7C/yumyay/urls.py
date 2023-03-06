@@ -12,6 +12,7 @@ urlpatterns = [
     path('cooking/', views.cooking, name='cooking'),
     path('baking/', views.baking, name='baking'),
     path('add_recipe/', views.add_recipe, name='add_recipe'),
+    path('cooking/cuisine/', views.cuisine, name='cooking_cuisine'),
     path('cooking/cuisine/recipe/', views.recipe_cooking, name='recipe'),
     path('baking/cuisine/recipe/', views.recipe_baking, name='recipe'),
     path('like_recipe/', views.LikeRecipeView.as_view(), name='like_recipe'),

@@ -31,7 +31,6 @@ def add_recipe(request):
 
 
 # Nyx fix recipes stuff it's a mess xoxo
-# still to be fixed
 def recipe_cooking(request):
     context_dict = {}
     try:
@@ -45,6 +44,11 @@ def recipe_cooking(request):
 
 def recipe_baking(request):
     return render(request, 'yumyay/recipe.html')
+
+
+# temp view
+def cuisine(request):
+    return render(request, 'yumyay/cuisine.html')
 
 class LikeRecipeView(View):
     def get(self, request):
