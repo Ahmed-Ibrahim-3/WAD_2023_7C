@@ -3,6 +3,11 @@ from django.db import models
 
 
 # Create your models here.
+from django.contrib.auth.models import User
+from django.db import models
+
+
+# Create your models here.
 
 class Cuisine(models.Model):
     name = models.CharField(max_length=64, unique=True)
@@ -61,7 +66,8 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-    
+
+
 class UserLikesRecipe(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
