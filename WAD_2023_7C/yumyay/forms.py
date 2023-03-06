@@ -19,9 +19,10 @@ class RecipeForm(forms.ModelForm):
     category = forms.ChoiceField(choices=("Cooking", "Baking"))
     cuisine = forms.ChoiceField(choices=("Indian", "Thai", "Chinese", "Italian", "Mexican", "Greek",
                                          "Cakes", "Brownies", "Bread", "Pastries", "Cupcakes", "Cookies"))
+    author = forms.CharField(widget=forms.HiddenInput)
     image = forms.ImageField()
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
 
     class Meta:
         model = Recipe
-        exclude = ('likes',)
+        exclude = ('likes','author')

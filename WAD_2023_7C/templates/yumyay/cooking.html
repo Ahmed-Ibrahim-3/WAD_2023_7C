@@ -8,10 +8,35 @@
 {%  endblock %}
 
 {% block body_block %}
-     <div id="searchbar">
-        <input type="text" placeholder="Search...">
-        <button type="submit">Search</button>
+     <div class="container-fluid " >
+     <div class="row w-50 mx-auto">
+          <div class="col-sm-8 ">
+              <div class="container-fluid long-bar" id="recipe-style" >
+                  <div class="row w-50 h-100 search-padding">
+                         <div id="searchbar">
+                            <input type="text" placeholder="Search...">
+                            <button type="submit" id="buttons" class="btn btn-rounded">Search</button>
+                         </div>
+                  </div>
+                  <div class="row w-50 mx-auto">
+                      <div class="grid-container">
+                        <div class="grid-item "><img src="{% static 'images/indianFood.png' %}" alt="Indian Food" id="images"/><span class="caption">Indian</span></div>
+                        <div class="grid-item"><img src="{% static 'images/thaiFood.png' %}" alt="Thai Food" id="images"/><span class="caption">Thai</span></div>
+                        <div class="grid-item"><img src="{% static 'images/chineseFood.png' %}" alt="Chinese Food" id="images"/><span class="caption">Chinese</span></div>
+                         <div class="grid-item"><img src="{% static 'images/italianFood.png' %}" alt="Italian Food" id="images"/><span class="caption">Italian</span></div>
+                        <div class="grid-item"><img src="{% static 'images/mexicanFood.png' %}" alt="Mexican Food" id="images"/><span class="caption">Mexican</span></div>
+                        <div class="grid-item"><img src="{% static 'images/greekFood.png' %}" alt="Greek Food" id="images"/><span class="caption">Greek</span></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+         <div class="col-sm-4 " id="trending-rep-bar">
+             <div class="container-fluid" id="recipe-style" >
+                 {#    Cuisine pages #}
+                {% include 'yumyay/sidebar_top_recipe.html' %}
+             </div>
+         </div>
      </div>
-{#    Cuisine pages #}
-    {% include 'yumyay/sidebar_top_recipe.html' %}
+     </div>
+
 {% endblock %}

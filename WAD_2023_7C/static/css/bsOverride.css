@@ -16,12 +16,24 @@ body{
 
 #recipe-style{
     text-align: center;
+
 }
 
-#home-buttons{display: flex;
+#trending-rep-bar{
+    background-color: #5A8F5C;
+    text-align: center;
+
+    /*top, right+left, bottom*/
+    /*display: flex;*/
+}
+
+
+#home-buttons{
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 200px;
+  margin-top: 80px;
 }
 
 .yellow-bg{
@@ -37,6 +49,61 @@ body{
     padding: 150px 0px 150px;
 }
 
+.search-padding{
+    padding:100px 0px 100px;
+    background-color: #5A8F5C;
+
+}
+
+.long-bar{
+    height: 75%;
+    wdith: 100%;
+}
+
 .outer_padding{
     padding: 80px 20px 80px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 200px 200px;
+  background-color: #D9D9D9;
+    column-gap: 50px;
+  padding: 10px;
+}
+.grid-item {
+  background-color: #5A8F5C;
+  border: 20px solid #D9D9D9;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+#images{
+    height: 100px;
+    width: 100px;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+}
+.caption {
+    display: block;
+    font-size: 20px;
+    font-family: sans-serif, roboto;
+}
+
+#buttons{
+    background-color: #FFEB7F;
+}
+
+.side-btn{
+    background-color:#FFEB7F;
+    color: #F98282;
+}
+.add-recipe{
+    background-color: #5A8F5C;
+    margin-right: 100px;
+    margin-left: 100px;
 }

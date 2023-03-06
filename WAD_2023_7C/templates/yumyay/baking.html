@@ -7,9 +7,35 @@
 {%  endblock %}
 
 {% block body_block %}
-    <div id="searchbar">
-        <input type="text" placeholder="Search...">
-        <button type="submit">Search</button>
+     <div class="container-fluid " >
+     <div class="row w-50 mx-auto">
+          <div class="col-sm-8 ">
+              <div class="container-fluid long-bar" id="recipe-style" >
+                  <div class="row w-50 h-100 search-padding">
+                         <div id="searchbar">
+                            <input type="text" placeholder="Search...">
+                            <button type="submit" id="buttons" class="btn btn-rounded">Search</button>
+                         </div>
+                  </div>
+                  <div class="row w-50 mx-auto">
+                      <div class="grid-container">
+                        <div class="grid-item "><img src="{% static 'images/cake.png' %}" alt="Cake" id="images"/><span class="caption">Cake</span></div>
+                        <div class="grid-item"><img src="{% static 'images/brownies.png' %}" alt="Brownies" id="images"/><span class="caption">Brownies</span></div>
+                        <div class="grid-item"><img src="{% static 'images/bread.png' %}" alt="Bread" id="images"/><span class="caption">Bread</span></div>
+                         <div class="grid-item"><img src="{% static 'images/pastries.png' %}" alt="Pastries" id="images"/><span class="caption">Pastries</span></div>
+                        <div class="grid-item"><img src="{% static 'images/cupcakes.png' %}" alt="Cupcakes" id="images"/><span class="caption">Cupcakes</span></div>
+                        <div class="grid-item"><img src="{% static 'images/cookies.png' %}" alt="Cookies" id="images"/><span class="caption">Cookies</span></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+         <div class="col-sm-4 " id="trending-rep-bar">
+             <div class="container-fluid" id="recipe-style" >
+                 {#    Cuisine pages #}
+                {% include 'yumyay/sidebar_top_recipe.html' %}
+             </div>
+         </div>
      </div>
-    {% include 'yumyay/sidebar_top_recipe.html' %}
+     </div>
+
 {% endblock %}
