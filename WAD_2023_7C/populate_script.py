@@ -36,11 +36,8 @@ def populate():
             add_recipe(r['name'], r['description'], r['category'], r['cuisine'], r['ingredients'], r['instructions'],
                        r['author'], "recipe_images/cat.jpg")
 
-    for c in Cuisine.objects.all():
-        for r in Recipe.objects.filter(cuisine=c):
-            print(f'- {c}:{r}')
-
 
 if __name__ == '__main__':
     print('starting populate script')
     populate()
+    print('populate script complete')
