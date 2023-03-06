@@ -76,4 +76,5 @@ class TestHomePage(TestCase):
         response_body = response.content.decode()
         
         self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.status_code, 404)
         self.assertTrue("Log in" in response_body)
