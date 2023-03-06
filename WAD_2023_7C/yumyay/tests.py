@@ -5,6 +5,37 @@ from django.contrib.auth.models import User
 
 # Create your tests here.
 
+class PreValidationProjectStructure(TestCase):
+
+    def setUp(self):
+        self.project_base_dir = os.getcwd()
+        self.static_dir = os.path.join(self.project_base_dir, "static")
+        self.media_dir = os.path.join(self.project_base_dir, "media")
+
+    def test_yumyay_python_views_existence(self):
+        is_yumyay = os.path.isdir(os.path.join(os.getcwd(), "yumyay"))
+        is_python = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "yumyay"),"__init__.py"))
+        is_views = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "yumyay"),"views.py"))
+
+        self.assertTrue(is_yumyay)
+        self.assertTrue(is_python)
+        self.assertTrue(is_views)
+    
+    def test_template_directory_existence(self):
+        is_template_dir = os.path.join(os.getcwd(), "templates")
+
+        self.assertTrue(is_template_dir)
+    
+    def test_static_directory_existence(self):
+        is_static_dir = os.path.join(os.getcwd(), "static")
+
+        self.assertTrue(is_static_dir)
+    
+    def test_javascript_directory_existence(self):
+        is_javascript_dir = os.path.join(os.path.join(os.getcwd(), "templates"), "javascript")
+
+        self.assertTrue(is_javascript_dir)
+
 class TestHomePage(TestCase):
 
     def setUp(self):
