@@ -170,3 +170,23 @@ class TestHomePage(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.status_code, 404)
         self.assertTrue("Log in" in response_body)
+
+class TestCookingPage(TestCase):
+    
+    def setUp(self):
+        self.base_dir = os.getcwd()
+        self.template_dir = os.path.join(self.base_dir, "templates", "yumyay")
+        self.about_response = self.client.get(reverse("yumyay:cooking"))
+    
+    def test_successful_deployment(self):
+        response = self.client.get(reverse("yumyay:cooking"))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_guest_cooking(self):
+        response = self.client.get(reverse("yumyay:cooking"))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_template_cooking_exists(self):
+        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "cooking.html"))
+
+        self.assertTrue(template_check)
