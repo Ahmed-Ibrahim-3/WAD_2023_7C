@@ -58,6 +58,11 @@ class PreValidationProjectStructure(TestCase):
 
         self.assertTrue(is_population_script)
     
+    def test_images_directory_existence(self):
+        is_images_dir = os.path.join(os.path.join(os.getcwd()), "templates", "images")
+
+        self.assertTrue(is_images_dir)
+    
     def test_population_data_exitsence(self):
         is_population_data = os.path.isfile("populate_data.py")
 
@@ -190,3 +195,11 @@ class TestCookingPage(TestCase):
         template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "cooking.html"))
 
         self.assertTrue(template_check)
+    
+    def test_template_cooking_usage(self):
+        self.assertTemplateUsed(self.about_response, "yumyay/cooking.html")
+
+    def test_cooking_page_template_usage(self):
+        response = self.client.get(reverse("yumyay:cooking"))
+
+        self.assertTemplateUsed(response, 'yumyay/cooking.html')
