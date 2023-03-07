@@ -35,6 +35,45 @@ def baking(request):
 def add_recipe(request):
     return render(request, 'yumyay/add_recipe.html')
 
+def register(request):
+    registered = False
+    
+    if request.method == "POST":
+        user_form = UserForm(request.POST)
+
+        if user_form.is_valid():
+            user = user_form.save()
+
+            user.set_password(user.password)
+            user.save()
+
+            registered = True
+        else:
+            print(user_form.errors)
+    else:
+        user_form = UserForm()
+    
+    return render(request, 'yumyay/register.html', context = {'user_form': user_form, 'registered': registered})
+
+def user_login(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect(reverse('yumyay:home')) 
+            else:
+                return HttpResponse("Your yumyay account is disabled")
+        else:
+            print(f"Invalid login details: {username}, {password}")
+            return HttpResponse("Invalid login details supplied.")   
+    else:
+        return render(request, 'yumyay/login.html')
+
 
 def register(request):
     registered = False
@@ -95,7 +134,7 @@ def recipe_baking(request):
 
 # temp view
 def cuisine(request):
-    return render(request, 'yumyay/cuisine.html')
+    return render(request, 'yumyay/indian_cuisine.html')
 
 
 class LikeRecipeView(View):
