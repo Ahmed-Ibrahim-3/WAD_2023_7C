@@ -7,5 +7,25 @@
 {%  endblock %}
 
 {% block body_block %}
+<div class="row w-50 mx-auto">
+    <div class="col-sm-8 ">
+        <div class="cuisine-header-padding text-primary" id ="cuisine-header-bar" >
+        <b>
+            {% block cuising_header_block  %}
 
+            {% endblock %}
+        </b>
+        </div>
+
+        <div class="text-primary grid-container">
+        {# add recipe list #}
+        </div>
+    </div>
+
+    <div class="col-sm-4 " id="trending-rep-bar">
+        <div class="container-fluid" id="recipe-style" >
+            {% include 'yumyay/sidebar_top_recipe.html' %}
+        </div>
+    </div>
+</div>
 {% endblock %}

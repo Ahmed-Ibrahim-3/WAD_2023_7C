@@ -6,9 +6,6 @@
     color: black;
 }
 
-#nav-text{
-    color: black;
-}
 
 body{
     background-color: #D9D9D9;
@@ -57,7 +54,7 @@ body{
 
 .long-bar{
     height: 75%;
-    wdith: 100%;
+    width: 100%;
 }
 
 .outer_padding{
@@ -106,4 +103,28 @@ img {
     background-color: #5A8F5C;
     margin-right: 100px;
     margin-left: 100px;
+}
+
+
+a[colour="yellow"] {
+    color: black;
+    background-color: #FFEB7F;
+    border-radius: 100px;
+}
+
+a[colour="black"] {
+    color: black;
+}
+
+
+
+#cuisine-header-bar{
+    background-color: #5A8F5C;
+    text-align: center;
+}
+
+.cuisine-header-padding{
+    padding:30px 0px 30px;
+    background-color: #5A8F5C;
+    font-size: 30px;
 }
