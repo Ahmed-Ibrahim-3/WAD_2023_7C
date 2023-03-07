@@ -93,7 +93,7 @@ def recipe_baking(request):
 
 # temp view
 def cuisine(request):
-    return render(request, 'yumyay/cuisine.html')
+    return render(request, 'yumyay/indian_cuisine.html')
 
 class LikeRecipeView(View):
     def get(self, request):

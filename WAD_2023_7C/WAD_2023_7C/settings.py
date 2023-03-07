@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'yumyay',
-    'registration',
+    # 'registration',
 ]
 
 MIDDLEWARE = [
