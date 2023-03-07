@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Log in</title>
-</head>
-<body>
 
-</body>
-</html>
+{% extends 'yumyay/base.html' %}
+
+{% block title_block %}
+    Login
+{% endblock %}
+
+{% block body_block %}
+    <h1>Login</h1>
+    
+    <form id="login_form" method="post" action="{% url 'yumyay:log_in' %}">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+    </form>
+
+    <p>
+        Don't have an account?
+        <a href="{% url 'yumyay:register' %}">Register Here!</a>
+    </p>
+{% endblock %}

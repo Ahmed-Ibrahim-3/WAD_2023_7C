@@ -16,3 +16,5 @@ class RecipeAdmin(admin.ModelAdmin):
 
 admin.site.register(Cuisine, CuisineAdmin)
 admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(UserProfile)
+

@@ -2,11 +2,8 @@
 {% extends 'yumyay/base.html' %}
 {% load static %}
 
-{% block title_block %}
-    Cuisine
-{%  endblock %}
-
 {% block body_block %}
+ <div class="container-fluid " >
 <div class="row w-50 mx-auto">
     <div class="col-sm-8 ">
         <div class="cuisine-header-padding text-primary" id ="cuisine-header-bar" >
@@ -17,8 +14,10 @@
         </b>
         </div>
 
-        <div class="text-primary grid-container">
-        {# add recipe list #}
+        <div class="recipe-list">
+            <div class="recipe-item"><img class="recipe-image" src="{% static 'images/indianFood.png' %}" alt="Food" id="images"/></div>
+{#            Being worked on, will look pretty eventually :)#}
+            <div class= "recipe-text">Example text</div>
         </div>
     </div>
 
@@ -27,5 +26,6 @@
             {% include 'yumyay/sidebar_top_recipe.html' %}
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

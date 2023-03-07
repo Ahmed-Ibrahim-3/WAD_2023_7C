@@ -16,53 +16,58 @@ class PreValidationProjectStructure(TestCase):
 
     def test_yumyay_python_views_existence(self):
         is_yumyay = os.path.isdir(os.path.join(os.getcwd(), "yumyay"))
-        is_python = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "yumyay"),"__init__.py"))
-        is_views = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "yumyay"),"views.py"))
+        is_python = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "yumyay"), "__init__.py"))
+        is_views = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "yumyay"), "views.py"))
 
         self.assertTrue(is_yumyay)
         self.assertTrue(is_python)
         self.assertTrue(is_views)
-    
+
     def test_template_directory_existence(self):
         is_template_dir = os.path.join(os.getcwd(), "templates")
 
         self.assertTrue(is_template_dir)
-    
+
     def test_static_directory_existence(self):
         is_static_dir = os.path.join(os.getcwd(), "static")
 
         self.assertTrue(is_static_dir)
-    
+
     def test_javascript_directory_existence(self):
         is_javascript_dir = os.path.join(os.path.join(os.getcwd(), "templates"), "javascript")
 
         self.assertTrue(is_javascript_dir)
-    
+
     def test_css_directory_existence(self):
         is_css_dir = os.path.join(os.path.join(os.getcwd()), "templates", "css")
 
         self.assertTrue(is_css_dir)
-    
+
     def test_media_directory_existence(self):
         is_media_dir = os.path.join(os.getcwd(), "media")
 
         self.assertTrue(is_media_dir)
-    
+
     def test_yumyay_template_sub_directory(self):
         is_yumyay_sub = os.path.join(os.path.join(os.getcwd(), "templates"), "yumyay")
 
         self.assertTrue(is_yumyay_sub)
-    
+
     def test_population_script_existence(self):
         is_population_script = os.path.isfile("populate_script.py")
 
         self.assertTrue(is_population_script)
-    
+
+    def test_images_directory_existence(self):
+        is_images_dir = os.path.join(os.path.join(os.getcwd()), "templates", "images")
+
+        self.assertTrue(is_images_dir)
+
     def test_population_data_exitsence(self):
         is_population_data = os.path.isfile("populate_data.py")
 
         self.assertTrue(is_population_data)
-    
+
     def test_static_and_media_implementations(self):
         static_dir_exists_settings = "STATIC_DIR" in dir(settings)
         self.assertTrue(static_dir_exists_settings)
@@ -94,9 +99,10 @@ class PreValidationProjectStructure(TestCase):
 
         media_url_exists = "MEDIA_URL" in dir(settings)
         self.assertTrue(media_url_exists)
-        
+
         media_url_value = settings.MEDIA_URL
         self.assertEqual("/media/", media_url_value)
+
 
 class TestHomePage(TestCase):
 
@@ -113,17 +119,17 @@ class TestHomePage(TestCase):
         response = self.client.get(reverse("yumyay:home"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Log in")
-    
+
     def test_guest_home_2(self):
         response = self.client.get(reverse("yumyay:home"))
         self.assertNotEquals(response.status_code, 404)
         self.assertNotContains(response, "Log out")
-    
+
     def test_template_home_exists(self):
         template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "home.html"))
 
         self.assertTrue(template_check)
-    
+
     def test_template_home_usage(self):
         self.assertTemplateUsed(self.about_response, "yumyay/home.html")
 
@@ -146,13 +152,13 @@ class TestHomePage(TestCase):
         self.assertContains(response, "Baking")
         self.assertContains(response, "Account")
         self.assertContains(response, "</nav>")
-    
+
     def create_user(self):
         self.user = User.objects.create_user(
             username="usertest",
             password="mypassword"
         )
-    
+
     def test_user_login_success(self):
         self.client.login(
             username="usertest",
@@ -162,31 +168,66 @@ class TestHomePage(TestCase):
         response = self.client.get(reverse("yumyay:home"))
 
         self.assertEqual(response.status_code, 200)
-    
+
     def test_logged_out_frame(self):
         response = self.client.get(reverse("yumyay:home"))
         response_body = response.content.decode()
-        
+
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.status_code, 404)
         self.assertTrue("Log in" in response_body)
 
+
 class TestCookingPage(TestCase):
-    
+
     def setUp(self):
         self.base_dir = os.getcwd()
         self.template_dir = os.path.join(self.base_dir, "templates", "yumyay")
         self.about_response = self.client.get(reverse("yumyay:cooking"))
-    
+
     def test_successful_deployment(self):
         response = self.client.get(reverse("yumyay:cooking"))
         self.assertEqual(response.status_code, 200)
-    
+
     def test_guest_cooking(self):
         response = self.client.get(reverse("yumyay:cooking"))
         self.assertEqual(response.status_code, 200)
-    
+
     def test_template_cooking_exists(self):
         template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "cooking.html"))
 
         self.assertTrue(template_check)
+
+    def test_template_cooking_usage(self):
+        self.assertTemplateUsed(self.about_response, "yumyay/cooking.html")
+
+    def test_cooking_page_template_usage(self):
+        response = self.client.get(reverse("yumyay:cooking"))
+
+        self.assertTemplateUsed(response, 'yumyay/cooking.html')
+
+
+class TestTargettedRecipePage(TestCase):
+
+    def setUp(self):
+        self.base_dir = os.getcwd()
+        self.template_dir = os.path.join(self.base_dir, "templates", "yumyay")
+        self.about_response = self.client.get(reverse("yumyay:recipe"))
+
+    def test_successful_deployment(self):
+        response = self.client.get(reverse("yumyay:recipe"))
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_template_account_exists(self):
+        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "recipe.html"))
+
+        self.assertTrue(template_check)
+
+    def test_template_account_usage(self):
+        self.assertTemplateUsed(self.about_response, "yumyay/recipe.html")
+
+    def test_template_usage(self):
+        response = self.client.get(reverse("yumyay:recipe"))
+
+        self.assertTemplateUsed(response, 'yumyay/recipe.html')
