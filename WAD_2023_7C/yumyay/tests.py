@@ -231,3 +231,30 @@ class TestTargettedRecipePage(TestCase):
         response = self.client.get(reverse("yumyay:recipe"))
 
         self.assertTemplateUsed(response, 'yumyay/recipe.html')
+
+class TestBakingPage(TestCase):
+
+    def setUp(self):
+        self.base_dir = os.getcwd()
+        self.template_dir = os.path.join(self.base_dir, "templates", "yumyay")
+        self.about_response = self.client.get(reverse("yumyay:baking"))
+    
+    def test_successful_deployment(self):
+        
+        response = self.client.get(reverse("yumyay:baking"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_template_account_exists(self):
+        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "baking.html"))
+
+        self.assertTrue(template_check)
+    
+    def test_template_account_usage(self):
+
+        self.assertTemplateUsed(self.about_response, "yumyay/baking.html")
+
+    def test_template_usage(self):
+        response = self.client.get(reverse("yumyay:baking"))
+
+        self.assertTemplateUsed(response, "yumyay/baking.html")
