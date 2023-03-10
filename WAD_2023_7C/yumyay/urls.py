@@ -1,6 +1,5 @@
 from django.urls import path
 from yumyay import views
-from yumyay.views import LikeRecipeView, UnlikeRecipeView, HasUserLikedRecipe
 
 #  app urls
 
@@ -17,6 +16,5 @@ urlpatterns = [
     path('cooking/cuisine/recipe/', views.recipe_cooking, name='recipe'),
     path('baking/cuisine/recipe/', views.recipe_baking, name='recipe'),
     path('like_recipe/', views.LikeRecipeView.as_view(), name='like_recipe'),
-    path('unlike_recipe/', views.UnlikeRecipeView.as_view(), name='unlike_recipe'),
     path('has_user_liked_recipe/', views.HasUserLikedRecipe.as_view(), name='has_user_liked_recipe')
 ]

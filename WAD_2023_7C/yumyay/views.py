@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from django.views import View
-from yumyay.models import Recipe, UserProfile, UserLikesRecipe
+from yumyay.models import Recipe, UserProfile, UserLikesRecipe, User
 from django.contrib.auth.decorators import login_required
 
 
@@ -141,6 +141,7 @@ class LikeRecipeView(View):
     def get(self, request):
         recipe_name = request.GET['name']
         username = request.GET['user']
+        like = request.GET['like']
 
         try:
             recipe = Recipe.objects.get(name=recipe_name)
@@ -150,73 +151,50 @@ class LikeRecipeView(View):
             return HttpResponse(-1)
 
         try:
-            user = UserProfile.objects.get(username=username)
-        except UserProfile.DoesNotExist:
-            return HttpResponse(-1)
-        except ValueError:
-            return HttpResponse(-1)
-
-        recipe.likes = recipe.likes + 1
-        recipe.save()
-
-        user_likes_recipe = UserLikesRecipe.objects.get_or_create(user=user, recipe=recipe)
-        user_likes_recipe.likes = True
-        user_likes_recipe.save()
-
-        return HttpResponse(recipe.likes)
-
-
-class UnlikeRecipeView(View):
-    def get(self, request):
-        recipe_name = request.GET['name']
-        username = request.GET['user']
-
-        try:
-            recipe = Recipe.objects.get(name=recipe_name)
-        except Recipe.DoesNotExist:
+            user = User.objects.get(username = username)
+        except User.DoesNotExist:
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
 
         try:
-            user = UserProfile.objects.get(username=username)
-        except UserProfile.DoesNotExist:
-            return HttpResponse(0)
+            user_likes_recipe = UserLikesRecipe.objects.get_or_create(user=user, recipe=recipe)[0]
         except ValueError:
-            return HttpResponse(0)
-
-        recipe.likes = recipe.likes - 1
+            return HttpResponse(-1)
+        
+        if(like == 'like'):
+            recipe.likes = recipe.likes + 1
+            user_likes_recipe.liked = True
+        else:
+            recipe.likes = recipe.likes - 1
+            user_likes_recipe.liked = False
         recipe.save()
-
-        user_likes_recipe = UserLikesRecipe.objects.get_or_create(user=user, recipe=recipe)
-        user_likes_recipe.likes = False
         user_likes_recipe.save()
 
         return HttpResponse(recipe.likes)
 
-
-# TODO: error handling if request is invalid?
 class HasUserLikedRecipe(View):
     def get(self, request):
         recipe_name = request.GET['name']
         username = request.GET['user']
-
         try:
             recipe = Recipe.objects.get(name=recipe_name)
         except Recipe.DoesNotExist:
-            return HttpResponse(0)
+            return HttpResponse(-1)
         except ValueError:
-            return HttpResponse(0)
+            return HttpResponse(-1)
 
         try:
-            user = UserProfile.objects.get(username=username)
+            user = User.objects.get(username = username)
         except UserProfile.DoesNotExist:
-            return HttpResponse(0)
+            return HttpResponse(-1)
         except ValueError:
-            return HttpResponse(0)
+            return HttpResponse(-1)
 
-        user_likes_recipe = UserLikesRecipe.objects.get_or_create(user=user, recipe=recipe)
-        user_likes_recipe.save()
+        try:
+            user_likes_recipe = UserLikesRecipe.objects.get_or_create(user=user, recipe=recipe)[0]
+        except ValueError:
+            return HttpResponse(-1)
 
         if (user_likes_recipe.liked):
             return HttpResponse(1)

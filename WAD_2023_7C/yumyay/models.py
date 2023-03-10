@@ -69,6 +69,6 @@ class UserProfile(models.Model):
 
 
 class UserLikesRecipe(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     liked = models.BooleanField(default=False)
