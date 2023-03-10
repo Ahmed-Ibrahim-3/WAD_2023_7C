@@ -1,0 +1,4 @@
+<div class="like-info">{{ recipe.likes }} likes</div>
+{% if user.is_authenticated %}
+    <div id='like-button' class='unliked' data-recipename='{{ recipe.name }}' data-username='{{ user.username }}'>Like</div>
+{% endif %}
