@@ -1,11 +1,29 @@
 /* css just for testing, change later */
 .liked{
-    background-color:green;
+    background-color:lightblue;
 }
 .unliked{
-    background-color:red;
+    background-color:none;
 }
 #like-button{
-    width:100px;
-    height:100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:10rem;
+    height:5rem;
+    transition-duration: 0.25s;
+    transition-property: background-color;
+    border: 0.2rem solid black;
+    border-radius:40%;
+    margin: 5px;
+}
+#like-button:hover{
+    background-color:rgb(208, 229, 236);
+}
+.like-container{
+    width: 20rem;
+    height: 5rem;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
 }

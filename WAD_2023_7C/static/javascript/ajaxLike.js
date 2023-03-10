@@ -1,10 +1,10 @@
 $(document).ready(function() {
+    feather.replace();
     let liked = false;
 
     let username
     username = $(this).attr('data-username');
     if(username == undefined) return;
-
     let recipe_name
     recipe_name = $(this).attr('data-recipename');
 
@@ -19,11 +19,12 @@ $(document).ready(function() {
     });
 
     $('#like-button').click(function() {
+        $('#like-button').animate('shake')
         if(!liked){
             $.get('/yumyay/like_recipe/', 
             {'name': recipe_name, 'user': username}, 
             function(data) {
-                $('.like-info').html(data)
+                $('.like-info').html(data + " likes")
                 $('#like-button').removeClass('unliked')
                 $('#like-button').addClass('liked')
             });
@@ -31,7 +32,7 @@ $(document).ready(function() {
             $.get('/yumyay/unlike_recipe/', 
             {'name': recipe_name, 'user': username}, 
             function(data) {
-                $('.like-info').html(data)
+                $('.like-info').html(data + " likes")
                 $('#like-button').removeClass('liked')
                 $('#like-button').addClass('unliked')
             });
