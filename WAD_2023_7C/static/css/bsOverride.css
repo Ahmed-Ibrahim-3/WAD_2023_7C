@@ -125,7 +125,6 @@ a[colour="black"] {
     justify-content: center;
     align-items: center;
     height: 200px;
-    margin-top: 80px;
 }
 
 
@@ -151,4 +150,17 @@ a[colour="black"] {
 
 .test-colour-2 {
     background: blue;
+}
+
+.recipe-container{
+    display: flex;
+    align-items: center;
+}
+
+.active{
+    display:block;
+}
+
+.inactive{
+    display:none;
 }

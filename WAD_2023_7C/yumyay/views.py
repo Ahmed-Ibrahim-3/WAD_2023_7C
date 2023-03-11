@@ -13,7 +13,14 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    return render(request, 'yumyay/home.html')
+    context_dict = {}
+
+    amount = 5
+    recipe_list = Recipe.objects.order_by('-likes')[:amount]
+
+    context_dict['recipes'] = recipe_list
+
+    return render(request, 'yumyay/home.html', context_dict)
 
 
 def log_in(request):
