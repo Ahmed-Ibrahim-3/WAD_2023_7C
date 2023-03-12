@@ -38,11 +38,11 @@
                         <div class="col-sm-6">
                             <h2>{{ recipe.name }}</h2>
                     {#        <img src="" alt="Food">#}
-                                <p>Username</p>
+                                <p>{{ recipe.author }}</p>
                         </div>
                         <div class="col-sm-6" >
-                            <p>Description</p>
-                            <button>Rating</button>
+                            <p>{{ recipe.description }}</p>
+                            <button>{{ recipe.likes }}</button>
                         </div>
                     </div>
                 {% endfor %}
