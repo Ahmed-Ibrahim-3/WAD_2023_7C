@@ -34,7 +34,7 @@ def populate():
         c = add_cuisine(cuisine_data['name'])
         for r in cuisine_data['recipes']:
             add_recipe(r['name'], r['description'], r['category'], r['cuisine'], r['ingredients'], r['instructions'],
-                       r['author'], "recipe_images/cat.jpg")
+                       r['author'], r['image'])
 
 
 if __name__ == '__main__':

@@ -37,7 +37,7 @@
                     {% endif %}
                         <div class="col-sm-6">
                             <h2>{{ recipe.name }}</h2>
-                    {#        <img src="" alt="Food">#}
+                            <img src="{{ MEDIA_URL }}{{ recipe.image }}" alt="{{ recipe.name }}">
                                 <p>{{ recipe.author }}</p>
                         </div>
                         <div class="col-sm-6" >

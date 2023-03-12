@@ -6,7 +6,8 @@ indian = [
         'cuisine': 'INDIAN',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/indianFood.png'
 
     }
 ]
@@ -18,7 +19,8 @@ thai = [
         'cuisine': 'THAI',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/thaiFood.png'
 
     }
 ]
@@ -30,7 +32,8 @@ chinese = [
         'cuisine': 'CHINESE',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/chineseFood.png'
 
     }
 ]
@@ -42,7 +45,8 @@ italian = [
         'cuisine': 'ITALIAN',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/italianFood.png'
 
     }
 ]
@@ -54,7 +58,8 @@ mexican = [
         'cuisine': 'MEXICAN',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/mexicanFood.png'
 
     }
 ]
@@ -66,7 +71,8 @@ greek = [
         'cuisine': 'GREEK',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/greekFood.png'
 
     }
 ]
@@ -78,7 +84,8 @@ cake = [
         'cuisine': 'CAKE',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/cake.png'
 
     }
 ]
@@ -90,7 +97,8 @@ brownie = [
         'cuisine': 'BROWNIE',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/brownies.png'
 
     }
 ]
@@ -102,7 +110,8 @@ bread = [
         'cuisine': 'BREAD',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/bread.png'
 
     }
 ]
@@ -114,7 +123,8 @@ pastries = [
         'cuisine': 'PASTRIES',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/pastries.png'
 
     }
 ]
@@ -126,7 +136,8 @@ cupcakes = [
         'cuisine': 'CUPCAKES',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/cupcakes.png'
 
     }
 ]
@@ -138,7 +149,8 @@ cookies = [
         'cuisine': 'COOKIES',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/cookies.png'
 
     }, {
         'name': 'content13',
@@ -147,7 +159,8 @@ cookies = [
         'cuisine': 'COOKIES',
         'ingredients': 'content',
         'instructions': 'content',
-        'author': 'content'
+        'author': 'content',
+        'image' : 'recipe_images/cookies.png'
 
     }
 
