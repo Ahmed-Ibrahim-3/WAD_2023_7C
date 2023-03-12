@@ -5,7 +5,7 @@
 .unliked{
     background-color:none;
 }
-#like-button{
+.like-button{
     display: flex;
     align-items: center;
     justify-content: center;

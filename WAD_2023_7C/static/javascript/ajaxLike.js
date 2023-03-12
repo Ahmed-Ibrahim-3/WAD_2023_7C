@@ -1,37 +1,47 @@
 $(document).ready(function() {
     feather.replace();
-    let liked = false;
-    let username
-    username = $('#like-button').attr('data-username');
-    if(username == undefined) return;
-    let recipe_name
-    recipe_name = $('#like-button').attr('data-recipename');
-
-    $.get('/yumyay/has_user_liked_recipe/', 
-    {'name': recipe_name, 'user': username}, 
-    function(data) {
-        if(data === '1'){
-            $('#like-button').removeClass('unliked')
-            $('#like-button').addClass('liked')
-            liked = true;
-        }
-    });
-
-    $('#like-button').click(function() {
-        passLike = ""
-        if(!liked){
-            passLike = 'like'
-        } else {
-            passLike = 'dislike'
-        }   
         
-        $.get('/yumyay/like_recipe/', 
-            {'name': recipe_name, 'user': username, 'like': passLike}, 
-            function(data) {
-                $('.like-info').html(data + " likes")
-                $('#like-button').toggleClass('unliked')
-                $('#like-button').toggleClass('liked')
+
+    $('.like-button').each(function(){
+        let element = this;   
+        let username
+        username = $(this).attr('data-username');
+        if(username == undefined) return;
+        let recipe_name
+        recipe_name = $(this).attr('data-recipename');
+        $.get('/yumyay/has_user_liked_recipe/', 
+        {'name': recipe_name, 'user': username}, 
+        function(data) {
+            if(data === '1'){
+                $(element).removeClass('unliked')
+                $(element).addClass('liked')
+            }
         });
-        liked = !liked;
     });
+    $('.like-container').each(function(){
+        let likeInfo = this.querySelector('.like-info');
+        let element = this.querySelector('.like-button');
+        $(element).click(function() {
+            passLike = ""
+            if(!this.classList.contains("liked")){
+                passLike = 'like'
+            } else {
+                passLike = 'dislike'
+            }   
+            
+            let username
+            username = $(this).attr('data-username');
+            if(username == undefined) return;
+            let recipe_name
+            recipe_name = $(this).attr('data-recipename');
+
+            $.get('/yumyay/like_recipe/', 
+                {'name': recipe_name, 'user': username, 'like': passLike}, 
+                function(data) {
+                    $(likeInfo).html(data + " likes")
+                    $(element).toggleClass('unliked')
+                    $(element).toggleClass('liked')
+            });
+        });
+    })
 })

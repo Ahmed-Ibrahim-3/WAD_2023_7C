@@ -42,9 +42,10 @@
                         </div>
                         <div class="col-sm-6" >
                             <p>{{ recipe.description }}</p>
-                            <button type = "button" class="btn side-btn"> {{ recipe.likes }}
+                            {% comment %} <button type = "button" class="btn side-btn"> {{ recipe.likes }}
                                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                             </button>
+                             </button> {% endcomment %}
+                            {% include 'yumyay/like_info.html' %}
                         </div>
                     </div>
                 {% endfor %}
