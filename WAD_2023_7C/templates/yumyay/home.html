@@ -42,7 +42,9 @@
                         </div>
                         <div class="col-sm-6" >
                             <p>{{ recipe.description }}</p>
-                            <button>{{ recipe.likes }}</button>
+                            <button type = "button" id='prev' class="btn side-btn"> {{ recipe.likes }}
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                             </button>
                         </div>
                     </div>
                 {% endfor %}
