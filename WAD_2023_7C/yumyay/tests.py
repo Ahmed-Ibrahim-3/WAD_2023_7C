@@ -3,7 +3,8 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.conf import settings
-
+from yumyay.models import Cuisine, UserProfile, Recipe
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 # Create your tests here.
 
@@ -258,3 +259,173 @@ class TestBakingPage(TestCase):
         response = self.client.get(reverse("yumyay:baking"))
 
         self.assertTemplateUsed(response, "yumyay/baking.html")
+
+class TestModels(TestCase):
+
+    def test_cuisine_name(self):
+        cuisine = Cuisine(name = "name1")
+        cuisine.save()
+
+        self.assertEqual("name1", cuisine.name)
+    
+    def test_cuisine_full_model(self):
+        cuisine = Cuisine(name = "name1", img = SimpleUploadedFile(
+            "cuisine.jpg", b"mock content", content_type="image/jpg"
+        ))
+
+        self.assertIsNotNone(cuisine.img)
+        self.assertEqual(cuisine.img.name, "cuisine.jpg")
+    
+    def test_broken_cuisine(self):
+        cuisine = Cuisine(name = "name2")
+        cuisine.save()
+
+        self.assertNotEqual("name", cuisine.name)
+    
+    def test_str_cuisine(self):
+        cuisine = Cuisine(name="randomcuisine")
+        cuisine.save()
+
+        self.assertEqual(str(cuisine), "randomcuisine")
+    
+    def test_str_recipe(self):
+        recipe = Recipe(name="RName")
+        recipe.save()
+
+        self.assertEqual(str(recipe), "RName")
+    
+    def test_str_user_profile(self):
+        user_profile = User(username="username_test")
+        user_profile.save()
+
+        self.assertEqual(str(user_profile), "username_test")
+    
+    def test_user_model_creation(self):
+        sample_user = User.objects.create_user(
+            username="test_user",
+            password="ThisIsMyPassword"
+        )
+
+        self.assertEqual(sample_user.username, "test_user")
+        self.assertTrue(sample_user.check_password("ThisIsMyPassword"))
+    
+    def test_user_model_access_rights(self):
+        sample_user = User.objects.create_user(
+            username="test_user",
+            password="qwerty"
+        )
+
+        self.assertFalse(sample_user.is_staff)
+        self.assertFalse(sample_user.is_superuser)
+    
+    def test_super_user_creation(self):
+        sample_super_user = User.objects.create_superuser(
+            username="super_user",
+            password="SuperUser",
+            email="email@gmail.com"
+        )
+
+        self.assertEqual(sample_super_user.username, "super_user")
+        self.assertEqual(sample_super_user.email, "email@gmail.com")
+        self.assertTrue(sample_super_user.check_password("SuperUser"))
+    
+    def test_super_user_access_rights(self):
+        sample_super_user = User.objects.create_superuser(
+            username="super_user",
+            password="IAmASuperUser",
+            email="email@gmail.com"
+        )
+
+        self.assertTrue(sample_super_user.is_staff)
+        self.assertTrue(sample_super_user.is_superuser)
+    
+    def test_user_profile_model(self):
+        test_user_model = User(username = "username", 
+                               password = "password")
+        test_user_model.save()
+
+        test_user = UserProfile(user=test_user_model,
+                                forename = "forename",
+                                surname = "surname",
+                                emailAddress = "email",
+                                password = "password")
+        test_user.save()
+
+        self.assertEqual("forename", test_user.forename)
+        self.assertEqual("surname", test_user.surname)
+        self.assertEqual("email", test_user.emailAddress)
+        self.assertEqual("password", test_user.password)
+        self.assertEqual(test_user_model, test_user.user)
+    
+    def test_recipe_model(self):
+        test_recipe = Recipe(
+            name = "recipe1",
+            description = "Recipe Description...",
+            ingredients = "Sample Ingredient",
+            instructions = "Instructions...",
+            category = "B",
+            cuisine = "Baking",
+            image = SimpleUploadedFile (
+                 "recipe.jpg", b"mock content", content_type="image/jpg"
+            ),
+            likes = 1
+        )
+        test_recipe.save()
+
+        self.assertEqual("recipe1", test_recipe.name)
+        self.assertEqual("Recipe Description...", test_recipe.description)
+        self.assertEqual("Sample Ingredient", test_recipe.ingredients)
+        self.assertEqual("Instructions...", test_recipe.instructions)
+        self.assertEqual("B", test_recipe.category)
+        self.assertEqual("Baking", test_recipe.cuisine)
+        self.assertIsNotNone(test_recipe.image)
+        self.assertEqual(test_recipe.likes, 1)
+
+        test_recipe.likes += 1
+        self.assertEqual(test_recipe.likes, 2)
+        self.assertNotEqual(test_recipe.likes, 1)
+    
+    def test_broken_user_profile_model(self):
+        test_user_broken_model = User(username = "username_broken", 
+                               password = "password_broken")
+        test_user_broken_model.save()
+
+        test_user = UserProfile(user=test_user_broken_model,
+                                forename = "forename_broken",
+                                surname = "surname_broken",
+                                emailAddress = "email_broken",
+                                password = "password_broken")
+        test_user.save()
+
+        self.assertNotEqual("forename", test_user.forename)
+        self.assertNotEqual("surname", test_user.surname)
+        self.assertNotEqual("email", test_user.emailAddress)
+        self.assertNotEqual("password", test_user.password)
+    
+    def test_broken_recipe_model(self):
+        test_broken_recipe = Recipe(
+            name = "broken name",
+            description = "Broken Description",
+            ingredients = "Wrong Ingredients",
+            instructions = "Instructions...False",
+            category = "C",
+            cuisine = "Cooking",
+            image = SimpleUploadedFile (
+                 "recipe2.jpg", b"mock2 content", content_type="image/jpg"
+            ),
+            likes = 0
+        )
+        test_broken_recipe.save()
+
+        self.assertNotEqual("recipe1", test_broken_recipe.name)
+        self.assertNotEqual("Recipe Description...", test_broken_recipe.description)
+        self.assertNotEqual("Sample Ingredient", test_broken_recipe.ingredients)
+        self.assertNotEqual("Instructions...", test_broken_recipe.instructions)
+        self.assertNotEqual("B", test_broken_recipe.category)
+        self.assertNotEqual("Baking", test_broken_recipe.cuisine)
+        self.assertIsNotNone(test_broken_recipe.image)
+        self.assertNotEqual(test_broken_recipe.likes, 1)
+
+        test_broken_recipe.likes += 1
+        self.assertNotEqual(test_broken_recipe.likes, 2)
+        self.assertEqual(test_broken_recipe.likes, 1)
