@@ -133,12 +133,8 @@ a[colour="black"] {
     text-align: center;
 }
 
-.recipe-item {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    align-items: center;
-}
+/* .recipe-item {
+} */
 .test-colour-1 {
     background: aqua;
 }
@@ -152,10 +148,23 @@ a[colour="black"] {
     align-items: center;
 }
 
+.recipe-frame{
+    display:grid;
+}
+
+.recipe-item{
+    grid-column: 1;
+    grid-row: 1;
+    animation-fill-mode: forwards;
+    padding: 10px 0;
+    text-align: center;
+    align-items: center;
+}
+
 .active{
-    display:block;
+    transform: scale(1)
 }
 
 .inactive{
-    display:none;
+    transform: scale(0)
 }

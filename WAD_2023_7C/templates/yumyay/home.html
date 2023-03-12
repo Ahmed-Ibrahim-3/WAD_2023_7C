@@ -28,7 +28,7 @@
         </div>
         <div class="col-sm-10" >
             <div class="row w-50 mx-auto">
-                <div class="container-fluid padding" id="recipe-style" style="background-color: #FFEB7F">
+                <div class="container-fluid padding recipe-frame" id="recipe-style" style="background-color: #FFEB7F">
                 {% for recipe in recipes %}
                     {% if forloop.counter0 == 0 %}
                         <div class="recipe-item active">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-sm-6" >
                             <p>{{ recipe.description }}</p>
-                            <button type = "button" id='prev' class="btn side-btn"> {{ recipe.likes }}
+                            <button type = "button" class="btn side-btn"> {{ recipe.likes }}
                                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                              </button>
                         </div>
