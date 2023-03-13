@@ -1,6 +1,24 @@
+// from https://docs.djangoproject.com/en/4.1/howto/csrf/
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 $(document).ready(function() {
     feather.replace();
-        
+
+    const csrftoken = getCookie('csrftoken');
 
     $('.like-button').each(function(){
         let element = this;   
@@ -35,13 +53,22 @@ $(document).ready(function() {
             let recipe_name
             recipe_name = $(this).attr('data-recipename');
 
-            $.get('/yumyay/like_recipe/', 
-                {'name': recipe_name, 'user': username, 'like': passLike}, 
-                function(data) {
-                    $(likeInfo).html(data + " likes")
+            let data = new FormData()
+            data.append('username', username)
+            data.append('recipe', recipe_name)
+            data.append('liked', passLike)
+
+            const http = new XMLHttpRequest()
+            http.open('POST', '/yumyay/like_recipe/')
+            http.setRequestHeader('X-CSRFToken', csrftoken)
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    $(likeInfo).html(http.responseText + " likes")
                     $(element).toggleClass('unliked')
                     $(element).toggleClass('liked')
-            });
+                }
+            }
+            http.send(data);
         });
     })
 })
