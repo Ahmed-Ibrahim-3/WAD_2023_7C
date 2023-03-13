@@ -14,21 +14,20 @@
         <link rel="stylesheet" href="{% static "css/bsOverride.css" %}" />
         <link rel="stylesheet" href="{% static 'css/like.css' %}">
     </head>
-
         {% block header_block %}
          <nav class="navbar navbar-custom">
             <div class="container-fluid">
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'yumyay:home' %}" colour="black">Home</a></li>
-                <li><a href="{% url 'yumyay:cooking' %}" colour="black">Cooking</a></li>
-                <li><a href="{% url 'yumyay:baking' %}" colour="black">Baking</a></li>
+                <li><a href="{% url 'yumyay:home' %}" c="black">Home</a></li>
+                <li><a href="{% url 'yumyay:cooking' %}" c="black">Cooking</a></li>
+                <li><a href="{% url 'yumyay:baking' %}" c="black">Baking</a></li>
             </ul>
 {#            <ul class="nav navbar-nav text-center mx-auto">#}
 {#                <li> Yumyay </li>#}
 {#            </ul>#}
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'yumyay:add_recipe' %}" colour="black">Add recipe</a></li> <!--remove if not authorised when implemented-->
-                <li><a href="{% url 'yumyay:account' %}" colour="yellow" >Account</a></li>
+                <li><a href="{% url 'yumyay:add_recipe' %}" c="black">Add recipe</a></li> <!--remove if not authorised when implemented-->
+                <li><a href="{% url 'yumyay:account' %}" c="yellow" >Account</a></li>
             </ul>
             </div>
         </nav>
