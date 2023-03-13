@@ -9,15 +9,11 @@
 
 {% block body_block %}
 
-
-
+    {% if user.is_authenticated %}
+        Welcome back {{user.username}}
+    {% else %}
         <a href="{% url 'yumyay:log_in' %}">Log in</a>
-
-                        <!--    {% if user.is_authenticated %}-->
-                        <!--        Welcome back {{user.username}}-->
-                        <!--    {% else %}-->
-                        <!--        <a href="{% url 'yumyay:log_in' %}">Log in</a>-->
-                        <!--    {% endif %}-->
+    {% endif %}
 
     <div class="row w-50 mx-auto">
     <div class="container-fluid outer_padding recipe-container" style ="background-color: #5A8F5C; margin-right: 100px; margin-left: 100px;" >

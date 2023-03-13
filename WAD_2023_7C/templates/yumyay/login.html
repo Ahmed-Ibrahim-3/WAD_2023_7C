@@ -11,13 +11,13 @@
     
     <form id="login_form" method="post" action="{% url 'yumyay:log_in' %}">
         {% csrf_token %}
+        {{ form.errors.as_p }}
         <label for="username">Username:</label>
         <input type="text" id="username" name="username"><br><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Log in">
     </form>
-
-    <button type="submit" form="login_form" value="Submit">Submit</button>
 
     <p>
         Don't have an account?

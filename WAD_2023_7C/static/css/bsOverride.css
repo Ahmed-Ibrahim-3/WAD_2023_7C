@@ -92,14 +92,14 @@ body{
     margin-right: 100px;
     margin-left: 100px;
 }
-a[colour="yellow"] {
+a[c="yellow"] {
     color: black;
     background-color: #FFEB7F;
     border-radius: 100px;
 }
 
 
-a[colour="black"] {
+a[c="black"] {
     color: black;
 }
 
