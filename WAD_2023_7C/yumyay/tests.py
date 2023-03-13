@@ -165,6 +165,13 @@ class TestHomePage(TestCase):
 
         self.assertContains(response, "#5A8F5C")
         self.assertContains(response, "#FFEB7F")
+    
+    def test_login_exists(self):
+        response = self.client.get(reverse("yumyay:home"))
+
+        self.assertContains(response, "<a")
+        self.assertContains(response, "Log in")
+        self.assertContains(response, "</a>")
 
     def create_user(self):
         self.user = User.objects.create_user(
