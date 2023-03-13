@@ -218,6 +218,13 @@ class TestCookingPage(TestCase):
         response = self.client.get(reverse("yumyay:cooking"))
 
         self.assertTemplateUsed(response, 'yumyay/cooking.html')
+    
+    
+    def test_colour_scheme(self):
+        response = self.client.get(reverse("yumyay:home"))
+
+        self.assertContains(response, "#5A8F5C")
+        self.assertContains(response, "#FFEB7F")
 
 
 class TestTargettedRecipePage(TestCase):
@@ -244,6 +251,13 @@ class TestTargettedRecipePage(TestCase):
         response = self.client.get(reverse("yumyay:recipe"))
 
         self.assertTemplateUsed(response, 'yumyay/recipe.html')
+    
+
+    def test_colour_scheme(self):
+        response = self.client.get(reverse("yumyay:home"))
+
+        self.assertContains(response, "#5A8F5C")
+        self.assertContains(response, "#FFEB7F")
 
 class TestBakingPage(TestCase):
 
@@ -271,6 +285,13 @@ class TestBakingPage(TestCase):
         response = self.client.get(reverse("yumyay:baking"))
 
         self.assertTemplateUsed(response, "yumyay/baking.html")
+    
+
+    def test_colour_scheme(self):
+        response = self.client.get(reverse("yumyay:home"))
+
+        self.assertContains(response, "#5A8F5C")
+        self.assertContains(response, "#FFEB7F")
 
 class TestModels(TestCase):
 
