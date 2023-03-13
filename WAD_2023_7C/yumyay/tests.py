@@ -442,6 +442,24 @@ class TestModels(TestCase):
         self.assertNotEqual("email", test_user.emailAddress)
         self.assertNotEqual("password", test_user.password)
     
+    def test_profile_model(self):
+        user_model = User(username = "username1", 
+                               password = "password1")
+        user_model.save()
+
+        test_user = UserProfile(user=user_model,
+                                forename = "userForename",
+                                surname = "userSurname",
+                                emailAddress = "emailAddress",
+                                password = "password1")
+        test_user.save()
+
+        self.assertEqual("userForename", test_user.forename)
+        self.assertEqual("userSurname", test_user.surname)
+        self.assertEqual("emailAddress", test_user.emailAddress)
+        self.assertEqual("password1", test_user.password)
+        self.assertEqual(user_model, test_user.user)
+    
     def test_broken_recipe_model(self):
         test_broken_recipe = Recipe(
             name = "broken name",
