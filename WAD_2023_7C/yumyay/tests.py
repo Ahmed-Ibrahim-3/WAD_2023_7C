@@ -153,6 +153,12 @@ class TestHomePage(TestCase):
         self.assertContains(response, "Baking")
         self.assertContains(response, "Account")
         self.assertContains(response, "</nav>")
+    
+    def test_side_buttons(self):
+        response = self.client.get(reverse("yumyay:home"))
+
+        self.assertContains(response, "<button")
+        self.assertContains(response, "</button>")
 
     def create_user(self):
         self.user = User.objects.create_user(
