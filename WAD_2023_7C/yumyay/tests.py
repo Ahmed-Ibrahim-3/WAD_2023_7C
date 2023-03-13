@@ -159,6 +159,12 @@ class TestHomePage(TestCase):
 
         self.assertContains(response, "<button")
         self.assertContains(response, "</button>")
+    
+    def test_colour_scheme(self):
+        response = self.client.get(reverse("yumyay:home"))
+
+        self.assertContains(response, "#5A8F5C")
+        self.assertContains(response, "#FFEB7F")
 
     def create_user(self):
         self.user = User.objects.create_user(
