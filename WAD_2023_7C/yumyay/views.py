@@ -53,6 +53,9 @@ def add_recipe(request):
             if request.user.is_authenticated:
                 username = request.user.username
             recipe.author = username
+            # recipe.image = form.image
+            if 'image' in request.FILES:
+                recipe.image = request.FILES['image']
             recipe.save()
             return redirect('/')
         else:

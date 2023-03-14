@@ -14,8 +14,10 @@ class UserForm(forms.ModelForm):
 class RecipeForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Name of recipe: ")
     description = forms.CharField(max_length=1024, help_text="Description of recipe: ")
-    ingredients = forms.CharField(max_length=1024, help_text="Ingredients: ")
-    instructions = forms.CharField(max_length=1024, help_text="Instructions: ")
+    ingredients = forms.CharField(max_length=1024, help_text="Ingredients: ",
+                                  widget=forms.Textarea(attrs={'rows': 8, 'cols': 100}))
+    instructions = forms.CharField(max_length=1024, help_text="Instructions: ",
+                                   widget=forms.Textarea(attrs={'rows': 12, 'cols': 100}))
     category = forms.ChoiceField(help_text='Category', choices=(
         ('C', 'Cooking'),
         ('B', 'Baking'),
@@ -25,3 +27,4 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         exclude = ('likes','author')
+

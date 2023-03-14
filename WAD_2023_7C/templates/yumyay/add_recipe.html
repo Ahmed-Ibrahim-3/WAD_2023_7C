@@ -7,7 +7,7 @@
 
 {% block body_block %}
      <div class="container-fluid padding">
-            <form id="recipe_form" method="POST" action="{% url 'yumyay:add_recipe' %}">
+            <form id="recipe_form" method="POST" action="{% url 'yumyay:add_recipe' %}" enctype='multipart/form-data'>
                 <div class="add-recipe">
                 {% csrf_token %}
                 {% for field in form.hidden_fields %}
