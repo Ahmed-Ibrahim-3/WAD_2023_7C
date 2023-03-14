@@ -12,16 +12,15 @@ class UserForm(forms.ModelForm):
 
 
 class RecipeForm(forms.ModelForm):
-    name = forms.CharField(max_length=128, help_text="name of recipe:")
-    description = forms.CharField(max_length=1024, help_text="description of recipe:")
-    ingredients = forms.CharField(max_length=1024, help_text="ingredients:")
-    instructions = forms.CharField(max_length=1024, help_text="instructions:")
-    category = forms.ChoiceField(choices=("Cooking", "Baking"))
-    cuisine = forms.ChoiceField(choices=("Indian", "Thai", "Chinese", "Italian", "Mexican", "Greek",
-                                         "Cakes", "Brownies", "Bread", "Pastries", "Cupcakes", "Cookies"))
-    author = forms.CharField(widget=forms.HiddenInput)
-    image = forms.ImageField()
-    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    name = forms.CharField(max_length=128, help_text="Name of recipe: ")
+    description = forms.CharField(max_length=1024, help_text="Description of recipe: ")
+    ingredients = forms.CharField(max_length=1024, help_text="Ingredients: ")
+    instructions = forms.CharField(max_length=1024, help_text="Instructions: ")
+    category = forms.ChoiceField(help_text='Category', choices=(
+        ('C', 'Cooking'),
+        ('B', 'Baking'),
+    ))
+    image = forms.ImageField(required=False)
 
     class Meta:
         model = Recipe
