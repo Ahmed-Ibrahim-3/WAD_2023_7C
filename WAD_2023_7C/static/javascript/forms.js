@@ -1,6 +1,6 @@
 const options = {
     'cooking': ["Chinese", "Greek", "Indian", "Italian", "Mexican", "Thai"],
-    'baking': ["Bread", "Brownies", "Cookies", "Cake", "Cupcake", "Patries"],
+    'baking': ["Bread", "Brownies", "Cookies", "Cake", "Cupcake", "Pastries"],
 }  
 
 const categorySelect = document.querySelector("#categorySelect");
