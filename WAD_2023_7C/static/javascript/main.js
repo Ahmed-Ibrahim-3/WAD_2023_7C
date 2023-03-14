@@ -18,3 +18,19 @@ cbButton.forEach(cButton => {
     })
 })
 
+// Home Page Buttons
+const lrButtons = document.querySelectorAll(".side-btn");
+
+lrButtons.forEach(sButton => {
+    sButton.addEventListener("click", () => {
+        var scaleFactor = 0.8;
+        var transitionDuration = "0.1s";
+
+        sButton.style.transform = `scale(${scaleFactor})`;
+        sButton.style.transition = `transform ${transitionDuration}`;
+        setTimeout(() => {
+            sButton.style.transform = "";
+            sButton.style.transition = "";
+          }, 90);
+    })
+})
