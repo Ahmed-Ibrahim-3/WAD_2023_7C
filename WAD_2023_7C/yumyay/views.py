@@ -39,6 +39,7 @@ def cooking(request):
 def baking(request):
     return render(request, 'yumyay/baking.html')
 
+
 @login_required
 def add_recipe(request):
     form = RecipeForm()
@@ -123,8 +124,8 @@ def recipe_baking(request):
 
 
 def cuisine(request, cuisine_name_slug):
-    print(cuisine_name_slug)
-    return render(request, 'yumyay/{}_cuisine.html'.format(cuisine_name_slug))
+    context_dict = {'cuisine': cuisine_name_slug}
+    return render(request, 'yumyay/cuisine.html', context=context_dict)
 
 
 class LikeRecipeView(View):
