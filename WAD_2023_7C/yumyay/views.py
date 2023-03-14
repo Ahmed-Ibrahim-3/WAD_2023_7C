@@ -6,7 +6,7 @@ from yumyay.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from yumyay.models import Recipe, UserProfile, UserLikesRecipe, User, Cuisine
+from yumyay.models import Recipe, UserProfile, UserLikesRecipe, User, Cuisine, Recipe
 from yumyay.forms import RecipeForm
 
 
@@ -124,7 +124,8 @@ def recipe_baking(request):
 
 
 def cuisine(request, cuisine_name_slug):
-    context_dict = {'cuisine': cuisine_name_slug}
+    recipe_list = Recipe.objects.filter(cuisine=str.upper(cuisine_name_slug))
+    context_dict = {'cuisine': cuisine_name_slug, 'recipes': recipe_list}
     return render(request, 'yumyay/cuisine.html', context=context_dict)
 
 

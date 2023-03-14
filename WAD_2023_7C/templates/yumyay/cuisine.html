@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 {% extends 'yumyay/base.html' %}
 {% load static %}
-
+{% block title_block %}
+    {% if cuisine %}
+        {{ cuisine.title }}
+    {% else %}
+        cuisine not found
+    {% endif %}
+{% endblock %}
 {% block body_block %}
  <div class="container-fluid" >
     <div class="col w-50 mx-auto">
@@ -17,42 +23,39 @@
             </div>
 
             <div class="container-fluid recipe-list d-flex">
-                <div class="row recipe-item">
-                    <div class="col-sm-2">
-                        <img class="recipe-image" src="{% static 'images/../../media/recipe_images/indianFood.png' %}" alt="Food" id="images"/>
-                    </div>
-                    <div class="col-sm-10">
-                        <b>
-                        <div>Recipe name</div>
-                        </b>
-                        <div class="row d-flex justify-content-center">
-                            <div class= "col-sm-6">Description</div>
-                            <div class= "col-sm-6">Username</div>
+
+                {% if recipes %}
+                    {% for recipe in recipes %}
+                        <div class="row recipe-item">
+                        <div class="col-sm-2">
+                            {% if recipe.image  %}
+                                <img class="recipe-image" src={{ recipe.image }} id="images"/>
+                            {% else %}
+                                <img class="recipe-image" src={{ cuisine.img }} alt={{ cuisine }} id="images"/>
+                            {% endif %}
                         </div>
-                        <div>Rating</div>
-                    </div>
-                </div>
-                <div class="row recipe-item">
-                    <div class="col-sm-2">
-                        <img class="recipe-image" src="{% static 'images/../../media/recipe_images/indianFood.png' %}" alt="Food" id="images"/>
-                    </div>
-                    <div class="col-sm-10">
-                        <b>
-                        <div>Recipe name</div>
-                        </b>
-                        <div class="row d-flex justify-content-center">
-                            <div class= "col-sm-6">Description</div>
-                            <div class= "col-sm-6">Username</div>
+                        <div class="col-sm-10">
+                            <b>
+                            <div>{{ recipe.name }}</div>
+                            </b>
+                            <div class="row d-flex justify-content-center">
+                                <div class= "col-sm-6">{{ recipe.description }}</div>
+                                <div class= "col-sm-6">{{ recipe.author }}</div>
+                            </div>
+                            <div>{{ recipe.likes }}</div>
                         </div>
-                        <div>Rating</div>
-                    </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    No recipes found
+                {% endif %}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-4" id="trending-rep-bar">
-        <div class="container-fluid" id="recipe-style" >
-            {% include 'yumyay/sidebar_top_recipe.html' %}
+        <div class="col-sm-4" id="trending-rep-bar">
+            <div class="container-fluid" id="recipe-style" >
+                {% include 'yumyay/sidebar_top_recipe.html' %}
+            </div>
         </div>
     </div>
  </div>
