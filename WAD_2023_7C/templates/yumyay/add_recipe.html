@@ -22,15 +22,15 @@
                     <label for="description">Description:</label>
                     <input type="text" name="description"><br><br>
                      <label for="category">Category:</label>
-                    <select name="category">
-                          <option value="bread">Cooking</option>
-                          <option value="brownies">Baking</option>
+                    <select name="category" id='categorySelect'>
+                          <option value="cooking">Cooking</option>
+                          <option value="baking">Baking</option>
                     </select><br><br>
 
                      <label for="cuisine">Cuisine:</label>
-                    <select name="cuisine">
+                    <select name="cuisine" id='cuisineSelect'>
     {#                    different choices need to appear based on category#}
-                          <option value="chinese">Chinese</option>
+                          {% comment %} <option value="chinese">Chinese</option>
                           <option value="greek">Greek</option>
                           <option value="indian">Indian</option>
                           <option value="italian">Italian</option>
@@ -41,7 +41,7 @@
                           <option value="cake">Cake</option>
                           <option value="cupcakes">Cupcakes</option>
                           <option value="cookies">Cookies</option>
-                          <option value="pastries">Pastries</option>
+                          <option value="pastries">Pastries</option> {% endcomment %}
                     </select> <br><br>
 
                     <label for="ingredients">Ingredients:</label>
