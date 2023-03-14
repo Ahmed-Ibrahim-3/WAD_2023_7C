@@ -23,8 +23,6 @@ def home(request):
 
 
 def log_in(request):
-    # if user.is_authenticated:
-    # print("YAY")
     return render(request, 'yumyay/login.html')
 
 
