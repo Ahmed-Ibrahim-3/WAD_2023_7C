@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from yumyay.models import Recipe, UserProfile, UserLikesRecipe, User
+from yumyay.forms import RecipeForm
 
 
 # Create your views here.
@@ -38,9 +39,25 @@ def cooking(request):
 def baking(request):
     return render(request, 'yumyay/baking.html')
 
-
+@login_required
 def add_recipe(request):
-    return render(request, 'yumyay/add_recipe.html')
+    form = RecipeForm()
+
+    if request.method == 'POST':
+        form = RecipeForm(request.POST)
+
+        if form.is_valid():
+            recipe = form.save(commit=True)
+            username = None
+            if request.user.is_authenticated:
+                username = request.user.username
+            recipe.author = username
+            recipe.save()
+            return redirect('/')
+        else:
+            print(form.errors)
+
+    return render(request, 'yumyay/add_recipe.html', {'form': form})
 
 def register(request):
     registered = False
