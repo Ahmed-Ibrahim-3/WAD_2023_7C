@@ -6,20 +6,49 @@
 {% endblock %}
 
 {% block body_block %}
-     <div class="container-fluid add-recipe padding" >
-        <div class="row-sm-12">
+     <div class="container-fluid padding">
             <form id="recipe_form" method="POST" action="{% url 'yumyay:add_recipe' %}">
+                <div class="add-recipe">
                 {% csrf_token %}
                 {% for field in form.hidden_fields %}
                     {{ hidden }}
                 {% endfor %}
                 {% for field in form.visible_fields %}
-                    {{ field.errors }}
-                    {{ field.help_text }}
-                    {{ field }}
+                    {% if field.errors %}
+                        <div class="control-group error">
+                            <span>{{ field.label }}</span>
+                            <div class="controls">
+                                <h3>{{ field }}</h3>
+                                {% for error in  field.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% else %}
+                        {% if field.label == 'Name' %}
+                            <div class='container-left part'>
+                                <div class="control-group input-name">
+                        {% elif field.label == 'Description' %}
+                            <div class="control-group input-description">
+                        {% elif field.label == 'Category' or field.label == 'Cuisine' %}
+                            <div class="control-group input-category-cuisine">
+                        {% elif field.label == 'Ingredients' %}
+                            <div class="control-group ingredient-field">
+                        {% elif field.label == 'Instructions' %}
+                            </div>
+                            <div class='container-right part'>
+                            <div class="control-group instruction-field">
+                        {% elif field.label == 'Image' %}
+                            <div class='control-group image-field'>
+                        {% endif %}
+                            <label class="control-label">{{ field.label }}</label> 
+                            <div class="controls">{{ field }}</div>
+                        </div>
+                    {% endif %}
                 {% endfor %}
-                <input type="submit" name="submit" value="Add recipe" class="yellow-bg">
-            </form>
-        </div>
-     </div>
+                <input type="submit" name="submit" value="Add recipe">
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

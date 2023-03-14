@@ -3,8 +3,8 @@ const options = {
     'B': ["Bread", "Brownies", "Cookies", "Cake", "Cupcakes", "Pastries"],
 }  
 
-const categorySelect = document.querySelectorAll("form > select")[0];
-const cuisineSelect = document.querySelectorAll("form > select")[1];
+const categorySelect = document.querySelector("#id_category");
+const cuisineSelect = document.querySelector("#id_cuisine");
 
 addOptions('C')
 

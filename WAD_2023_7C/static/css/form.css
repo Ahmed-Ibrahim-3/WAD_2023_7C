@@ -1,0 +1,54 @@
+.add-recipe{
+    margin:0 10rem;
+    min-height:500px;
+    display: flex;
+    flex-direction: row;
+}
+.part{
+    display:flex;
+    flex-direction:column;
+    flex: 1;
+    justify-content: space-around;
+    align-items: left;
+    margin: 2rem 4rem;
+}
+.control-group input, textarea{
+    background-color:#D9D9D9;
+}
+.control-group{
+    background-color:#FFEB7F;
+    padding:1rem;
+    margin:0.5rem;
+}
+.input-name{
+    display: flex;
+}
+.input-name input{
+    margin-left: 1rem;
+}
+.input-description input{
+    width:100%;
+    min-height: 5rem;
+}
+.input-category-cuisine{
+    background-color: transparent;
+    display:flex;
+    flex-shrink: 1;
+}
+.ingredient-field input{
+    width:100%;
+    min-height:15rem;
+}
+.ingredient-field{
+    flex:1;
+}
+.instruction-field{
+    flex:1;
+}
+.instruction-field input {
+    width:100%;
+    min-height:20rem;
+}
+.image-field{
+    min-height: 15rem;
+}
