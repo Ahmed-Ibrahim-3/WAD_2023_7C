@@ -1,5 +1,5 @@
 ### WAD_2023_7C To Do list
-to cross something off the list, put change `- [ ] ...` to `-[x] ...`
+to mark something as complete, put change `- [ ] ...` to `-[x] ...`
 
 
 ## Homepage
