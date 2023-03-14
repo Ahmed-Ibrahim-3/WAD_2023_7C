@@ -9,6 +9,7 @@ from django.template.defaultfilters import slugify
 
 # Create your models here.
 
+
 class Cuisine(models.Model):
     name = models.CharField(max_length=64, unique=True)
     img = models.ImageField()

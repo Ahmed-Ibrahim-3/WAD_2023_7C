@@ -12,13 +12,9 @@ from django.template.defaultfilters import slugify
 
 def populate():
     def add_cuisine(name):
-        print("AAAAA")
         cuis = Cuisine.objects.get_or_create(name=name)[0]
-        print("BBBBB")
         cuis.name = name
-        print("PRESAVE")
         cuis.save()
-        print("POSTSAVE")
         return name
 
     def add_recipe(name, description, category, cuis, ingredients, instructions, author, image):
