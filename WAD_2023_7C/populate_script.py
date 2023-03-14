@@ -15,6 +15,7 @@ def populate():
         cuis = Cuisine.objects.get_or_create(name=name)[0]
         cuis.name = name
         cuis.save()
+        print("SAVED")
         return name
 
     def add_recipe(name, description, category, cuis, ingredients, instructions, author, image):

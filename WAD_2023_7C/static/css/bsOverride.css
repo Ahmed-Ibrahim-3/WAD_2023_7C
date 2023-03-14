@@ -168,3 +168,8 @@ a[c="black"] {
 .inactive{
     transform: scale(0)
 }
+
+.add_recipe_box {
+    background: #FFEB7F;
+    padding: 10px;
+}

@@ -6,7 +6,7 @@ from yumyay.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from yumyay.models import Recipe, UserProfile, UserLikesRecipe, User
+from yumyay.models import Recipe, UserProfile, UserLikesRecipe, User, Cuisine
 from yumyay.forms import RecipeForm
 
 
@@ -23,8 +23,8 @@ def home(request):
 
 
 def log_in(request):
-    #if user.is_authenticated:
-        #print("YAY")
+    # if user.is_authenticated:
+    # print("YAY")
     return render(request, 'yumyay/login.html')
 
 
@@ -59,9 +59,10 @@ def add_recipe(request):
 
     return render(request, 'yumyay/add_recipe.html', {'form': form})
 
+
 def register(request):
     registered = False
-    
+
     if request.method == "POST":
         user_form = UserForm(request.POST)
 
@@ -76,8 +77,9 @@ def register(request):
             print(user_form.errors)
     else:
         user_form = UserForm()
-    
-    return render(request, 'yumyay/register.html', context = {'user_form': user_form, 'registered': registered})
+
+    return render(request, 'yumyay/register.html', context={'user_form': user_form, 'registered': registered})
+
 
 def user_login(request):
     if request.method == "POST":
@@ -89,18 +91,19 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse('yumyay:home')) 
+                return redirect(reverse('yumyay:home'))
             else:
                 return HttpResponse("Your yumyay account is disabled")
         else:
             print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")   
+            return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'yumyay/login.html')
 
+
 def user_logout(request):
     logout(request)
-    return(redirect(reverse('yumyay:home')))
+    return redirect(reverse('yumyay:home'))
 
 
 # Nyx fix recipes stuff it's a mess xoxo
@@ -119,9 +122,9 @@ def recipe_baking(request):
     return render(request, 'yumyay/recipe.html')
 
 
-# temp view
-def cuisine(request):
-    return render(request, 'yumyay/indian_cuisine.html')
+def cuisine(request, cuisine_name_slug):
+    print(cuisine_name_slug)
+    return render(request, 'yumyay/{}_cuisine.html'.format(cuisine_name_slug))
 
 
 class LikeRecipeView(View):
@@ -139,18 +142,18 @@ class LikeRecipeView(View):
                 return HttpResponse(-1)
 
             try:
-                user = User.objects.get(username = username)
+                user = User.objects.get(username=username)
             except User.DoesNotExist:
                 return HttpResponse(-1)
             except ValueError:
                 return HttpResponse(-1)
-        
+
             try:
                 user_likes_recipe = UserLikesRecipe.objects.get_or_create(user=user, recipe=recipe)[0]
             except ValueError:
                 return HttpResponse(-1)
-            
-            if(like == 'like'):
+
+            if (like == 'like'):
                 recipe.likes = recipe.likes + 1
                 user_likes_recipe.liked = True
             else:
@@ -160,6 +163,7 @@ class LikeRecipeView(View):
             user_likes_recipe.save()
 
             return HttpResponse(recipe.likes)
+
 
 class HasUserLikedRecipe(View):
     def get(self, request):
@@ -173,7 +177,7 @@ class HasUserLikedRecipe(View):
             return HttpResponse(-1)
 
         try:
-            user = User.objects.get(username = username)
+            user = User.objects.get(username=username)
         except UserProfile.DoesNotExist:
             return HttpResponse(-1)
         except ValueError:
