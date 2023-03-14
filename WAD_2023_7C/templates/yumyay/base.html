@@ -26,8 +26,10 @@
 {#                <li> Yumyay </li>#}
 {#            </ul>#}
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'yumyay:add_recipe' %}" c="black">Add recipe</a></li> <!--remove if not authorised when implemented-->
-                <li><a href="{% url 'yumyay:account' %}" c="yellow" >Account</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'yumyay:add_recipe' %}" c="black">Add recipe</a></li> <!--remove if not authorised when implemented-->
+                {% endif %}
+                <li><a href="{% url 'yumyay:account' %}" c="yellow">Account</a></li>
             </ul>
             </div>
         </nav>

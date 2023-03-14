@@ -2,13 +2,21 @@
 {% extends 'yumyay/base.html' %}
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Account</title>
-</head>
-<body>
-{% block body_block %}
-    <button type="button">Log In</button>
+{% block title_block %}
+        Account
 {% endblock %}
-</body>
+{% block body_block %}
+    {% if user.is_authenticated %}
+        user stuff
+    {% else %}
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+            <button><a href="{% url 'yumyay:log_in' %}" c="black">Log in</a></button>
+        </div>
+        <div class="col-sm-4">
+            <button><a href="{% url 'yumyay:register' %}" c="black">Register</a></button>
+        </div>
+        <div class="col-sm-2"></div>
+    {% endif %}
+{% endblock %}
 </html>
