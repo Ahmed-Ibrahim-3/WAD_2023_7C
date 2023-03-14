@@ -1,46 +1,47 @@
 ### WAD_2023_7C To Do list
-to cross something off the list, put `~~` at either side of the text
+to cross something off the list, put change `- [ ] ...` to `-[x] ...`
+
 
 ## Homepage
 
-Display top recipe - Anyone
+- [ ] Display top recipe - Anyone
 
-Buttons scroll through recipes, Jens + Saad
+- [ ] Buttons scroll through recipes, Jens + Saad
 
-Minor css change - anya
+- [ ] Minor css change - anya
 
 ## Cooking
 
-Fix search bar - Ahmed
+- [ ] Fix search bar - Ahmed
 
-Add links - Nyx
+- [ ] Add links - Nyx
 
 ## Add recipe 
 
-Form implementation - Angus?
+- [ ] Form implementation - Angus?
 
-javascript on form, Jens +Saad
+- [ ] javascript on form, Jens +Saad
 
-Css and html, Anya + Nyx
+- [ ] Css and html, Anya + Nyx
 
 ## Account 
 
-Logged in version - Angus?
+- [ ] Logged in version - Angus?
 
-CSS - Anya
+- [ ] CSS - Anya
 
-Implement login button - Nyx
+- [ ] Implement login button - Nyx
 
 ## Login
 
-Needs button - Nyx
+- [ ] Needs button - Nyx
 
-CSS - Anya
+- [ ] CSS - Anya
 
 ## Register 
 
-CSS - Anya
+- [ ] CSS - Anya
 
 ## Cuisine and Category
 
-Like button - Jens 
+- [ ] Like button - Jens 
