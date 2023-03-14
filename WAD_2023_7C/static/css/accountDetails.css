@@ -1,0 +1,38 @@
+#sidebar {
+    height: 88vh;
+    position: relative;
+}
+
+#side-bar{
+    background-color: #5A8F5C;
+    text-align: center;
+
+}
+
+#bottom-links {
+    position: absolute;
+    bottom: 0;
+    right: 125px;
+}
+
+.bottom-link {
+    color: rgb(220, 28, 28);
+    font-size: 20px;
+}
+
+.heading {
+    font-size: 25px;
+}
+
+.details {
+    font-size: 15px;
+}
+
+#r-heading {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#myDiv {
+    overflow: scroll;
+}

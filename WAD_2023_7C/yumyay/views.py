@@ -27,7 +27,9 @@ def log_in(request):
 
 
 def account(request):
-    return render(request, 'yumyay/account.html')
+    recipes = Recipe.objects.filter(author=request.user.username)
+    context_dict = {"recipes" : recipes}
+    return render(request, 'yumyay/account.html', context_dict)
 
 
 def cooking(request):

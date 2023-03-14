@@ -7,8 +7,54 @@
 {% endblock %}
 {% block body_block %}
     {% if user.is_authenticated %}
-        user <br>
-        <a href="{% url 'yumyay:logout' %}">Logout</a>
+      <div class="container-fluid " >
+        <div class="row w-50 mx-auto">
+            <div class="col-sm-8 ">
+               <h2 id="r-heading">My Recipes</h2>
+                <div id="myDiv" style="height: 600px; width: 900px;">
+                   <div>
+                       {% if recipes %}
+                           {% for recipe in recipes %}
+                              <p><b>Name: </b> {{ recipe.name }}</p>
+                              <p><b>Description: </b> {{ recipe.description }}</p>
+                              <p><b>Ingredients: </b> {{ recipe.ingredients }}</p>
+                              <p><b>Instructions: </b> {{ recipe.instructions }}</p>
+                              <p><b>Category: </b>{{ recipe.category }}</p>
+                              <p><b>Likes: </b>{{ recipe.likes }}</p>
+                              {% if recipe.image %}
+                                  <img class = "recipe-image" src="{{ recipe.image }}" id="images"/>
+                               {% else %}
+                                  <img class="recipe-image" alt="Image Not Found" id="images"/>
+                               {% endif %}
+                              <p style="height: 50px;"></p>
+                           {% endfor %}
+                       {% endif %}
+
+                   </div>             
+                </div>
+            </div>
+            <div class="col-sm-4" id="side-bar">
+               <div id="sidebar">
+                   <div>
+                       <p class="heading"><b>{{ user.username }}</b></p>
+                       <p class="heading">
+                           <b>Personal Details </b>
+                           <a href="" style="float: right;">Edit</a> <!-- Add Once Implemeted-->
+                       </p>
+                       <p class="details"><b>Full Name: </b>{{ user.first_name }} {{ user.last_name}}</p>
+                       <p class="details"><b>Email: </b>{{ user.email }}</p>
+                   </div>
+                   <div id="bottom-links">
+                       <a href="{% url 'yumyay:logout' %}" class="bottom-link">Logout</a>
+                       <p></p>
+                       <a href="" class="bottom-link">Delete Account</a> <!-- Add Once Implemented-->
+                   </div>
+               </div>
+           </div>
+           
+           
+        </div>
+       </div>
     {% else %}
         <div class="col-sm-2"></div>
         <div class="col-sm-4">
