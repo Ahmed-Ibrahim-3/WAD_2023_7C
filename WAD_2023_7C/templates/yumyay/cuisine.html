@@ -29,7 +29,7 @@
                         <div class="row recipe-item">
                         <div class="col-sm-2">
                             {% if recipe.image  %}
-                                <img class="recipe-image" src={{ recipe.image }} id="images"/>
+                                <img class="recipe-image" src={{ MEDIA_URL }}{{ recipe.image }} id="images"/>
                             {% else %}
                                 <img class="recipe-image" src={{ cuisine.img }} alt={{ cuisine }} id="images"/>
                             {% endif %}
