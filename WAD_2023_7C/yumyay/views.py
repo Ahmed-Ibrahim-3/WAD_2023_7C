@@ -212,3 +212,10 @@ class HasUserLikedRecipe(View):
             return HttpResponse(1)
         else:
             return HttpResponse(0)
+
+def delete(request, id):
+      member = User.objects.get(id=id)
+      member.delete()
+      return redirect(reverse('yumyay:home'))
+
+
