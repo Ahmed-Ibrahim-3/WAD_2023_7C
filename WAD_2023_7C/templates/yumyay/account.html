@@ -31,7 +31,7 @@
                            {% endfor %}
                        {% endif %}
 
-                   </div>             
+                   </div>
                 </div>
             </div>
             <div class="col-sm-4" id="side-bar">
@@ -48,12 +48,12 @@
                    <div id="bottom-links">
                        <a href="{% url 'yumyay:logout' %}" class="bottom-link">Logout</a>
                        <p></p>
-                       <a href="" class="bottom-link">Delete Account</a> <!-- Add Once Implemented-->
+                       <a href="{% url 'yumyay:delete_user' user.username %}" class="bottom-link">Delete Account</a>
                    </div>
                </div>
            </div>
-           
-           
+
+
         </div>
        </div>
     {% else %}
@@ -67,4 +67,5 @@
         <div class="col-sm-2"></div>
     {% endif %}
 {% endblock %}
+</body>
 </html>

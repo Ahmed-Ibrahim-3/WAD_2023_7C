@@ -92,7 +92,10 @@ def register(request):
 
     return render(request, 'yumyay/register.html', context={'user_form': user_form, 'registered': registered})
 
-
+def delete_user(request, username):
+    user = User.objects.get(username=username)
+    user.delete()
+    return render(request, 'yumyay/home.html')
 def user_login(request):
     if request.method == "POST":
         username = request.POST.get('username')
