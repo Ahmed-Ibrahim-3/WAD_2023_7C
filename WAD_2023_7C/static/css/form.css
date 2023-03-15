@@ -52,3 +52,7 @@
 .image-field{
     min-height: 15rem;
 }
+textarea{
+    height:100%;
+    width:100%;
+}
