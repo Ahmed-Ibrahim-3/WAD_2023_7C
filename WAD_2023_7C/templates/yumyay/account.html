@@ -19,10 +19,11 @@
                               <p><b>Description: </b> {{ recipe.description }}</p>
                               <p><b>Ingredients: </b> {{ recipe.ingredients }}</p>
                               <p><b>Instructions: </b> {{ recipe.instructions }}</p>
-                              <p><b>Category: </b>{{ recipe.category }}</p>
+                              <p><b>Category: </b>{{ recipe.get_category_display }}</p>
+                              <p><b>Cuisine: </b> {{ recipe.get_cuisine_display }}</p>
                               <p><b>Likes: </b>{{ recipe.likes }}</p>
                               {% if recipe.image %}
-                                  <img class = "recipe-image" src="{{ recipe.image }}" id="images"/>
+                                  <img class = "recipe-image" src="{{ MEDIA_URL }}{{ recipe.image }}" id="images"/>
                                {% else %}
                                   <img class="recipe-image" alt="Image Not Found" id="images"/>
                                {% endif %}
