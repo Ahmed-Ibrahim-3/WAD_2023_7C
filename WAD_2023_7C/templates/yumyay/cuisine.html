@@ -29,9 +29,9 @@
                         <div class="row recipe-item">
                         <div class="col-sm-2">
                             {% if recipe.image  %}
-                                <img class="recipe-image" src={{ recipe.image }} id="images"/>
+                                <img class="recipe-image" src={{ MEDIA_URL }}{{ recipe.image }} id="images"/>
                             {% else %}
-                                <img class="recipe-image" src={{ cuisine.img }} alt={{ cuisine }} id="images"/>
+                                <img class="recipe-image" src="{{ MEDIA_URL }}{{ cuisine.img }}" alt={{ cuisine }} id="images"/>
                             {% endif %}
                         </div>
                         <div class="col-sm-10">
@@ -54,7 +54,7 @@
         </div>
         <div class="col-sm-4" id="trending-rep-bar">
             <div class="container-fluid" id="recipe-style" >
-                {% include 'yumyay/sidebar_top_recipe.html' %}
+                {% include 'yumyay/sidebar_top_recipe.html' with recipe=top_recipe recipe_cuisine=cuisine %}
             </div>
         </div>
     </div>

@@ -28,16 +28,24 @@ def log_in(request):
 
 def account(request):
     recipes = Recipe.objects.filter(author=request.user.username)
-    context_dict = {"recipes" : recipes}
+    context_dict = {"recipes": recipes}
     return render(request, 'yumyay/account.html', context_dict)
 
 
 def cooking(request):
-    return render(request, 'yumyay/cooking.html')
+    context_dict = {}
+    top_recipe = Recipe.objects.filter(category='C').order_by('likes')
+    if len(top_recipe) > 0:
+        context_dict = {'top_recipe': top_recipe[0]}
+    return render(request, 'yumyay/cooking.html', context=context_dict)
 
 
 def baking(request):
-    return render(request, 'yumyay/baking.html')
+    context_dict = {}
+    top_recipe = Recipe.objects.filter(category='B').order_by('likes')
+    if len(top_recipe) > 0:
+        context_dict = {'top_recipe': top_recipe[0]}
+    return render(request, 'yumyay/baking.html', context=context_dict)
 
 
 @login_required
@@ -119,7 +127,7 @@ def recipe_cooking(request):
         recipe = None
 
     context_dict['recipe'] = recipe
-    return render(request, 'yumyay/recipe.html', context_dict)
+    return render(request, 'yumyay/recipe.html', context=context_dict)
 
 
 def recipe_baking(request):
@@ -127,8 +135,15 @@ def recipe_baking(request):
 
 
 def cuisine(request, cuisine_name_slug):
+    context_dict = {}
     recipe_list = Recipe.objects.filter(cuisine=str.upper(cuisine_name_slug))
-    context_dict = {'cuisine': cuisine_name_slug, 'recipes': recipe_list}
+    top_recipe = recipe_list.order_by('likes')
+    if len(top_recipe) > 0:
+        context_dict['top_recipe'] = top_recipe[0]
+    else:
+        context_dict['top_recipe'] = None
+    context_dict['cuisine'] = cuisine_name_slug
+    context_dict['recipes'] = recipe_list
     return render(request, 'yumyay/cuisine.html', context=context_dict)
 
 

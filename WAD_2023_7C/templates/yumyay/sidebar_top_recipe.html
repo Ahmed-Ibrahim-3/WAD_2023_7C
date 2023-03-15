@@ -2,18 +2,26 @@
 {% load staticfiles %}
 <html lang="en">
 <body>
-    {% block top_recipe %}
-    <div id="top recipe">
-        <h2>Trending Recipe</h2>
-        <img src="" alt="Image of food">
+    <div id="top recipe" class="top-recipe-padding" >
+    {% if recipe == none %}
+        No top recipe
+    {% else %}
+        <h2>{{ recipe.name }}</h2>
+        {% if recipe.image %}
+            <img class="recipe-image col-sm-12" src={{ MEDIA_URL }}{{ recipe.image }} id="image" />
+        {% else %}
+            <img class="recipe-image col-sm-12" src="{{ MEDIA_URL }}{{ cuisine.img }}" id="image"/>
+        {% endif %}
         <p>
-            Blah Blah Blah
+            {{ recipe.description }}
         </p>
-        Username
+        <p>
+        {{ recipe.author }}
+        </p>
         <button type="button" id="buttons" class="btn btn-rounded">
-            Rating
+            {% include 'yumyay/like_info.html' with recipe=recipe %}
         </button>
     </div>
-    {% endblock %}
+    {% endif %}
 </body>
 </html>

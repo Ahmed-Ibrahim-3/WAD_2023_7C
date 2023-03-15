@@ -173,3 +173,7 @@ a[c="black"] {
     background: #FFEB7F;
     padding: 10px;
 }
+
+.top-recipe-padding {
+    padding: 10px;
+}
