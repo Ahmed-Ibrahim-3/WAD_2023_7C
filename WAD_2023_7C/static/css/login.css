@@ -1,0 +1,25 @@
+.login-container {
+  margin: auto;
+  text-align: center;
+}
+
+.login {
+  display: inline-block;
+}
+
+.form {
+  padding: 0.5rem;
+  margin-top: 10px;
+  background-color: #FFEB7F;
+}
+
+.login-button {
+  background-color: #FFEB7F;
+  color: black;
+  padding: 1rem 2rem;
+  margin-top: 10px;
+  font-size: 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

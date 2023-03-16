@@ -11,7 +11,7 @@
 
     <form id="user_form" method="post" action="{% url 'yumyay:register' %}">
         {% csrf_token %}
-    
+
         {{ user_form.as_p }}
 
         <input type="submit" name="submit" value="Register" />

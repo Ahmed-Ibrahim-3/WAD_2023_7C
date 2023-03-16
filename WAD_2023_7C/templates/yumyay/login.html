@@ -7,20 +7,27 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Login</h1>
-    
-    <form id="login_form" method="post" action="{% url 'yumyay:log_in' %}">
-        {% csrf_token %}
-        {{ form.errors.as_p }}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username"><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password"><br><br>
-        <input type="submit" value="Log in">
-    </form>
+<h1 class="login-container">Login</h1>
+    <div class="login-container">
+        <div class="login">
+            <form id="login_form" method="post" action="{% url 'yumyay:log_in' %}">
+                {% csrf_token %}
+                {{ form.errors.as_p }}
+                <div class="form">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username"><br><br>
+                </div>
+                <div class="form">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password"><br><br>
+                </div>
+                <input type="submit" value="Log in" class="login-button">
+            </form>
 
-    <p>
-        Don't have an account?
-        <a href="{% url 'yumyay:register' %}">Register Here!</a>
-    </p>
+            <p>
+                Don't have an account?
+                <a href="{% url 'yumyay:register' %}">Register Here!</a>
+            </p>
+        </div>
+    </div>
 {% endblock %}
