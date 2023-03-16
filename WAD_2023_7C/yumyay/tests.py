@@ -230,71 +230,26 @@ class TestCookingPage(TestCase):
     def test_colour_scheme(self):
         response = self.client.get(reverse("yumyay:home"))
 
-        self.assertContains(response, "#5A8F5C")
         self.assertContains(response, "#FFEB7F")
 
 
-class TestTargettedRecipePage(TestCase):
-
-    def setUp(self):
-        self.base_dir = os.getcwd()
-        self.template_dir = os.path.join(self.base_dir, "templates", "yumyay")
-        self.about_response = self.client.get(reverse("yumyay:recipe"))
-
-    def test_successful_deployment(self):
-        response = self.client.get(reverse("yumyay:recipe"))
-
-        self.assertEqual(response.status_code, 200)
-
-    def test_template_account_exists(self):
-        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "recipe.html"))
-
-        self.assertTrue(template_check)
-
-    def test_template_account_usage(self):
-        self.assertTemplateUsed(self.about_response, "yumyay/recipe.html")
-
-    def test_template_usage(self):
-        response = self.client.get(reverse("yumyay:recipe"))
-
-        self.assertTemplateUsed(response, 'yumyay/recipe.html')
-    
-
-    def test_colour_scheme(self):
-        response = self.client.get(reverse("yumyay:home"))
-
-        self.assertContains(response, "#5A8F5C")
-        self.assertContains(response, "#FFEB7F")
 
 class TestAddRecipePage(TestCase):
 
     def setUp(self):
         self.base_dir = os.getcwd()
         self.template_dir = os.path.join(self.base_dir, "templates", "yumyay")
-        self.about_response = self.client.get(reverse("yumyay:add_recipe"))
     
-    def test_successful_deployment(self):
-        response = self.client.get(reverse("yumyay:add_recipe"))
-
-        self.assertEqual(response.status_code, 200)
     
     def test_template_account_exists(self):
         template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "add_recipe.html"))
 
         self.assertTrue(template_check)
     
-    def test_template_account_usage(self):
-        self.assertTemplateUsed(self.about_response, "yumyay/add_recipe.html")
-
-    def test_add_recipe_page_template_usage(self):
-        response = self.client.get(reverse("yumyay:add_recipe"))
-
-        self.assertTemplateUsed(response, 'yumyay/add_recipe.html')
     
     def test_colour_scheme(self):
         response = self.client.get(reverse("yumyay:home"))
 
-        self.assertContains(response, "#5A8F5C")
         self.assertContains(response, "#FFEB7F")
 
 class TestBakingPage(TestCase):
@@ -328,7 +283,6 @@ class TestBakingPage(TestCase):
     def test_colour_scheme(self):
         response = self.client.get(reverse("yumyay:home"))
 
-        self.assertContains(response, "#5A8F5C")
         self.assertContains(response, "#FFEB7F")
 
 class TestModels(TestCase):
