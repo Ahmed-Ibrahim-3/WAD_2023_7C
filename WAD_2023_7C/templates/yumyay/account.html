@@ -28,9 +28,9 @@
                                   <img class="recipe-image" alt="Image Not Found" id="images"/>
                                {% endif %}
                               <p style="height: 50px;"></p>
+                               <a href="{% url 'yumyay:delete_recipe' recipe.id %}" class="bottom-link">Delete Recipe</a>
                            {% endfor %}
                        {% endif %}
-
                    </div>             
                 </div>
             </div>

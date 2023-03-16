@@ -14,6 +14,7 @@ urlpatterns = [
     path('cooking/', views.cooking, name='cooking'),
     path('baking/', views.baking, name='baking'),
     path('add_recipe/', views.add_recipe, name='add_recipe'),
+    path('delete_recipe/<int:id>', views.delete_recipe, name='delete_recipe'),
     path('baking/<slug:cuisine_name_slug>/', views.cuisine, name='baking_cuisine'),
     path('cooking/<slug:cuisine_name_slug>/', views.cuisine, name='cooking_cuisine'),
     path('cooking/cuisine/recipe/', views.recipe_cooking, name='recipe'),

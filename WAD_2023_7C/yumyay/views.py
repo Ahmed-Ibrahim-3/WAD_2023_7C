@@ -105,6 +105,11 @@ def edit_details(request):
         form = EditDetailsForm(instance=request.user)
     return render(request, 'yumyay/edit_details.html', {'form': form})
 
+def delete_recipe(request, id):
+    recipe = Recipe.objects.filter(id=id)
+    recipe.delete()
+    return redirect(reverse('yumyay:account'))
+
 def user_login(request):
     if request.method == "POST":
         username = request.POST.get('username')
