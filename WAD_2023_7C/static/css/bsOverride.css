@@ -11,7 +11,7 @@ body{
     background-color: #D9D9D9;
 }
 
-#recipe-style{
+.recipe-style{
     text-align: center;
 }
 
@@ -81,6 +81,8 @@ body{
     background-color: #FFEB7F;
 }
 
+
+
 .side-btn{
     background-color:#FFEB7F;
     color: #F98282;
@@ -103,6 +105,10 @@ a[c="black"] {
     color: black;
 }
 
+a[c="blue"] {
+    color: darkblue;
+}
+
 column[des = center]{
     justify-content: center;
 }
@@ -114,6 +120,11 @@ button[des = "greenbtn"]{
     height: 50px;
 }
 
+div[des = greenbg]{
+    background-color: #5A8F5C;
+    margin-right: 100px;
+    margin-left: 100px;
+}
 
 
 #cuisine-header-bar{
@@ -159,6 +170,13 @@ button[des = "greenbtn"]{
     align-items: center;
 }
 
+.login_form {
+    display: flex;
+    flex-direction: column;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
 .recipe-frame{
     display:grid;
 }
@@ -184,6 +202,7 @@ button[des = "greenbtn"]{
     background: #FFEB7F;
     padding: 10px;
 }
+
 
 .top-recipe-padding {
     padding: 10px;
@@ -226,3 +245,4 @@ button[des = "greenbtn"]{
     padding: 5px;
     margin: auto;
 }
+

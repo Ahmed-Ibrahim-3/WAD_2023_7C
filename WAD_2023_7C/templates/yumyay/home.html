@@ -16,7 +16,7 @@
     {% endif %}
 
     <div class="row w-50 mx-auto">
-    <div class="container-fluid outer_padding recipe-container" style ="background-color: #5A8F5C; margin-right: 100px; margin-left: 100px;" >
+    <div class="container-fluid outer_padding recipe-container" des = "greenbg">
         <div class="col-sm-1 ">
             <button type = "button" id='prev' class="btn side-btn home-buttons">
                 <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
@@ -24,7 +24,7 @@
         </div>
         <div class="col-sm-10" >
             <div class="row w-50 mx-auto">
-                <div class="container-fluid padding recipe-frame" id="recipe-style" style="background-color: #FFEB7F">
+                <div class="container-fluid padding recipe-frame recipe-style"  style="background-color: #FFEB7F">
                 {% for recipe in recipes %}
                     {% if forloop.counter0 == 0 %}
                         <div class="recipe-item active">
