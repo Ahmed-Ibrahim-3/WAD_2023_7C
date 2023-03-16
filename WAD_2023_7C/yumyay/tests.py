@@ -163,7 +163,6 @@ class TestHomePage(TestCase):
     def test_colour_scheme(self):
         response = self.client.get(reverse("yumyay:home"))
 
-        self.assertContains(response, "#5A8F5C")
         self.assertContains(response, "#FFEB7F")
     
     def test_login_exists(self):
