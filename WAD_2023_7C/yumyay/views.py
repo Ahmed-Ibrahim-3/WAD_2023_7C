@@ -1,8 +1,10 @@
+from pyexpat.errors import messages
+
 from django.shortcuts import render
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse
-from yumyay.forms import UserForm
+from yumyay.forms import UserForm, EditDetailsForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views import View
@@ -92,10 +94,17 @@ def register(request):
 
     return render(request, 'yumyay/register.html', context={'user_form': user_form, 'registered': registered})
 
-def delete_user(request, username):
-    user = User.objects.get(username=username)
-    user.delete()
-    return render(request, 'yumyay/home.html')
+@login_required
+def edit_details(request):
+    if request.method == 'POST':
+        form = EditDetailsForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('yumyay:account')
+    else:
+        form = EditDetailsForm(instance=request.user)
+    return render(request, 'yumyay/edit_details.html', {'form': form})
+
 def user_login(request):
     if request.method == "POST":
         username = request.POST.get('username')
