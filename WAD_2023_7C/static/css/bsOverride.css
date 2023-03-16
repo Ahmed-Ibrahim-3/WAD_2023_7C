@@ -103,6 +103,19 @@ a[c="black"] {
     color: black;
 }
 
+column[des = center]{
+    justify-content: center;
+}
+
+button[des = "greenbtn"]{
+    color: #F98282;
+    background-color: #5A8F5C;
+    width: 200px;
+    height: 50px;
+}
+
+
+
 #cuisine-header-bar{
     background-color: #5A8F5C;
     text-align: center;
