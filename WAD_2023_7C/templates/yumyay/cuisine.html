@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-sm-10">
                             <b>
-                            <div>{{ recipe.name }}</div>
+                            <div><a href="{% url 'yumyay:recipe' recipe.cuisine recipe.name  %}" c="black">{{ recipe.name }}</a></div>
                             </b>
                             <div class="row d-flex justify-content-center">
                                 <div class= "col-sm-6">{{ recipe.description }}</div>

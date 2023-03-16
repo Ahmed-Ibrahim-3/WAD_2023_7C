@@ -6,6 +6,7 @@
     {% if recipe == none %}
         No top recipe
     {% else %}
+        <h3><b>Trending recipe</b></h3>
         <h2>{{ recipe.name }}</h2>
         {% if recipe.image %}
             <img class="recipe-image col-sm-12" src={{ MEDIA_URL }}{{ recipe.image }} id="image" />
@@ -18,9 +19,9 @@
         <p>
         {{ recipe.author }}
         </p>
-        <button type="button" id="buttons" class="btn btn-rounded">
+        <div class="top-rating-button">
             {% include 'yumyay/like_info.html' with recipe=recipe %}
-        </button>
+        </div>
     </div>
     {% endif %}
 </body>

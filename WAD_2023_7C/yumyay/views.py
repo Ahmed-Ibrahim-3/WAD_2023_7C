@@ -136,19 +136,15 @@ def user_logout(request):
 
 
 # Nyx fix recipes stuff it's a mess xoxo
-def recipe_cooking(request):
+def recipe(request, cuisine_name_slug, recipe_name_slug):
     context_dict = {}
     try:
-        recipe = Recipe.objects.get(name="content")
+        recipe = Recipe.objects.get(name=recipe_name_slug)
     except Recipe.DoesNotExist:
         recipe = None
-
+    context_dict['cuisine'] = cuisine_name_slug
     context_dict['recipe'] = recipe
     return render(request, 'yumyay/recipe.html', context=context_dict)
-
-
-def recipe_baking(request):
-    return render(request, 'yumyay/recipe.html')
 
 
 def cuisine(request, cuisine_name_slug):
