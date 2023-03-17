@@ -257,3 +257,16 @@ div[des = greenbg]{
     padding: 5px;
     margin: auto;
 }
+.map-container{
+    background-color:#FFEB7F;
+    height:2.5rem;
+    display:flex;
+    justify-content: center;
+}
+.dot{
+    background-color:white;
+    border-radius: 50%;
+    height:2rem;
+    width:2rem;
+    margin:0 1rem;
+}
