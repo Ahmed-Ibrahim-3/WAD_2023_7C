@@ -231,7 +231,53 @@ class TestCookingPage(TestCase):
 
         self.assertContains(response, "#FFEB7F")
 
+class TestAccountPage(TestCase):
 
+    def setUp(self):
+        self.base_dir = os.getcwd()
+        self.template_dir = os.path.join(self.base_dir, "templates", "yumyay")
+        self.about_response = self.client.get(reverse("yumyay:account"))
+    
+    def test_successful_deployment(self):
+        response = self.client.get(reverse("yumyay:account"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_guest_account(self):
+        response = self.client.get(reverse("yumyay:account"))
+        
+        self.assertEqual(response.status_code, 200)
+    
+    def test_template_account_exists(self):
+        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "account.html"))
+
+        self.assertTrue(template_check)
+    
+    def test_template_account_usage(self):
+        self.assertTemplateUsed(self.about_response, "yumyay/account.html")
+
+    def test_account_page_template_usage(self):
+        response = self.client.get(reverse("yumyay:account"))
+
+        self.assertTemplateUsed(response, "yumyay/account.html")
+    
+    def create_user(self):
+
+        self.user = User.objects.create_user(
+            username="usertest",
+            password="mypassword"
+        )
+    
+    def test_user_login_success(self):
+
+        self.client.login(
+            username="usertest",
+            password="mypassword"
+        )
+
+        response = self.client.get(reverse("yumyay:account"))
+
+        self.assertEqual(response.status_code, 200)
 
 class TestAddRecipePage(TestCase):
 
