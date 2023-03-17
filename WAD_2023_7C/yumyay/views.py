@@ -36,17 +36,17 @@ def account(request):
 
 def cooking(request):
     context_dict = {}
-    top_recipe = Recipe.objects.filter(category='C').order_by('-likes')
-    if len(top_recipe) > 0:
-        context_dict = {'top_recipe': top_recipe[0]}
+    recipes = Recipe.objects.filter(category='C').order_by('-likes')
+    if len(recipes) > 0:
+        context_dict = {'top_recipe': recipes[0], 'all_recipes': recipes}
     return render(request, 'yumyay/cooking.html', context=context_dict)
 
 
 def baking(request):
     context_dict = {}
-    top_recipe = Recipe.objects.filter(category='B').order_by('-likes')
-    if len(top_recipe) > 0:
-        context_dict = {'top_recipe': top_recipe[0]}
+    recipes = Recipe.objects.filter(category='B').order_by('-likes')
+    if len(recipes) > 0:
+        context_dict = {'top_recipe': recipes[0], 'all_recipes': recipes}
     return render(request, 'yumyay/baking.html', context=context_dict)
 
 

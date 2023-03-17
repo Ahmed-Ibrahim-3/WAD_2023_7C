@@ -94,7 +94,7 @@ brownie = [
         'name': 'content8',
         'description': 'content',
         'category': 'B',
-        'cuisine': 'BROWNIE',
+        'cuisine': 'BROWNIES',
         'ingredients': 'content',
         'instructions': 'content',
         'author': 'content',
@@ -167,16 +167,16 @@ cookies = [
 ]
 
 cuisines = {
-    'Indian': {'name': 'Indian', 'recipes': indian},
-    'Thai': {'name': 'Thai', 'recipes': thai},
-    'Chinese': {'name': 'Chinese', 'recipes': chinese},
-    'Italian': {'name': 'Italian', 'recipes': italian},
-    'Mexican': {'name': 'Mexican', 'recipes': mexican},
-    'Greek': {'name': 'Greek', 'recipes': greek},
-    'Cake': {'name': 'Cake', 'recipes': cake},
-    'Brownies': {'name': 'Brownies', 'recipes': brownie},
-    'Bread': {'name': 'Bread', 'recipes': bread},
-    'Pastries': {'name': 'Pastries', 'recipes': pastries},
-    'Cupcakes': {'name': 'Cupcakes', 'recipes': cupcakes},
-    'Cookies': {'name': 'Cookies', 'recipes': cookies}
+    'Indian': {'name': 'Indian', 'recipes': indian, 'img': 'recipe_images/indianFood.png'},
+    'Thai': {'name': 'Thai', 'recipes': thai, 'img': 'recipe_images/thaiFood.png'},
+    'Chinese': {'name': 'Chinese', 'recipes': chinese, 'img': 'recipe_images/chineseFood.png'},
+    'Italian': {'name': 'Italian', 'recipes': italian, 'img': 'recipe_images/italianFood.png'},
+    'Mexican': {'name': 'Mexican', 'recipes': mexican, 'img': 'recipe_images/mexicanFood.png'},
+    'Greek': {'name': 'Greek', 'recipes': greek, 'img': 'recipe_images/greekFood.png'},
+    'Cake': {'name': 'Cake', 'recipes': cake, 'img': 'recipe_images/cake.png'},
+    'Brownies': {'name': 'Brownies', 'recipes': brownie, 'img': 'recipe_images/brownies.png'},
+    'Bread': {'name': 'Bread', 'recipes': bread, 'img': 'recipe_images/bread.png'},
+    'Pastries': {'name': 'Pastries', 'recipes': pastries, 'img': 'recipe_images/pastries.png'},
+    'Cupcakes': {'name': 'Cupcakes', 'recipes': cupcakes, 'img': 'recipe_images/cupcakes.png'},
+    'Cookies': {'name': 'Cookies', 'recipes': cookies, 'img': 'recipe_images/cookies.png'}
 }

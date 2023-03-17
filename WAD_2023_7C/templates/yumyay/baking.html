@@ -26,6 +26,7 @@
                           <div class="grid-item"><a href="{% url 'yumyay:baking_cuisine' 'cupcakes' %}"><img src="{% static 'images/../../media/recipe_images/cupcakes.png' %}" alt="Cupcakes" id="images"/></a><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'cupcakes' %}" c="black">Cupcakes</a></span></div>
                           <div class="grid-item"><a href="{% url 'yumyay:baking_cuisine' 'cookies' %}"><img src="{% static 'images/../../media/recipe_images/cookies.png' %}" alt="Cookies" id="images"/></a><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'cookies' %}" c="black">Cookies</a></span></div>
                       </div>
+                        {% include 'yumyay/search_results.html' with recipes=all_recipes %}
                   </div>
               </div>
           </div>

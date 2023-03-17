@@ -68,6 +68,13 @@ body{
   font-size: 30px;
   text-align: center;
 }
+.recipe-search {
+  background-color: #5A8F5C;
+  border: 20px solid #D9D9D9;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
 #images{
     height: 100px;
     width: 100px;
