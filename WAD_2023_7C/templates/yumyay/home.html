@@ -15,8 +15,8 @@
         <a href="{% url 'yumyay:log_in' %}">Log in</a>
     {% endif %}
 
-    <div class="row w-50 mx-auto">
-    <div class="container-fluid outer_padding recipe-container" des = "greenbg">
+    <div class="row mx-auto">
+    <div class="outer_padding recipe-container" des = "greenbg">
         <div class="col-sm-1 ">
             <button type = "button" id='prev' class="btn side-btn home-buttons">
                 <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
@@ -33,12 +33,14 @@
                     {% endif %}
                         <div class="col-sm-6">
                             <h2>{{ recipe.name }}</h2>
-                            <img src="{{ MEDIA_URL }}{{ recipe.image }}" alt="{{ recipe.name }}">
+                            <img src="{{ MEDIA_URL }}{{ recipe.image }}" alt="{{ recipe.name }}" id="recipe-images">
                                 <p>{{ recipe.author }}</p>
                         </div>
                         <div class="col-sm-6" >
                             <p>{{ recipe.description }}</p>
+                            <div class="recipe-rating-button-home">
                             {% include 'yumyay/like_info.html' %}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
