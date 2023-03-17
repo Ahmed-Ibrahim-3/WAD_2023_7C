@@ -6,37 +6,37 @@ to mark something as complete, put change `- [ ] ...` to `-[x] ...`
 
 - [ ] Display top recipe - Anyone
 
-- [ ] Buttons scroll through recipes, Jens + Saad
+- [x] Buttons scroll through recipes, Jens + Saad
 
-- [ ] Minor css change - anya
+- [x] Minor css change - anya
 
 ## Cooking
 
-- [ ] Fix search bar - Ahmed
+- [x] Fix search bar - Ahmed
 
-- [ ] Add links - Nyx
+- [x] Add links - Nyx
 
 ## Add recipe 
 
-- [ ] Form implementation - Angus?
+- [x] Form implementation - Angus?
 
-- [ ] javascript on form, Jens +Saad
+- [x] javascript on form, Jens +Saad
 
-- [ ] Css and html, Anya + Nyx
+- [x] Css and html, Anya + Nyx
 
 ## Account 
 
-- [ ] Logged in version - Angus?
+- [x] Logged in version - Angus?
 
-- [ ] CSS - Anya
+- [x] CSS - Anya
 
-- [ ] Implement login button - Nyx
+- [x] Implement login button - Nyx
 
 ## Login
 
-- [ ] Needs button - Nyx
+- [x] Needs button - Nyx
 
-- [ ] CSS - Anya
+- [x] CSS - Anya
 
 ## Register 
 
@@ -44,4 +44,4 @@ to mark something as complete, put change `- [ ] ...` to `-[x] ...`
 
 ## Cuisine and Category
 
-- [ ] Like button - Jens 
+- [x] Like button - Jens 
