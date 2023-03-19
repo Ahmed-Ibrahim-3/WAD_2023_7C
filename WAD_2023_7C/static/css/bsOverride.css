@@ -2,6 +2,14 @@
             background-color: #F98282;
         }
 
+#yumyay-title{
+    text-align: center;
+    display: inline-block;
+    padding-left: 600%;
+    background-color: #F98282;
+    color:white;
+}
+
 .text-primary{
     color: black;
 }
@@ -114,9 +122,6 @@ a[c="blue"] {
     color: darkblue;
 }
 
-column[des = center]{
-    justify-content: center;
-}
 
 button[des = "greenbtn"]{
     color: black;
