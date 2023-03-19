@@ -59,14 +59,23 @@
         </div>
        </div>
     {% else %}
-        <div class="col-sm-2"></div>
-        <div class="col-sm-4" des = center>
-            <button des = "greenbtn" class="btn btn-lg"><a href="{% url 'yumyay:log_in' %}" c="black">Log in</a></button>
+     <div class="container-fluid" >
+     <div class="col-sm-3 ">
+     </div>
+        <div class="col-sm-2">
+            <form action="{% url 'yumyay:log_in' %}" >
+                <button type = "submit" des = "greenbtn" class="btn btn-lg">Login</button>
+            </form>
         </div>
-        <div class="col-sm-4" des = center>
-            <button des = "greenbtn" class="btn btn-lg"><a href="{% url 'yumyay:register' %}" c="black" >Register</a></button>
+         <div class="col-sm-2">
+     </div>
+        <div class="col-sm-2 ">
+            <form action="{% url 'yumyay:register' %}">
+               <button type = "submit" des = "greenbtn" class="btn btn-lg">Register</button>
+            </form>
         </div>
-        <div class="col-sm-2"></div>
+
+     </div>
     {% endif %}
 {% endblock %}
 </html>
