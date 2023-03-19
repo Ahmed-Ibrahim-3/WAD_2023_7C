@@ -221,9 +221,7 @@ class TestCookingPage(TestCase):
         response = self.client.get(reverse("yumyay:cooking"))
 
         self.assertTemplateUsed(response, 'yumyay/cooking.html')
-    
-    
-    
+
 
 class TestAccountPage(TestCase):
 
@@ -273,6 +271,7 @@ class TestAccountPage(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+
 class TestAddRecipePage(TestCase):
 
     def setUp(self):
@@ -284,9 +283,7 @@ class TestAddRecipePage(TestCase):
         template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "add_recipe.html"))
 
         self.assertTrue(template_check)
-    
-    
-    
+
 
 class TestBakingPage(TestCase):
 
@@ -314,9 +311,7 @@ class TestBakingPage(TestCase):
         response = self.client.get(reverse("yumyay:baking"))
 
         self.assertTemplateUsed(response, "yumyay/baking.html")
-    
 
-    
 
 class TestLoginPage(TestCase):
 
@@ -402,6 +397,83 @@ class TestLoginPage(TestCase):
         
         self.assertEqual(response.status_code, 200)
         self.assertTrue("Log in" in response_body)
+
+class TestRegisterPage(TestCase):
+
+    def setUp(self):
+        self.base_dir = os.getcwd()
+        self.template_dir = os.path.join(self.base_dir, 'templates', 'yumyay')
+        self.about_response = self.client.get(reverse('yumyay:register'))
+    
+    def test_successful_deployment(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_guest_register(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Register")
+    
+    def test_guest_register_2(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertNotEquals(response.status_code, 404)
+        self.assertContains(response, "Register")
+    
+    def test_template_register_exists(self):
+        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "register.html"))
+
+        self.assertTrue(template_check)
+    
+    def test_template_register_usage(self):
+
+        self.assertTemplateUsed(self.about_response, "yumyay/register.html")
+    
+    def test_register_page_template_usage(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertTemplateUsed(response, 'yumyay/register.html')
+    
+    def test_register_page_contains_register(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertContains(response, "Register")
+    
+    def test_register_page_contains_form(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertContains(response, "<form")
+        self.assertContains(response, "</form>")
+    
+    def test_register_page_form_input(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertContains(response, '<input type="submit"')
+    
+    def create_user(self):
+        self.user = User.objects.create_user(
+            username="usertest",
+            password="mypassword"
+        )
+    
+    def test_user_login_success(self):
+        self.client.login(
+            username="usertest",
+            password="mypassword"
+        )
+
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_logged_out_frame(self):
+        response = self.client.get(reverse("yumyay:register"))
+        response_body = response.content.decode()
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse("Log in" in response_body)
 
 class TestModels(TestCase):
 
