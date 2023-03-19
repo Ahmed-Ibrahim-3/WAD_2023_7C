@@ -330,6 +330,91 @@ class TestBakingPage(TestCase):
 
         self.assertContains(response, "#FFEB7F")
 
+class TestLoginPage(TestCase):
+
+    def setUp(self):
+        self.base_dir = os.getcwd()
+        self.template_dir = os.path.join(self.base_dir, 'templates', 'yumyay')
+        self.about_response = self.client.get(reverse('yumyay:log_in'))
+    
+    def test_successful_deployment(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_guest_login(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Register Here")
+        self.assertContains(response, "Don't have an account?")
+    
+    def test_guest_login_2(self):
+        response = self.client.get(reverse("yumyay:home"))
+
+        self.assertNotEquals(response.status_code, 404)
+        self.assertNotContains(response, "Log out")
+    
+    def test_template_login_exists(self):
+        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "login.html"))
+
+        self.assertTrue(template_check)
+    
+    def test_template_login_usage(self):
+
+        self.assertTemplateUsed(self.about_response, "yumyay/login.html")
+    
+    def test_home_page_template_usage(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertTemplateUsed(response, 'yumyay/login.html')
+    
+    def test_login_page_contains_form(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertContains(response, "<form")
+        self.assertContains(response, "</form>")
+    
+    def test_login_page_contains_sign_in(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertContains(response, "Sign in")
+    
+    def test_login_page_contains_input(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertContains(response, '<input type="password"')
+        self.assertContains(response, '<input type="text"')
+    
+    def test_login_page_sign_in_button(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertContains(response, '<button type="submit"')
+    
+    def create_user(self):
+        self.user = User.objects.create_user(
+            username="usertest",
+            password="mypassword"
+        )
+    
+    def test_user_login_success(self):
+
+        self.client.login(
+            username="usertest",
+            password="mypassword"
+        )
+
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_logged_out_frame(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+        response_body = response.content.decode()
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue("Log in" in response_body)
+
 class TestModels(TestCase):
 
     def test_cuisine_name(self):
