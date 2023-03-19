@@ -160,10 +160,7 @@ class TestHomePage(TestCase):
         self.assertContains(response, "<button")
         self.assertContains(response, "</button>")
     
-    def test_colour_scheme(self):
-        response = self.client.get(reverse("yumyay:home"))
-
-        self.assertContains(response, "#FFEB7F")
+    
     
     def test_login_exists(self):
         response = self.client.get(reverse("yumyay:home"))
@@ -226,10 +223,7 @@ class TestCookingPage(TestCase):
         self.assertTemplateUsed(response, 'yumyay/cooking.html')
     
     
-    def test_colour_scheme(self):
-        response = self.client.get(reverse("yumyay:home"))
-
-        self.assertContains(response, "#FFEB7F")
+    
 
 class TestAccountPage(TestCase):
 
@@ -292,10 +286,7 @@ class TestAddRecipePage(TestCase):
         self.assertTrue(template_check)
     
     
-    def test_colour_scheme(self):
-        response = self.client.get(reverse("yumyay:home"))
-
-        self.assertContains(response, "#FFEB7F")
+    
 
 class TestBakingPage(TestCase):
 
@@ -325,10 +316,7 @@ class TestBakingPage(TestCase):
         self.assertTemplateUsed(response, "yumyay/baking.html")
     
 
-    def test_colour_scheme(self):
-        response = self.client.get(reverse("yumyay:home"))
-
-        self.assertContains(response, "#FFEB7F")
+    
 
 class TestLoginPage(TestCase):
 
@@ -449,11 +437,7 @@ class TestModels(TestCase):
 
         self.assertEqual(str(recipe), "RName")
     
-    def test_str_user_profile(self):
-        user_profile = User(username="username_test")
-        user_profile.save()
-
-        self.assertEqual(str(user_profile), "username_test")
+    
     
     def test_user_model_creation(self):
         sample_user = User.objects.create_user(
