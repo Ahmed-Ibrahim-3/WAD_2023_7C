@@ -14,22 +14,26 @@
                 <div id="myDiv">
                    <div>
                        {% if recipes %}
-                           {% for recipe in recipes %}
-                              <p><b>Name: </b> {{ recipe.name }}</p>
-                              <p><b>Description: </b> {{ recipe.description }}</p>
-                              <p><b>Ingredients: </b> {{ recipe.ingredients }}</p>
-                              <p><b>Instructions: </b> {{ recipe.instructions }}</p>
-                              <p><b>Category: </b>{{ recipe.get_category_display }}</p>
-                              <p><b>Cuisine: </b> {{ recipe.get_cuisine_display }}</p>
-                              <p><b>Likes: </b>{{ recipe.likes }}</p>
-                              {% if recipe.image %}
-                                  <img class = "recipe-image" src="{{ MEDIA_URL }}{{ recipe.image }}" id="images"/>
-                               {% else %}
-                                  <img class="recipe-image" alt="Image Not Found" id="images"/>
-                               {% endif %}
-                              <p style="height: 50px;"></p>
-                               <a href="{% url 'yumyay:delete_recipe' recipe.id %}" class="bottom-link">Delete Recipe</a>
+                            <div class="recipe-container">
+                            {% for recipe in recipes %}
+                                <div class="recipe-item">
+                                    <p><b>Name: </b> {{ recipe.name }}</p>
+                                    <p><b>Description: </b> {{ recipe.description }}</p>
+                                    <p><b>Ingredients: </b> {{ recipe.ingredients }}</p>
+                                    <p><b>Instructions: </b> {{ recipe.instructions }}</p>
+                                    <p><b>Category: </b>{{ recipe.get_category_display }}</p>
+                                    <p><b>Cuisine: </b> {{ recipe.get_cuisine_display }}</p>
+                                    <p><b>Likes: </b>{{ recipe.likes }}</p>
+                                    {% if recipe.image %}
+                                    <img class = "recipe-image" src="{{ MEDIA_URL }}{{ recipe.image }}" id="images"/>
+                                    {% else %}
+                                    <img class="recipe-image" alt="Image Not Found" id="images"/>
+                                    {% endif %}
+                                    <p style="height: 50px;"></p>
+                                    <a href="{% url 'yumyay:delete_recipe' recipe.id %}" class="bottom-link">Delete Recipe</a>
+                                </div>
                            {% endfor %}
+                            </div>
                        {% else %}
                            <div class="text">No recipes made</div>
                        {% endif %}

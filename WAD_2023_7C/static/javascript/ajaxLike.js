@@ -28,7 +28,7 @@ $(document).ready(function() {
         let recipe_name
         recipe_name = $(this).attr('data-recipename');
         $.get('/yumyay/has_user_liked_recipe/', 
-        {'name': recipe_name, 'user': username}, 
+        {'name': recipe_name, 'user': username, 't': Math.random()}, 
         function(data) {
             if(data === '1'){
                 $(element).removeClass('unliked')

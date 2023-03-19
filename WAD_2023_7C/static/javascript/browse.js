@@ -33,7 +33,7 @@ function change(change){
     ];
     const animationColorOut = [
         {
-            backgroundColor: 'black',
+            backgroundColor: '#5A8F5C',
         },
         {
             backgroundColor: 'white',
@@ -44,7 +44,7 @@ function change(change){
             backgroundColor: 'white',
         },
         {
-            backgroundColor: 'black',
+            backgroundColor: '#5A8F5C',
         }
     ];
     const control = {
@@ -80,9 +80,9 @@ function change(change){
 }
 function createDots(amount){
     let dotContainer = document.querySelector('.map-container')
-    for(j = 0; j < amount; j++){
+    for(let j = 0; j < amount; j++){
         let dot = document.createElement('div')
-        if(j == 0) dot.style.backgroundColor = "black";
+        if(j == 0) dot.style.backgroundColor = "#5A8F5C";
         dot.classList.add('dot')
         dotContainer.appendChild(dot);
     }

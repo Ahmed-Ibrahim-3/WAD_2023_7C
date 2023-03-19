@@ -42,3 +42,14 @@
     text-align: center;
     align-content: center;
 }
+
+.recipe-container{
+    display:flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin:2rem;
+}
+.recipe-item{
+    margin: 1rem 3rem;
+}
