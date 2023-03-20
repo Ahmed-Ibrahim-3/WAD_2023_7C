@@ -11,6 +11,10 @@
 .title-padding{
     padding-left: 40%;
 }
+.header-container{
+    display:flex;
+    justify-content: center;
+}
 
 .text-primary{
     color: black;
