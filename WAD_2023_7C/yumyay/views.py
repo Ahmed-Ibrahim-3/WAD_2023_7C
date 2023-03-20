@@ -18,9 +18,8 @@ def home(request):
 
     amount = 5
     recipe_list = Recipe.objects.order_by('-likes')[:amount]
-
     context_dict['recipes'] = recipe_list
-
+    context_dict['page'] = 'home'
     return render(request, 'yumyay/home.html', context_dict)
 
 
@@ -39,6 +38,7 @@ def cooking(request):
     recipes = Recipe.objects.filter(category='C').order_by('-likes')
     if len(recipes) > 0:
         context_dict = {'top_recipe': recipes[0], 'all_recipes': recipes}
+    context_dict['page'] = 'cooking'
     return render(request, 'yumyay/cooking.html', context=context_dict)
 
 
@@ -47,6 +47,7 @@ def baking(request):
     recipes = Recipe.objects.filter(category='B').order_by('-likes')
     if len(recipes) > 0:
         context_dict = {'top_recipe': recipes[0], 'all_recipes': recipes}
+    context_dict['page'] = 'baking'
     return render(request, 'yumyay/baking.html', context=context_dict)
 
 
@@ -71,7 +72,7 @@ def add_recipe(request):
         else:
             print(form.errors)
 
-    return render(request, 'yumyay/add_recipe.html', {'form': form})
+    return render(request, 'yumyay/add_recipe.html', {'form': form, 'page':'add_recipe'})
 
 
 def register(request):

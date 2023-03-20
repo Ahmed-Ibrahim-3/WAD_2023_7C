@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body_block %}
-
+    {% include 'yumyay/navbar.html' with page=page %}
     {% if user.is_authenticated %}
         Welcome back {{user.username}}
     {% else %}

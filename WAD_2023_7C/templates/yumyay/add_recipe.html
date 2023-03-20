@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body_block %}
+{% include 'yumyay/navbar.html' with page=page %}
 <div class="container-fluid padding add-recipe">
     <div class="form-container">
             <form id="recipe_form" method="POST" action="{% url 'yumyay:add_recipe' %}" enctype='multipart/form-data'>

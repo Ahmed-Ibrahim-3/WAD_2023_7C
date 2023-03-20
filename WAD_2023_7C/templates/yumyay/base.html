@@ -19,30 +19,7 @@
 
     </head>
         {% block header_block %}
-         <nav class="navbar navbar-custom">
-            <div class="container-fluid">
-             <div class="col-sm-4"">
-                <ul class="nav navbar-nav">
-                    <li><a href="{% url 'yumyay:home' %}" c="black">Home</a></li>
-                    <li><a href="{% url 'yumyay:cooking' %}" c="black">Cooking</a></li>
-                    <li><a href="{% url 'yumyay:baking' %}" c="black">Baking</a></li>
-                     </ul>
-             </div>
-             <div class="col-sm-4">
-                 <ul class="nav navbar-nav">
-                    <li><a  id="yumyay-title"><b>YUMYAY</b></a></li>
-                 </ul>
-             </div>
-            <div class="col-sm-4">
-                <ul class="nav navbar-nav navbar-right">
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'yumyay:add_recipe' %}" c="black">Add recipe</a></li> <!--remove if not authorised when implemented-->
-                    {% endif %}
-                    <li><a href="{% url 'yumyay:account' %}" c="yellow">Account</a></li>
-                </ul>
-            </div>
-            </div>
-        </nav>
+
         {% endblock %}
 
         {% block body_block %}
