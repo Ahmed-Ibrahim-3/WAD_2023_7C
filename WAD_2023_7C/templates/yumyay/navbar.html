@@ -27,11 +27,12 @@
     <div class="col-sm-4">
         <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
-            {% if page == "add_recipe" %}
-                <li><a href="{% url 'yumyay:add_recipe' %}" c="yellow">Add recipe</a></li>
-            {% else %}
-                <li><a href="{% url 'yumyay:add_recipe' %}" c="black">Add recipe</a></li>
-            {% endif %}            {% endif %}
+                {% if page == "add_recipe" %}
+                    <li><a href="{% url 'yumyay:add_recipe' %}" c="yellow">Add recipe</a></li>
+                {% else %}
+                    <li><a href="{% url 'yumyay:add_recipe' %}" c="black">Add recipe</a></li>
+                {% endif %}
+            {% endif %}
             <li><a href="{% url 'yumyay:account' %}" c="yellow">Account</a></li>
         </ul>
     </div>
