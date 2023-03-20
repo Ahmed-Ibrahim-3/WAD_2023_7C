@@ -25,6 +25,11 @@
         <div class="col-sm-10" >
             <div class="row w-50 mx-auto">
                 <div class="container-fluid padding recipe-frame recipe-style yellow-bg" >
+                {% if not recipes %}
+                <div class="recipe-item active">
+                    <h3>No recipes in database</h3>
+                </div>
+                {% endif %}
                 {% for recipe in recipes %}
                     {% if forloop.counter0 == 0 %}
                         <div class="recipe-item active">
