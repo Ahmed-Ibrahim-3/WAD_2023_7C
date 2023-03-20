@@ -76,8 +76,6 @@ def add_recipe(request):
 
 
 def register(request):
-    registered = False
-
     if request.method == "POST":
         user_form = UserForm(request.POST)
 
@@ -87,13 +85,17 @@ def register(request):
             user.set_password(user.password)
             user.save()
 
-            registered = True
+            registered_user = authenticate(username=user_form.cleaned_data['username'],
+                                    password=user_form.cleaned_data['password'],
+            )
+            login(request, registered_user)
+            return redirect('/')
         else:
             print(user_form.errors)
     else:
         user_form = UserForm()
 
-    return render(request, 'yumyay/register.html', context={'user_form': user_form, 'registered': registered})
+    return render(request, 'yumyay/register.html', context={'user_form': user_form})
 
 @login_required
 def edit_details(request):
