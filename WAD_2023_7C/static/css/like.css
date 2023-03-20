@@ -17,7 +17,7 @@
     border-radius:40%;
     margin: 5px;
 }
-#like-button:hover{
+.like-button:hover{
     background-color:rgb(208, 229, 236);
 }
 .like-container{

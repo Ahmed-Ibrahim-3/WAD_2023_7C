@@ -283,3 +283,12 @@ div[des = greenbg]{
     width:2rem;
     margin:0 1rem;
 }
+.desc-container{
+    height:100%;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+}
+.recipe-rating-button-home{
+    margin-top:auto;
+}

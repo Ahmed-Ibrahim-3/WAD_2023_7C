@@ -27,7 +27,7 @@
                 <div class="container-fluid padding recipe-frame recipe-style yellow-bg" >
                 {% if not recipes %}
                 <div class="recipe-item active">
-                    <h3>No recipes in database</h3>
+                    <h3>No recipes in the database</h3>
                 </div>
                 {% endif %}
                 {% for recipe in recipes %}
@@ -39,10 +39,12 @@
                         <div class="col-sm-6">
                             <h2>{{ recipe.name }}</h2>
                             <img src="{{ MEDIA_URL }}{{ recipe.image }}" alt="{{ recipe.name }}" id="recipe-images">
-                                <p>{{ recipe.author }}</p>
+                                <p>By: {{ recipe.author }}</p>
                         </div>
-                        <div class="col-sm-6" >
-                            <p>{{ recipe.description }}</p>
+                        <div class="col-sm-6 desc-container">
+                            <div class="desc-container">
+                                <p>{{ recipe.description }}</p>
+                            </div>
                             <div class="recipe-rating-button-home">
                             {% include 'yumyay/like_info.html' %}
                             </div>
