@@ -37,7 +37,7 @@ lrButtons.forEach(sButton => {
 
 var gridItems = document.getElementsByClassName("grid-item");
 
-for (var i = 0; i < gridItems.length; i++) {
+for (let i = 0; i < gridItems.length; i++) {
   var item = gridItems[i];
 
   item.addEventListener("mouseover", function () {

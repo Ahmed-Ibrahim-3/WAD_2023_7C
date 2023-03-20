@@ -136,11 +136,10 @@ def user_logout(request):
     return redirect(reverse('yumyay:home'))
 
 
-# Nyx fix recipes stuff it's a mess xoxo
-def recipe(request, cuisine_name_slug, recipe_name_slug):
+def recipe(request, cuisine_name_slug, recipe_id):
     context_dict = {}
     try:
-        recipe = Recipe.objects.get(name=recipe_name_slug)
+        recipe = Recipe.objects.get(id=recipe_id)
     except Recipe.DoesNotExist:
         recipe = None
     context_dict['cuisine'] = cuisine_name_slug
@@ -165,11 +164,11 @@ class LikeRecipeView(View):
     def post(self, request):
         if request.method == 'POST':
             username = request.POST['username']
-            recipe_name = request.POST['recipe']
+            recipe_id = request.POST['recipe']
             like = request.POST['liked']
 
             try:
-                recipe = Recipe.objects.get(name=recipe_name)
+                recipe = Recipe.objects.get(id=recipe_id)
             except Recipe.DoesNotExist:
                 return HttpResponse(-1)
             except ValueError:
@@ -201,10 +200,10 @@ class LikeRecipeView(View):
 
 class HasUserLikedRecipe(View):
     def get(self, request):
-        recipe_name = request.GET['name']
+        recipe_id = request.GET['recipeId']
         username = request.GET['user']
         try:
-            recipe = Recipe.objects.get(name=recipe_name)
+            recipe = Recipe.objects.get(id=recipe_id)
         except Recipe.DoesNotExist:
             return HttpResponse(-1)
         except ValueError:
@@ -231,5 +230,3 @@ def delete(request, id):
       member = User.objects.get(id=id)
       member.delete()
       return redirect(reverse('yumyay:home'))
-
-

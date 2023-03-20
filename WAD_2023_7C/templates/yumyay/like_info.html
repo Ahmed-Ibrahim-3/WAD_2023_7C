@@ -2,7 +2,7 @@
 
     {% if user.is_authenticated %}
         <div class="like-info">{{ recipe.likes }} likes</div>
-        <div class='unliked like-button' data-recipename='{{ recipe.name }}' data-username='{{ user.username }}'>
+        <div class='unliked like-button' data-recipe-id='{{ recipe.id }}' data-username='{{ user.username }}'>
             <i data-feather='thumbs-up'></i>
         </div>
     {% else %}

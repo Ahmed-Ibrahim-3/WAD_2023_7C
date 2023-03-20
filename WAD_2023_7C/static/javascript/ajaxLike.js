@@ -25,10 +25,10 @@ $(document).ready(function() {
         let username
         username = $(this).attr('data-username');
         if(username == undefined) return;
-        let recipe_name
-        recipe_name = $(this).attr('data-recipename');
+        let recipeId
+        recipeId = $(this).attr('data-recipe-id');
         $.get('/yumyay/has_user_liked_recipe/', 
-        {'name': recipe_name, 'user': username, 't': Math.random()}, 
+        {'recipeId': recipeId, 'user': username, 't': Math.random()}, 
         function(data) {
             if(data === '1'){
                 $(element).removeClass('unliked')
@@ -50,12 +50,12 @@ $(document).ready(function() {
             let username
             username = $(this).attr('data-username');
             if(username == undefined) return;
-            let recipe_name
-            recipe_name = $(this).attr('data-recipename');
+            let recipeId
+            recipeId = $(this).attr('data-recipe-id');
 
             let data = new FormData()
             data.append('username', username)
-            data.append('recipe', recipe_name)
+            data.append('recipe', recipeId)
             data.append('liked', passLike)
 
             const http = new XMLHttpRequest()

@@ -4,7 +4,7 @@
 <body>
      <div class="row w-50 mx-auto">
          {% for recipe in recipes %}
-         <div class="recipe-search" style="display: none"><span class="caption"><a href="{% url 'yumyay:recipe' recipe.cuisine recipe.name  %}" c="black">{{ recipe.name }}</a>{% include 'yumyay/like_info.html' with recipe=recipe %}</span></div>
+         <div class="recipe-search" style="display: none"><span class="caption"><a href="{% url 'yumyay:recipe' recipe.cuisine recipe.id  %}" c="black">{{ recipe.name }}</a>{% include 'yumyay/like_info.html' with recipe=recipe %}</span></div>
          {% endfor %}
      </div>
 </body>
