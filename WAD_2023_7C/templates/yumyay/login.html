@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body_block %}
+    {% include 'yumyay/navbar.html' with page=page %}
     <div class="row w-50 mx-auto">
     <div class="container-fluid outer_padding recipe-style" des = "greenbg" >
         <form class = "login_form" method="post" action="{% url 'yumyay:log_in' %}" >

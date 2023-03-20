@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body_block %}
+    {% include 'yumyay/navbar.html' with page=page %}
     <h1>Register for Yumyay</h1>
  <div class="container-fluid outer_padding recipe-style" des = "greenbg" >
             <form id="user_form" method="post" action="{% url 'yumyay:register' %}">

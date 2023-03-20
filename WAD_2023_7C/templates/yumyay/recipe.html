@@ -7,6 +7,7 @@
 {%  endblock %}
 
 {% block body_block %}
+    {% include 'yumyay/navbar.html' with page=page %}
     <div class="recipe-base" content="width=device-width">
         <h2>{{ recipe.name }}</h2>
         <h4>{{ recipe.author }}</h4>
