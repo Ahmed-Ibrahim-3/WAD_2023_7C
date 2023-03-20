@@ -61,3 +61,7 @@ textarea{
     height:100%;
     width:100%;
 }
+.image-preview{
+    width: 15rem;
+    height: 15rem; 
+}

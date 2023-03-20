@@ -57,7 +57,7 @@ class Recipe(models.Model):
     ingredients = models.CharField(max_length=4096)
     instructions = models.CharField(max_length=4096)
     author = models.CharField(max_length=64, default="")
-    image = models.ImageField()
+    image = models.ImageField(upload_to='recipe_images/')
     likes = models.IntegerField(default=0)
 
     def __str__(self):

@@ -25,7 +25,7 @@ class RecipeForm(forms.ModelForm):
         ('C', 'Cooking'),
         ('B', 'Baking'),
     ))
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'file-input-button'}))
 
     class Meta:
         model = Recipe
