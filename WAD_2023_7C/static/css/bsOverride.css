@@ -5,9 +5,11 @@
 #yumyay-title{
     text-align: center;
     display: inline-block;
-    padding-left: 550%;
     background-color: #F98282;
     color:white;
+}
+.title-padding{
+    padding-left: 40%;
 }
 
 .text-primary{
