@@ -8,14 +8,13 @@ django.setup()
 from yumyay.models import Cuisine, Recipe
 from populate_data import *
 from django.template.defaultfilters import slugify
-
+from random import randint
 
 def populate():
     def add_cuisine(name):
         cuis = Cuisine.objects.get_or_create(name=name)[0]
         cuis.name = name
         cuis.save()
-        print("SAVED")
         return name
 
     def add_recipe(name, description, category, cuis, ingredients, instructions, author, image):
@@ -30,6 +29,7 @@ def populate():
         recp.instructions = instructions
         recp.author = author
         recp.image = image
+        recp.likes = randint(0,100)
         recp.save()
         return recp
 
