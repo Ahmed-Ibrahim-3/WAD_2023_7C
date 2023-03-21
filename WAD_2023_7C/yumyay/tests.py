@@ -1,4 +1,5 @@
 import os
+import re
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -398,6 +399,7 @@ class TestLoginPage(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue("Log in" in response_body)
 
+
 class TestRegisterPage(TestCase):
 
     def setUp(self):
@@ -474,6 +476,7 @@ class TestRegisterPage(TestCase):
         
         self.assertEqual(response.status_code, 200)
         self.assertFalse("Log in" in response_body)
+
 
 class TestModels(TestCase):
 
@@ -658,3 +661,91 @@ class TestModels(TestCase):
         test_broken_recipe.likes += 1
         self.assertNotEqual(test_broken_recipe.likes, 2)
         self.assertEqual(test_broken_recipe.likes, 1)
+
+
+class TestLoginFunctionality(TestCase):
+
+    def test_log_in_exists(self):
+
+        url = ''
+
+        try:
+            url = reverse('yumyay:log_in')
+        except:
+            pass
+
+        self.assertEqual(url, '/yumyay/account/login/')
+    
+    def test_successful_login(self):
+        user = User.objects.get_or_create(username='testuser',
+                                      first_name='firstName',
+                                      last_name='lastName',
+                                      email='test@gmail.com')[0]
+        
+        user.set_password('passwordTest')
+        user.save()
+
+
+        user_object = user
+
+        response = self.client.post(reverse('yumyay:log_in'), {'username': 'testuser', 'password': 'passwordTest'})
+        
+        try:
+            self.assertEqual(user_object.id, int(self.client.session['_auth_user_id']))
+        except KeyError:
+            self.assertTrue(False)
+
+        self.assertEqual(response.status_code, 302)
+    
+    def test_unsucessful_login(self):
+        user = User.objects.get_or_create(username='testuser',
+                                      first_name='firstName',
+                                      last_name='lastName',
+                                      email='test@gmail.com')[0]
+        
+        user.set_password('passwordTest')
+        user.save()
+
+        user_object = user
+
+        
+        try:
+            self.assertNotEqual(user_object.id, int(self.client.session['_auth_user_id']))
+        except KeyError:
+            self.assertFalse(False)
+
+    def test_login_template_usage(self):
+        template_base_path = os.path.join(settings.TEMPLATE_DIR, 'yumyay')
+        template_path = os.path.join(template_base_path, 'login.html')
+
+        self.assertTrue(os.path.exists(template_path))
+
+        f = open(template_path, 'r')
+        template_str = ""
+        
+        for line in f:
+           template_str = f"{template_str}{line}"
+
+        f.close()
+
+        full_title_pattern = r'<title>(\s*|\n*)yumyay(\s*|\n*)-(\s*|\n*)Login(\s*|\n*)</title>'
+
+        block_title_pattern = r'{% block title_block %}(\s*|\n*)Login(\s*|\n*){% (endblock|endblock title_block) %}'
+
+        request_pattern = self.client.get(reverse('yumyay:log_in'))
+        content_pattern = request_pattern.content.decode('utf-8')
+
+        self.assertTrue(re.search(full_title_pattern, content_pattern))
+
+        self.assertTrue(re.search(block_title_pattern, template_str))
+    
+    def test_restricted_url_exists(self):
+
+        url = ''
+
+        try:
+            url = reverse('yumyay:edit_details')
+        except:
+            pass
+        
+        self.assertEqual(url, '/yumyay/account/edit_details/')
