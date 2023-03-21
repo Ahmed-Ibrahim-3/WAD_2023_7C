@@ -1,12 +1,15 @@
 import os
 import re
 import importlib
+import yumyay.forms
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.conf import settings
 from yumyay.models import Cuisine, UserProfile, Recipe
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.forms import fields as django_fields
+from yumyay.forms import *
 
 # Create your tests here.
 
@@ -751,6 +754,7 @@ class TestLoginFunctionality(TestCase):
         
         self.assertEqual(url, '/yumyay/account/edit_details/')
 
+
 class LogoutFunctionalityTests(TestCase):
     
     def test_bad_request(self):
@@ -788,6 +792,7 @@ class LogoutFunctionalityTests(TestCase):
         self.assertEqual(response.url, reverse('yumyay:home'))
 
         self.assertTrue('_auth_user_id' not in self.client.session)
+
 
 class ViewTests(TestCase):
 
@@ -971,4 +976,84 @@ class ViewTests(TestCase):
     
     def test_second_logout_url_mapping(self):
         self.assertEquals(reverse("yumyay:logout"), "/yumyay/logout/")
+
+
+class TestForms(TestCase):
+
+    def test_forms_file_exists(self):
+        file_path = os.getcwd()
+        yumyay_app = os.path.join(file_path, "yumyay")
+        yumyay_forms_path = os.path.join(yumyay_app, "forms.py")
+
+        self.assertTrue(os.path.exists(yumyay_forms_path))
+    
+    def test_recipe_form_class(self):
+        self.assertTrue("RecipeForm" in dir(yumyay.forms))
+
+        recipe_form = RecipeForm()
+        self.assertEqual(type(recipe_form.__dict__["instance"]), Recipe)
+
+        fields = recipe_form.fields
+
+        form_fields = {
+            "name" : django_fields.CharField,
+            "description" : django_fields.CharField,
+            "ingredients" : django_fields.CharField,
+            "instructions" : django_fields.CharField,
+            "category" : django_fields.ChoiceField,
+            "cuisine" : django_fields.TypedChoiceField,
+            "image" : django_fields.ImageField,
+        }
+
+        for entry in form_fields:
+            confirm_field = form_fields[entry]
+    
+            self.assertTrue(entry in fields.keys())
+            
+            self.assertEquals(confirm_field, type(fields[entry]))
+    
+    def test_user_form_class(self):
+        self.assertTrue("UserForm" in dir(yumyay.forms))
+
+        user_form = UserForm()
+
+        self.assertEqual(type(user_form.__dict__["instance"]), User)
+
+        fields = user_form.fields
+
+        form_fields = {
+            "username" : django_fields.CharField,
+            "first_name" : django_fields.CharField,
+            "last_name" : django_fields.CharField,
+            "email" : django_fields.EmailField,
+            "password" : django_fields.CharField
+        }
+
+        for entry in form_fields:
+            confirm_field = form_fields[entry]
+
+            self.assertTrue(entry in fields.keys())
+            self.assertEqual(confirm_field, type(fields[entry]))
+    
+    def test_edit_details_form(self):
+        self.assertTrue("EditDetailsForm" in dir(yumyay.forms))
+
+        edit_form = EditDetailsForm()
+
+        self.assertEqual(type(edit_form.__dict__["instance"]), User)
+
+        fields = edit_form.fields
+
+        form_fields = {
+            "first_name" : django_fields.CharField,
+            "last_name" : django_fields.CharField,
+            "email" : django_fields.EmailField
+        }
+
+        for entry in form_fields:
+            confirm_field = form_fields[entry]
+
+            self.assertTrue(entry in fields.keys())
+            self.assertEqual(confirm_field, type(fields[entry]))
+   
 
