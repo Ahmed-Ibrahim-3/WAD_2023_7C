@@ -1,5 +1,6 @@
 import os
 import re
+import importlib
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -787,3 +788,187 @@ class LogoutFunctionalityTests(TestCase):
         self.assertEqual(response.url, reverse('yumyay:home'))
 
         self.assertTrue('_auth_user_id' not in self.client.session)
+
+class ViewTests(TestCase):
+
+    def setUp(self):
+
+        self.views_module = importlib.import_module("yumyay.views")
+
+        self.views_module_directory = dir(self.views_module)
+        
+        self.project_urls_module = importlib.import_module('WAD_2023_7C.urls')
+
+    def test_home_view_exists(self):
+        home_view_exists = "home" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(home_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_home_view_mapping(self):
+        home_mapping_existence = False
+
+        for mapping in self.project_urls_module.urlpatterns:
+            if hasattr(mapping, "name"):
+                if mapping.name == "home":
+                    home_mapping_existence = True
+        
+
+        self.assertTrue(home_mapping_existence)
+        self.assertEquals(reverse("yumyay:home"), "/yumyay/")
+    
+    def test_log_in_view_exists(self):
+        log_in_view_exists = "log_in" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(log_in_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_log_in_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:log_in"), "/yumyay/account/login/")
+
+    def test_account_view_exists(self):
+        account_view_exists = "account" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(account_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_account_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:account"), "/yumyay/account/")
+
+    def test_cooking_view_exists(self):
+        cooking_view_exists = "cooking" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(cooking_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_cooking_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:cooking"), "/yumyay/cooking/")
+    
+    def test_baking_view_exists(self):
+        baking_view_exists = "baking" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(baking_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_baking_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:baking"), "/yumyay/baking/")
+    
+    def test_add_recipe_exists(self):
+        add_recipe_view_exists = "add_recipe" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(add_recipe_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_add_recipe_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:add_recipe"), "/yumyay/add_recipe/")
+    
+    def test_register_view_exists(self):
+        recipe_view_exists = "register" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(recipe_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_register_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:register"), "/yumyay/account/register/")
+
+    
+    def test_edit_details_view_exists(self):
+        edit_details_view_exists = "edit_details" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(edit_details_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_edit_details_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:edit_details"), "/yumyay/account/edit_details/")
+    
+    def test_delete_recipe_view_exists(self):
+        delete_recipe_view_exists = "delete_recipe" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(delete_recipe_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_user_login_view_exists(self):
+        user_login_view_exists = "user_login" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(user_login_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_user_login_view_mapping(self):
+        
+        self.assertEquals(reverse("yumyay:log_in"), "/yumyay/account/login/")
+    
+    def test_user_logout_view_exists(self):
+        user_logout_view_exists = "user_logout" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(user_logout_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_user_logout_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:log_out"), "/yumyay/account/logout/")
+    
+    def test_recipe_view_exists(self):
+        recipe_view_exists = "recipe" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(recipe_view_exists)
+
+        self.assertTrue(is_callable)
+    
+
+    def test_cuisine_view_exists(self):
+        cuisine_view_exists = "cuisine" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(cuisine_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_like_view_exists(self):
+        like_view_exists = "LikeRecipeView" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(like_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_liked_view_exists(self):
+        like_view_exists = "HasUserLikedRecipe" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(like_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_delete_view_exists(self):
+        delete_view_exists = "delete" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(delete_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_second_logout_url_mapping(self):
+        self.assertEquals(reverse("yumyay:logout"), "/yumyay/logout/")
+
