@@ -749,3 +749,41 @@ class TestLoginFunctionality(TestCase):
             pass
         
         self.assertEqual(url, '/yumyay/account/edit_details/')
+
+class LogoutFunctionalityTests(TestCase):
+    
+    def test_bad_request(self):
+        
+        response = self.client.get(reverse('yumyay:log_in'))
+
+        self.assertTrue(response.status_code, 302)
+
+        self.assertNotEqual(response, reverse('yumyay:log_out')) 
+    
+    def test_good_request(self):
+
+        user = User.objects.get_or_create(username='testuser',
+                                      first_name='Test',
+                                      last_name='User',
+                                      email='test@test.com')[0]
+        
+        user.set_password('testabc123')
+        user.save()
+
+
+        user_object = user
+
+        self.client.login(username='testuser', password='testabc123')
+
+        try:
+            self.assertEqual(user_object.id, int(self.client.session['_auth_user_id']))
+        except KeyError:
+            self.assertTrue(False)
+        
+        response = self.client.get(reverse('yumyay:log_out'))
+
+        self.assertEqual(response.status_code, 302)
+
+        self.assertEqual(response.url, reverse('yumyay:home'))
+
+        self.assertTrue('_auth_user_id' not in self.client.session)
