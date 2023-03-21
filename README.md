@@ -4,7 +4,7 @@ to mark something as complete, put change `- [ ] ...` to `-[x] ...`
 
 ## Homepage
 
-- [ ] Display top recipe - Anyone
+- [x] Display top recipe - Anyone
 
 - [x] Buttons scroll through recipes, Jens + Saad
 
