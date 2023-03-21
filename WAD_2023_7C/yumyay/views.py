@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from yumyay.models import Recipe, UserProfile, UserLikesRecipe, User, Cuisine, Recipe
 from yumyay.forms import RecipeForm
+from django.templatetags.static import static
 
 
 # Create your views here.
@@ -67,6 +68,9 @@ def add_recipe(request):
             # recipe.image = form.image
             if 'image' in request.FILES:
                 recipe.image = request.FILES['image']
+                print(request.FILES['image'])
+            else:
+                recipe.image = 'recipe_images/missing_image.png'
             recipe.save()
             return redirect('/')
         else:
