@@ -36,11 +36,13 @@
                     {% else %}
                         <div class="recipe-item inactive">
                     {% endif %}
+                        <a href="{% url 'yumyay:recipe' recipe.cuisine recipe.id  %}" c="black">
                         <div class="col-sm-6">
                             <h2>{{ recipe.name }}</h2>
                             <img src="{{ MEDIA_URL }}{{ recipe.image }}" alt="{{ recipe.name }}" id="recipe-images">
                                 <p>By: {{ recipe.author }}</p>
                         </div>
+                        </a>
                         <div class="col-sm-6 desc-container">
                             <div class="desc-container">
                                 <p>{{ recipe.description }}</p>
