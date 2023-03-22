@@ -292,3 +292,21 @@ div[des = greenbg]{
 .recipe-rating-button-home{
     margin-top:auto;
 }
+
+.registerbg {
+     margin:0 10rem;
+    min-height:500px;
+    min-width: 575px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: center;
+    background: #5A8F5C;
+}
+
+.div-ctr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}

@@ -3,12 +3,27 @@
 {% extends 'yumyay/base.html' %}
 
 {% block body_block %}
+     {% include 'yumyay/navbar.html' with page=page %}
   <h1>Edit Account</h1>
+<div class="container-fluid padding registerbg">
   <form method="post" action="{% url 'yumyay:edit_details' %}">
     {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <input type="submit" name="submit" value="Save Changes" />
+      <div class="control-group input-name">
+        <p><label for="id_first_name">First name:</label>
+            <input type="text" name="first_name" value={{ user.first_name }} id="id_first_name"></p>
+      </div>
+      <div class="control-group input-name">
+        <p><label for="id_last_name">Last name:</label>
+            <input type="text" name="last_name" value={{ user.last_name }} id="id_last_name"></p>
+      </div>
+      <div class="control-group input-name">
+        <p><label for="id_email">Email:</label>
+            <input type="email" name="email" value={{ user.email }} required="" id="id_email"></p>
+      </div>
+      <div class = "div-ctr">
+        <input class = "btn btn-lg yellow-bg " type="submit" name="submit" value="Save Changes">
+      </div>
   </form>
+</div>
+
 {% endblock %}
