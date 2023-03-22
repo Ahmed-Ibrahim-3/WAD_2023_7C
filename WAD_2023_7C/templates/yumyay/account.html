@@ -46,7 +46,7 @@
                    <div class="heading row"><b>{{ user.username }}</b></div>
                    <div class="heading row">
                        <b>Personal Details</b>
-                       <a href="{% url 'yumyay:edit_details' %}" style="float: right;">Edit</a>
+                       <a class="edit-button" href="{% url 'yumyay:edit_details' %}" >Edit</a>
                    </div>
                    <p class="details"><b>Full Name: </b>{{ user.first_name }} {{ user.last_name}}</p>
                    <p class="details"><b>Email: </b>{{ user.email }}</p>

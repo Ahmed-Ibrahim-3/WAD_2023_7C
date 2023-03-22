@@ -53,3 +53,7 @@
 .recipe-item{
     margin: 1rem 3rem;
 }
+
+.edit-button {
+    float: right;
+}
