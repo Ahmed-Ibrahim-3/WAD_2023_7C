@@ -183,7 +183,7 @@ pastries = [
         'ingredients': '500g flour, 3/2 tsp of salt, 50g sugar, 14g yeast, oil, 300g butter, 1 egg.',
         'instructions': 'Put the flour, salt and sugar in a mixing bowl. Measure 300ml cold water into a jug, add the yeast and stir. Make a well in the flour and pour in the liquid. Mix, then knead on your work surface for 10 mins. Shape into a ball, put in a lightly oiled bowl, cover and chill for at least 2 hrs. Put the butter between 2 sheets of baking parchment. Using a rolling pin, bash and roll it into a rectangle about 20 x 15cm. Leave wrapped in the baking parchment and chill. Transfer the chilled dough to a floured surface and roll into a 40 x 20cm rectangle. Place the unwrapped slab of butter in the centre of the dough, so that it covers the middle third. Fold one side of the dough up and halfway over the butter...',
         'author': 'BBC - goodfood',
-        'image': 'recipe_images/croisssant.png'
+        'image': 'recipe_images/croissant.png'
 
     }
 ]
