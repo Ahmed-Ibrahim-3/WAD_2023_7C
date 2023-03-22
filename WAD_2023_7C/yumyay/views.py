@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from yumyay.models import Recipe, UserProfile, UserLikesRecipe, User, Cuisine, Recipe
 from yumyay.forms import RecipeForm
+from django.templatetags.static import static
 
 
 # Create your views here.
@@ -18,9 +19,8 @@ def home(request):
 
     amount = 5
     recipe_list = Recipe.objects.order_by('-likes')[:amount]
-
     context_dict['recipes'] = recipe_list
-
+    context_dict['page'] = 'home'
     return render(request, 'yumyay/home.html', context_dict)
 
 
@@ -36,17 +36,19 @@ def account(request):
 
 def cooking(request):
     context_dict = {}
-    top_recipe = Recipe.objects.filter(category='C').order_by('-likes')
-    if len(top_recipe) > 0:
-        context_dict = {'top_recipe': top_recipe[0]}
+    recipes = Recipe.objects.filter(category='C').order_by('-likes')
+    if len(recipes) > 0:
+        context_dict = {'top_recipe': recipes[0], 'all_recipes': recipes}
+    context_dict['page'] = 'cooking'
     return render(request, 'yumyay/cooking.html', context=context_dict)
 
 
 def baking(request):
     context_dict = {}
-    top_recipe = Recipe.objects.filter(category='B').order_by('-likes')
-    if len(top_recipe) > 0:
-        context_dict = {'top_recipe': top_recipe[0]}
+    recipes = Recipe.objects.filter(category='B').order_by('-likes')
+    if len(recipes) > 0:
+        context_dict = {'top_recipe': recipes[0], 'all_recipes': recipes}
+    context_dict['page'] = 'baking'
     return render(request, 'yumyay/baking.html', context=context_dict)
 
 
@@ -66,17 +68,18 @@ def add_recipe(request):
             # recipe.image = form.image
             if 'image' in request.FILES:
                 recipe.image = request.FILES['image']
+                print(request.FILES['image'])
+            else:
+                recipe.image = 'recipe_images/missing_image.png'
             recipe.save()
             return redirect('/')
         else:
             print(form.errors)
 
-    return render(request, 'yumyay/add_recipe.html', {'form': form})
+    return render(request, 'yumyay/add_recipe.html', {'form': form, 'page':'add_recipe'})
 
 
 def register(request):
-    registered = False
-
     if request.method == "POST":
         user_form = UserForm(request.POST)
 
@@ -86,13 +89,17 @@ def register(request):
             user.set_password(user.password)
             user.save()
 
-            registered = True
+            registered_user = authenticate(username=user_form.cleaned_data['username'],
+                                    password=user_form.cleaned_data['password'],
+            )
+            login(request, registered_user)
+            return redirect('/')
         else:
             print(user_form.errors)
     else:
         user_form = UserForm()
 
-    return render(request, 'yumyay/register.html', context={'user_form': user_form, 'registered': registered})
+    return render(request, 'yumyay/register.html', context={'user_form': user_form})
 
 @login_required
 def edit_details(request):
@@ -135,11 +142,10 @@ def user_logout(request):
     return redirect(reverse('yumyay:home'))
 
 
-# Nyx fix recipes stuff it's a mess xoxo
-def recipe(request, cuisine_name_slug, recipe_name_slug):
+def recipe(request, cuisine_name_slug, recipe_id):
     context_dict = {}
     try:
-        recipe = Recipe.objects.get(name=recipe_name_slug)
+        recipe = Recipe.objects.get(id=recipe_id)
     except Recipe.DoesNotExist:
         recipe = None
     context_dict['cuisine'] = cuisine_name_slug
@@ -164,11 +170,11 @@ class LikeRecipeView(View):
     def post(self, request):
         if request.method == 'POST':
             username = request.POST['username']
-            recipe_name = request.POST['recipe']
+            recipe_id = request.POST['recipe']
             like = request.POST['liked']
 
             try:
-                recipe = Recipe.objects.get(name=recipe_name)
+                recipe = Recipe.objects.get(id=recipe_id)
             except Recipe.DoesNotExist:
                 return HttpResponse(-1)
             except ValueError:
@@ -200,10 +206,10 @@ class LikeRecipeView(View):
 
 class HasUserLikedRecipe(View):
     def get(self, request):
-        recipe_name = request.GET['name']
+        recipe_id = request.GET['recipeId']
         username = request.GET['user']
         try:
-            recipe = Recipe.objects.get(name=recipe_name)
+            recipe = Recipe.objects.get(id=recipe_id)
         except Recipe.DoesNotExist:
             return HttpResponse(-1)
         except ValueError:
@@ -230,5 +236,3 @@ def delete(request, id):
       member = User.objects.get(id=id)
       member.delete()
       return redirect(reverse('yumyay:home'))
-
-

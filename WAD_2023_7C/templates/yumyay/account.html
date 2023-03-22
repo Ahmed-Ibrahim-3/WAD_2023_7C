@@ -6,45 +6,50 @@
         Account
 {% endblock %}
 {% block body_block %}
+    {% include 'yumyay/navbar.html' with page=page %}
     {% if user.is_authenticated %}
       <div class="container-fluid " >
         <div class="row w-50 mx-auto">
             <div class="col-sm-8 ">
                <h2 id="r-heading">My Recipes</h2>
-                <div id="myDiv" style="height: 600px; width: 900px;">
+                <div id="myDiv">
                    <div>
                        {% if recipes %}
-                           {% for recipe in recipes %}
-                              <p><b>Name: </b> {{ recipe.name }}</p>
-                              <p><b>Description: </b> {{ recipe.description }}</p>
-                              <p><b>Ingredients: </b> {{ recipe.ingredients }}</p>
-                              <p><b>Instructions: </b> {{ recipe.instructions }}</p>
-                              <p><b>Category: </b>{{ recipe.get_category_display }}</p>
-                              <p><b>Cuisine: </b> {{ recipe.get_cuisine_display }}</p>
-                              <p><b>Likes: </b>{{ recipe.likes }}</p>
-                              {% if recipe.image %}
-                                  <img class = "recipe-image" src="{{ MEDIA_URL }}{{ recipe.image }}" id="images"/>
-                               {% else %}
-                                  <img class="recipe-image" alt="Image Not Found" id="images"/>
-                               {% endif %}
-                              <p style="height: 50px;"></p>
-                               <a href="{% url 'yumyay:delete_recipe' recipe.id %}" class="bottom-link">Delete Recipe</a>
+                            <div class="recipe-container">
+                            {% for recipe in recipes %}
+                                <div class="recipe-item">
+                                    <p><b>Name: </b> {{ recipe.name }}</p>
+                                    <p><b>Description: </b> {{ recipe.description }}</p>
+                                    <p><b>Ingredients: </b> {{ recipe.ingredients }}</p>
+                                    <p><b>Instructions: </b> {{ recipe.instructions }}</p>
+                                    <p><b>Category: </b>{{ recipe.get_category_display }}</p>
+                                    <p><b>Cuisine: </b> {{ recipe.get_cuisine_display }}</p>
+                                    <p><b>Likes: </b>{{ recipe.likes }}</p>
+                                    {% if recipe.image %}
+                                    <img class = "recipe-image" src="{{ MEDIA_URL }}{{ recipe.image }}" id="images"/>
+                                    {% else %}
+                                    <img class="recipe-image" alt="Image Not Found" id="images"/>
+                                    {% endif %}
+                                    <p style="height: 50px;"></p>
+                                    <a href="{% url 'yumyay:delete_recipe' recipe.id %}" class="bottom-link">Delete Recipe</a>
+                                </div>
                            {% endfor %}
+                            </div>
+                       {% else %}
+                           <div class="text">No recipes made</div>
                        {% endif %}
                    </div>             
                 </div>
             </div>
             <div class="col-sm-4" id="side-bar">
                <div id="sidebar">
-                   <div>
-                       <p class="heading"><b>{{ user.username }}</b></p>
-                       <p class="heading">
-                           <b>Personal Details </b>
-                           <a class="edit-button" href="{% url 'yumyay:edit_details' %}">Edit</a>
-                       </p>
-                       <p class="details"><b>Full Name: </b>{{ user.first_name }} {{ user.last_name}}</p>
-                       <p class="details"><b>Email: </b>{{ user.email }}</p>
+                   <div class="heading row"><b>{{ user.username }}</b></div>
+                   <div class="heading row">
+                       <b>Personal Details</b>
+                       <a href="{% url 'yumyay:edit_details' %}" style="float: right;">Edit</a>
                    </div>
+                   <p class="details"><b>Full Name: </b>{{ user.first_name }} {{ user.last_name}}</p>
+                   <p class="details"><b>Email: </b>{{ user.email }}</p>
                    <div id="bottom-links">
                        <a href="{% url 'yumyay:logout' %}" class="bottom-link">Logout</a>
                        <p></p>
@@ -52,19 +57,26 @@
                    </div>
                </div>
            </div>
-           
-           
         </div>
        </div>
     {% else %}
-        <div class="col-sm-2"></div>
-        <div class="col-sm-4" des = center>
-            <button des = "greenbtn" class="btn btn-lg"><a href="{% url 'yumyay:log_in' %}" c="black">Log in</a></button>
+     <div class="container-fluid" >
+     <div class="col-sm-3 ">
+     </div>
+        <div class="col-sm-2">
+            <form action="{% url 'yumyay:log_in' %}" >
+                <button type = "submit" des = "greenbtn" class="btn btn-lg">Login</button>
+            </form>
         </div>
-        <div class="col-sm-4" des = center>
-            <button des = "greenbtn" class="btn btn-lg"><a href="{% url 'yumyay:register' %}" c="black" >Register</a></button>
+         <div class="col-sm-2">
+     </div>
+        <div class="col-sm-2 ">
+            <form action="{% url 'yumyay:register' %}">
+               <button type = "submit" des = "greenbtn" class="btn btn-lg">Register</button>
+            </form>
         </div>
-        <div class="col-sm-2"></div>
+
+     </div>
     {% endif %}
 {% endblock %}
 </html>

@@ -7,14 +7,35 @@
 {% endblock %}
 
 {% block body_block %}
+    {% include 'yumyay/navbar.html' with page=page %}
     <h1>Register for Yumyay</h1>
-
-    <form id="user_form" method="post" action="{% url 'yumyay:register' %}">
-        {% csrf_token %}
-
-        {{ user_form.as_p }}
-
-        <input type="submit" name="submit" value="Register" />
-    </form>
-
+<div class="container-fluid padding registerbg">
+            <form id="user_form" method="post" action="{%  url 'yumyay:register' %}">
+                {% csrf_token %}
+                <div class="control-group input-name">
+                        <p><label for="id_username">Username:</label>
+                            <input type="text" name="username" maxlength="150" required="" id="id_username">
+                        </p>
+                </div>
+                <div class="control-group input-name">
+                            <p><label for="id_first_name">First name:</label>
+                            <input type="text" name="first_name" maxlength="30" id="id_first_name"></p>
+                </div>
+                <div class="control-group input-name">
+                            <p><label for="id_last_name">Last name:</label>
+                            <input type="text" name="last_name" maxlength="150" id="id_last_name"></p>
+                </div>
+                <div class="control-group input-name">
+                        <p><label for="id_email">Email address:</label>
+                            <input type="email" name="email" maxlength="254" id="id_email"></p>
+                </div>
+                <div class="control-group input-name">
+                        <p><label for="id_password">Password:</label>
+                            <input type="password" name="password" required="" id="id_password"></p>
+                </div>
+                <div class = "div-ctr">
+                    <input type="submit" class = "btn btn-lg yellow-bg " name="submit" value="Register">
+                </div>
+            </form>
+</div>
 {% endblock %}

@@ -50,14 +50,14 @@ class Recipe(models.Model):
         )
          ),
     ]
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128)
     description = models.CharField(max_length=1024)
     category = models.CharField(max_length=128, choices=CATEGORIES)
     cuisine = models.CharField(max_length=128, choices=CUISINES)
     ingredients = models.CharField(max_length=4096)
     instructions = models.CharField(max_length=4096)
     author = models.CharField(max_length=64, default="")
-    image = models.ImageField()
+    image = models.ImageField(upload_to='recipe_images/')
     likes = models.IntegerField(default=0)
 
     def __str__(self):

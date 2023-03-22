@@ -6,10 +6,12 @@
 {% endblock %}
 
 {% block body_block %}
-     <div class="container-fluid padding">
+{% include 'yumyay/navbar.html' with page=page %}
+<div class="container-fluid padding add-recipe">
+    <div class="form-container">
             <form id="recipe_form" method="POST" action="{% url 'yumyay:add_recipe' %}" enctype='multipart/form-data'>
-                <div class="add-recipe">
                 {% csrf_token %}
+                <div class='container-left part col-sm-5'>
                 {% for field in form.hidden_fields %}
                     {{ hidden }}
                 {% endfor %}
@@ -26,7 +28,7 @@
                         </div>
                     {% else %}
                         {% if field.label == 'Name' %}
-                            <div class='container-left part'>
+                            
                                 <div class="control-group input-name">
                         {% elif field.label == 'Description' %}
                             <div class="control-group input-description">
@@ -36,10 +38,11 @@
                             <div class="control-group ingredient-field">
                         {% elif field.label == 'Instructions' %}
                             </div>
-                            <div class='container-right part'>
+                            <div class='container-right part col-sm-5'>
                             <div class="control-group instruction-field">
                         {% elif field.label == 'Image' %}
                             <div class='control-group image-field'>
+                            <img src="" alt="Preview" class='image-preview'>
                         {% endif %}
                             <label class="control-label">{{ field.label }}</label> 
                             <div class="controls">{{ field }}</div>
@@ -48,7 +51,9 @@
                 {% endfor %}
                 <input type="submit" name="submit" value="Add recipe">
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
+</div>
+<script src="{% static 'javascript/forms.js' %}"></script>
 {% endblock %}

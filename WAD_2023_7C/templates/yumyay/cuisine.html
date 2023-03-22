@@ -9,6 +9,7 @@
     {% endif %}
 {% endblock %}
 {% block body_block %}
+{% include 'yumyay/navbar.html' with page=page %}
  <div class="container-fluid" >
     <div class="col w-50 mx-auto">
         <div class="col-sm-8 ">
@@ -36,13 +37,13 @@
                         </div>
                         <div class="col-sm-10">
                             <b>
-                            <div><a href="{% url 'yumyay:recipe' recipe.cuisine recipe.name  %}" c="black">{{ recipe.name }}</a></div>
+                            <div><a href="{% url 'yumyay:recipe' recipe.cuisine recipe.id  %}" c="black">{{ recipe.name }}</a></div>
                             </b>
                             <div class="row d-flex justify-content-center">
                                 <div class= "col-sm-6">{{ recipe.description }}</div>
                                 <div class= "col-sm-6">{{ recipe.author }}</div>
                             </div>
-                            <div>{{ recipe.likes }}</div>
+                            <div>{{ recipe.likes }} likes</div>
                         </div>
                         </div>
                     {% endfor %}

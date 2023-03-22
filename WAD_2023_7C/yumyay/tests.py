@@ -1,10 +1,15 @@
 import os
+import re
+import importlib
+import yumyay.forms
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.conf import settings
 from yumyay.models import Cuisine, UserProfile, Recipe
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.forms import fields as django_fields
+from yumyay.forms import *
 
 # Create your tests here.
 
@@ -160,11 +165,7 @@ class TestHomePage(TestCase):
         self.assertContains(response, "<button")
         self.assertContains(response, "</button>")
     
-    def test_colour_scheme(self):
-        response = self.client.get(reverse("yumyay:home"))
-
-        self.assertContains(response, "#5A8F5C")
-        self.assertContains(response, "#FFEB7F")
+    
     
     def test_login_exists(self):
         response = self.client.get(reverse("yumyay:home"))
@@ -225,77 +226,69 @@ class TestCookingPage(TestCase):
         response = self.client.get(reverse("yumyay:cooking"))
 
         self.assertTemplateUsed(response, 'yumyay/cooking.html')
-    
-    
-    def test_colour_scheme(self):
-        response = self.client.get(reverse("yumyay:home"))
-
-        self.assertContains(response, "#5A8F5C")
-        self.assertContains(response, "#FFEB7F")
 
 
-class TestTargettedRecipePage(TestCase):
+class TestAccountPage(TestCase):
 
     def setUp(self):
         self.base_dir = os.getcwd()
         self.template_dir = os.path.join(self.base_dir, "templates", "yumyay")
-        self.about_response = self.client.get(reverse("yumyay:recipe"))
-
+        self.about_response = self.client.get(reverse("yumyay:account"))
+    
     def test_successful_deployment(self):
-        response = self.client.get(reverse("yumyay:recipe"))
+        response = self.client.get(reverse("yumyay:account"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_guest_account(self):
+        response = self.client.get(reverse("yumyay:account"))
+        
+        self.assertEqual(response.status_code, 200)
+    
+    def test_template_account_exists(self):
+        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "account.html"))
+
+        self.assertTrue(template_check)
+    
+    def test_template_account_usage(self):
+        self.assertTemplateUsed(self.about_response, "yumyay/account.html")
+
+    def test_account_page_template_usage(self):
+        response = self.client.get(reverse("yumyay:account"))
+
+        self.assertTemplateUsed(response, "yumyay/account.html")
+    
+    def create_user(self):
+
+        self.user = User.objects.create_user(
+            username="usertest",
+            password="mypassword"
+        )
+    
+    def test_user_login_success(self):
+
+        self.client.login(
+            username="usertest",
+            password="mypassword"
+        )
+
+        response = self.client.get(reverse("yumyay:account"))
 
         self.assertEqual(response.status_code, 200)
 
-    def test_template_account_exists(self):
-        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "recipe.html"))
-
-        self.assertTrue(template_check)
-
-    def test_template_account_usage(self):
-        self.assertTemplateUsed(self.about_response, "yumyay/recipe.html")
-
-    def test_template_usage(self):
-        response = self.client.get(reverse("yumyay:recipe"))
-
-        self.assertTemplateUsed(response, 'yumyay/recipe.html')
-    
-
-    def test_colour_scheme(self):
-        response = self.client.get(reverse("yumyay:home"))
-
-        self.assertContains(response, "#5A8F5C")
-        self.assertContains(response, "#FFEB7F")
 
 class TestAddRecipePage(TestCase):
 
     def setUp(self):
         self.base_dir = os.getcwd()
         self.template_dir = os.path.join(self.base_dir, "templates", "yumyay")
-        self.about_response = self.client.get(reverse("yumyay:add_recipe"))
     
-    def test_successful_deployment(self):
-        response = self.client.get(reverse("yumyay:add_recipe"))
-
-        self.assertEqual(response.status_code, 200)
     
     def test_template_account_exists(self):
         template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "add_recipe.html"))
 
         self.assertTrue(template_check)
-    
-    def test_template_account_usage(self):
-        self.assertTemplateUsed(self.about_response, "yumyay/add_recipe.html")
 
-    def test_add_recipe_page_template_usage(self):
-        response = self.client.get(reverse("yumyay:add_recipe"))
-
-        self.assertTemplateUsed(response, 'yumyay/add_recipe.html')
-    
-    def test_colour_scheme(self):
-        response = self.client.get(reverse("yumyay:home"))
-
-        self.assertContains(response, "#5A8F5C")
-        self.assertContains(response, "#FFEB7F")
 
 class TestBakingPage(TestCase):
 
@@ -323,13 +316,171 @@ class TestBakingPage(TestCase):
         response = self.client.get(reverse("yumyay:baking"))
 
         self.assertTemplateUsed(response, "yumyay/baking.html")
-    
 
-    def test_colour_scheme(self):
+
+class TestLoginPage(TestCase):
+
+    def setUp(self):
+        self.base_dir = os.getcwd()
+        self.template_dir = os.path.join(self.base_dir, 'templates', 'yumyay')
+        self.about_response = self.client.get(reverse('yumyay:log_in'))
+    
+    def test_successful_deployment(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_guest_login(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Register Here")
+        self.assertContains(response, "Don't have an account?")
+    
+    def test_guest_login_2(self):
         response = self.client.get(reverse("yumyay:home"))
 
-        self.assertContains(response, "#5A8F5C")
-        self.assertContains(response, "#FFEB7F")
+        self.assertNotEquals(response.status_code, 404)
+        self.assertNotContains(response, "Log out")
+    
+    def test_template_login_exists(self):
+        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "login.html"))
+
+        self.assertTrue(template_check)
+    
+    def test_template_login_usage(self):
+
+        self.assertTemplateUsed(self.about_response, "yumyay/login.html")
+    
+    def test_home_page_template_usage(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertTemplateUsed(response, 'yumyay/login.html')
+    
+    def test_login_page_contains_form(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertContains(response, "<form")
+        self.assertContains(response, "</form>")
+    
+    def test_login_page_contains_sign_in(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertContains(response, "Sign in")
+    
+    def test_login_page_contains_input(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertContains(response, '<input type="password"')
+        self.assertContains(response, '<input type="text"')
+    
+    def test_login_page_sign_in_button(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertContains(response, '<button type="submit"')
+    
+    def create_user(self):
+        self.user = User.objects.create_user(
+            username="usertest",
+            password="mypassword"
+        )
+    
+    def test_user_login_success(self):
+
+        self.client.login(
+            username="usertest",
+            password="mypassword"
+        )
+
+        response = self.client.get(reverse("yumyay:log_in"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_logged_out_frame(self):
+        response = self.client.get(reverse("yumyay:log_in"))
+        response_body = response.content.decode()
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue("Log in" in response_body)
+
+
+class TestRegisterPage(TestCase):
+
+    def setUp(self):
+        self.base_dir = os.getcwd()
+        self.template_dir = os.path.join(self.base_dir, 'templates', 'yumyay')
+        self.about_response = self.client.get(reverse('yumyay:register'))
+    
+    def test_successful_deployment(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_guest_register(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Register")
+    
+    def test_guest_register_2(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertNotEquals(response.status_code, 404)
+        self.assertContains(response, "Register")
+    
+    def test_template_register_exists(self):
+        template_check = os.path.isfile(os.path.join(os.path.join(os.getcwd(), "templates", "yumyay"), "register.html"))
+
+        self.assertTrue(template_check)
+    
+    def test_template_register_usage(self):
+
+        self.assertTemplateUsed(self.about_response, "yumyay/register.html")
+    
+    def test_register_page_template_usage(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertTemplateUsed(response, 'yumyay/register.html')
+    
+    def test_register_page_contains_register(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertContains(response, "Register")
+    
+    def test_register_page_contains_form(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertContains(response, "<form")
+        self.assertContains(response, "</form>")
+    
+    def test_register_page_form_input(self):
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertContains(response, '<input type="submit"')
+    
+    def create_user(self):
+        self.user = User.objects.create_user(
+            username="usertest",
+            password="mypassword"
+        )
+    
+    def test_user_login_success(self):
+        self.client.login(
+            username="usertest",
+            password="mypassword"
+        )
+
+        response = self.client.get(reverse("yumyay:register"))
+
+        self.assertEqual(response.status_code, 200)
+    
+    def test_logged_out_frame(self):
+        response = self.client.get(reverse("yumyay:register"))
+        response_body = response.content.decode()
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse("Log in" in response_body)
+
 
 class TestModels(TestCase):
 
@@ -365,11 +516,7 @@ class TestModels(TestCase):
 
         self.assertEqual(str(recipe), "RName")
     
-    def test_str_user_profile(self):
-        user_profile = User(username="username_test")
-        user_profile.save()
-
-        self.assertEqual(str(user_profile), "username_test")
+    
     
     def test_user_model_creation(self):
         sample_user = User.objects.create_user(
@@ -518,3 +665,395 @@ class TestModels(TestCase):
         test_broken_recipe.likes += 1
         self.assertNotEqual(test_broken_recipe.likes, 2)
         self.assertEqual(test_broken_recipe.likes, 1)
+
+
+class TestLoginFunctionality(TestCase):
+
+    def test_log_in_exists(self):
+
+        url = ''
+
+        try:
+            url = reverse('yumyay:log_in')
+        except:
+            pass
+
+        self.assertEqual(url, '/yumyay/account/login/')
+    
+    def test_successful_login(self):
+        user = User.objects.get_or_create(username='testuser',
+                                      first_name='firstName',
+                                      last_name='lastName',
+                                      email='test@gmail.com')[0]
+        
+        user.set_password('passwordTest')
+        user.save()
+
+
+        user_object = user
+
+        response = self.client.post(reverse('yumyay:log_in'), {'username': 'testuser', 'password': 'passwordTest'})
+        
+        try:
+            self.assertEqual(user_object.id, int(self.client.session['_auth_user_id']))
+        except KeyError:
+            self.assertTrue(False)
+
+        self.assertEqual(response.status_code, 302)
+    
+    def test_unsucessful_login(self):
+        user = User.objects.get_or_create(username='testuser',
+                                      first_name='firstName',
+                                      last_name='lastName',
+                                      email='test@gmail.com')[0]
+        
+        user.set_password('passwordTest')
+        user.save()
+
+        user_object = user
+
+        
+        try:
+            self.assertNotEqual(user_object.id, int(self.client.session['_auth_user_id']))
+        except KeyError:
+            self.assertFalse(False)
+
+    def test_login_template_usage(self):
+        template_base_path = os.path.join(settings.TEMPLATE_DIR, 'yumyay')
+        template_path = os.path.join(template_base_path, 'login.html')
+
+        self.assertTrue(os.path.exists(template_path))
+
+        f = open(template_path, 'r')
+        template_str = ""
+        
+        for line in f:
+           template_str = f"{template_str}{line}"
+
+        f.close()
+
+        full_title_pattern = r'<title>(\s*|\n*)yumyay(\s*|\n*)-(\s*|\n*)Login(\s*|\n*)</title>'
+
+        block_title_pattern = r'{% block title_block %}(\s*|\n*)Login(\s*|\n*){% (endblock|endblock title_block) %}'
+
+        request_pattern = self.client.get(reverse('yumyay:log_in'))
+        content_pattern = request_pattern.content.decode('utf-8')
+
+        self.assertTrue(re.search(full_title_pattern, content_pattern))
+
+        self.assertTrue(re.search(block_title_pattern, template_str))
+    
+    def test_restricted_url_exists(self):
+
+        url = ''
+
+        try:
+            url = reverse('yumyay:edit_details')
+        except:
+            pass
+        
+        self.assertEqual(url, '/yumyay/account/edit_details/')
+
+
+class LogoutFunctionalityTests(TestCase):
+    
+    def test_bad_request(self):
+        
+        response = self.client.get(reverse('yumyay:log_in'))
+
+        self.assertTrue(response.status_code, 302)
+
+        self.assertNotEqual(response, reverse('yumyay:log_out')) 
+    
+    def test_good_request(self):
+
+        user = User.objects.get_or_create(username='testuser',
+                                      first_name='Test',
+                                      last_name='User',
+                                      email='test@test.com')[0]
+        
+        user.set_password('testabc123')
+        user.save()
+
+
+        user_object = user
+
+        self.client.login(username='testuser', password='testabc123')
+
+        try:
+            self.assertEqual(user_object.id, int(self.client.session['_auth_user_id']))
+        except KeyError:
+            self.assertTrue(False)
+        
+        response = self.client.get(reverse('yumyay:log_out'))
+
+        self.assertEqual(response.status_code, 302)
+
+        self.assertEqual(response.url, reverse('yumyay:home'))
+
+        self.assertTrue('_auth_user_id' not in self.client.session)
+
+
+class ViewTests(TestCase):
+
+    def setUp(self):
+
+        self.views_module = importlib.import_module("yumyay.views")
+
+        self.views_module_directory = dir(self.views_module)
+        
+        self.project_urls_module = importlib.import_module('WAD_2023_7C.urls')
+
+    def test_home_view_exists(self):
+        home_view_exists = "home" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(home_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_home_view_mapping(self):
+        home_mapping_existence = False
+
+        for mapping in self.project_urls_module.urlpatterns:
+            if hasattr(mapping, "name"):
+                if mapping.name == "home":
+                    home_mapping_existence = True
+        
+
+        self.assertTrue(home_mapping_existence)
+        self.assertEquals(reverse("yumyay:home"), "/yumyay/")
+    
+    def test_log_in_view_exists(self):
+        log_in_view_exists = "log_in" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(log_in_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_log_in_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:log_in"), "/yumyay/account/login/")
+
+    def test_account_view_exists(self):
+        account_view_exists = "account" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(account_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_account_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:account"), "/yumyay/account/")
+
+    def test_cooking_view_exists(self):
+        cooking_view_exists = "cooking" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(cooking_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_cooking_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:cooking"), "/yumyay/cooking/")
+    
+    def test_baking_view_exists(self):
+        baking_view_exists = "baking" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(baking_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_baking_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:baking"), "/yumyay/baking/")
+    
+    def test_add_recipe_exists(self):
+        add_recipe_view_exists = "add_recipe" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(add_recipe_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_add_recipe_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:add_recipe"), "/yumyay/add_recipe/")
+    
+    def test_register_view_exists(self):
+        recipe_view_exists = "register" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(recipe_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_register_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:register"), "/yumyay/account/register/")
+
+    
+    def test_edit_details_view_exists(self):
+        edit_details_view_exists = "edit_details" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(edit_details_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_edit_details_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:edit_details"), "/yumyay/account/edit_details/")
+    
+    def test_delete_recipe_view_exists(self):
+        delete_recipe_view_exists = "delete_recipe" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(delete_recipe_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_user_login_view_exists(self):
+        user_login_view_exists = "user_login" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(user_login_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_user_login_view_mapping(self):
+        
+        self.assertEquals(reverse("yumyay:log_in"), "/yumyay/account/login/")
+    
+    def test_user_logout_view_exists(self):
+        user_logout_view_exists = "user_logout" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(user_logout_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_user_logout_view_mapping(self):
+
+        self.assertEquals(reverse("yumyay:log_out"), "/yumyay/account/logout/")
+    
+    def test_recipe_view_exists(self):
+        recipe_view_exists = "recipe" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(recipe_view_exists)
+
+        self.assertTrue(is_callable)
+    
+
+    def test_cuisine_view_exists(self):
+        cuisine_view_exists = "cuisine" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(cuisine_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_like_view_exists(self):
+        like_view_exists = "LikeRecipeView" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(like_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_liked_view_exists(self):
+        like_view_exists = "HasUserLikedRecipe" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(like_view_exists)
+        self.assertTrue(is_callable)
+    
+    def test_delete_view_exists(self):
+        delete_view_exists = "delete" in self.views_module_directory
+        is_callable = callable(self.views_module.home)
+
+        self.assertTrue(delete_view_exists)
+
+        self.assertTrue(is_callable)
+    
+    def test_second_logout_url_mapping(self):
+        self.assertEquals(reverse("yumyay:logout"), "/yumyay/logout/")
+
+
+class TestForms(TestCase):
+
+    def test_forms_file_exists(self):
+        file_path = os.getcwd()
+        yumyay_app = os.path.join(file_path, "yumyay")
+        yumyay_forms_path = os.path.join(yumyay_app, "forms.py")
+
+        self.assertTrue(os.path.exists(yumyay_forms_path))
+    
+    def test_recipe_form_class(self):
+        self.assertTrue("RecipeForm" in dir(yumyay.forms))
+
+        recipe_form = RecipeForm()
+        self.assertEqual(type(recipe_form.__dict__["instance"]), Recipe)
+
+        fields = recipe_form.fields
+
+        form_fields = {
+            "name" : django_fields.CharField,
+            "description" : django_fields.CharField,
+            "ingredients" : django_fields.CharField,
+            "instructions" : django_fields.CharField,
+            "category" : django_fields.ChoiceField,
+            "cuisine" : django_fields.TypedChoiceField,
+            "image" : django_fields.ImageField,
+        }
+
+        for entry in form_fields:
+            confirm_field = form_fields[entry]
+    
+            self.assertTrue(entry in fields.keys())
+            
+            self.assertEquals(confirm_field, type(fields[entry]))
+    
+    def test_user_form_class(self):
+        self.assertTrue("UserForm" in dir(yumyay.forms))
+
+        user_form = UserForm()
+
+        self.assertEqual(type(user_form.__dict__["instance"]), User)
+
+        fields = user_form.fields
+
+        form_fields = {
+            "username" : django_fields.CharField,
+            "first_name" : django_fields.CharField,
+            "last_name" : django_fields.CharField,
+            "email" : django_fields.EmailField,
+            "password" : django_fields.CharField
+        }
+
+        for entry in form_fields:
+            confirm_field = form_fields[entry]
+
+            self.assertTrue(entry in fields.keys())
+            self.assertEqual(confirm_field, type(fields[entry]))
+    
+    def test_edit_details_form(self):
+        self.assertTrue("EditDetailsForm" in dir(yumyay.forms))
+
+        edit_form = EditDetailsForm()
+
+        self.assertEqual(type(edit_form.__dict__["instance"]), User)
+
+        fields = edit_form.fields
+
+        form_fields = {
+            "first_name" : django_fields.CharField,
+            "last_name" : django_fields.CharField,
+            "email" : django_fields.EmailField
+        }
+
+        for entry in form_fields:
+            confirm_field = form_fields[entry]
+
+            self.assertTrue(entry in fields.keys())
+            self.assertEqual(confirm_field, type(fields[entry]))
+   
+

@@ -34,3 +34,19 @@ lrButtons.forEach(sButton => {
           }, 90);
     })
 })
+
+var gridItems = document.getElementsByClassName("grid-item");
+
+for (let i = 0; i < gridItems.length; i++) {
+  var item = gridItems[i];
+
+  item.addEventListener("mouseover", function () {
+    this.style.transform = "scale(1.1)";
+    this.style.transition = "transform 0.2s ease-in-out";
+  });
+
+  item.addEventListener("mouseout", function () {
+    this.style.transform = "scale(1)";
+    this.style.transition = "transform 0.2s ease-in-out";
+  });
+}

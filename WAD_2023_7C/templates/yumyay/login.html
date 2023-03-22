@@ -7,27 +7,30 @@
 {% endblock %}
 
 {% block body_block %}
-<h1 class="login-container">Login</h1>
-    <div class="login-container">
-        <div class="login">
-            <form id="login_form" method="post" action="{% url 'yumyay:log_in' %}">
-                {% csrf_token %}
-                {{ form.errors.as_p }}
-                <div class="form">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username"><br><br>
-                </div>
-                <div class="form">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password"><br><br>
-                </div>
-                <input type="submit" value="Log in" class="login-button">
-            </form>
+    {% include 'yumyay/navbar.html' with page=page %}
+    <div class="row w-50 mx-auto">
+    <div class="container-fluid outer_padding recipe-style" des = "greenbg" >
+        <form class = "login_form" method="post" action="{% url 'yumyay:log_in' %}" >
+            {% csrf_token %}
+            {{ form.errors.as_p }}
+            <div class = "control-group login_form" >
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username"><br><br>
+            </div>
+            <div class = "control-group login_form">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"><br><br>
+            </div>
+            <button type="submit" value="Log in" class="btn yellow-bg">Sign in</button><br><br>
+        </form>
 
-            <p>
-                Don't have an account?
-                <a href="{% url 'yumyay:register' %}">Register Here!</a>
-            </p>
-        </div>
+         <p>
+        Don't have an account?
+        <a c="blue" href="{% url 'yumyay:register' %}">Register Here!</a>
+    </p>
+
     </div>
+    </div>
+
+
 {% endblock %}

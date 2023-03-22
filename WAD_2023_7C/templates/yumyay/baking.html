@@ -7,10 +7,11 @@
 {%  endblock %}
 
 {% block body_block %}
+    {% include 'yumyay/navbar.html' with page=page %}
      <div class="container-fluid " >
      <div class="row w-50 mx-auto">
           <div class="col-sm-8 ">
-              <div class="container-fluid long-bar" id="recipe-style" >
+              <div class="container-fluid long-bar recipe-style">
                   <div class="row w-50 h-100 search-padding">
                          <div id="searchbar">
                             <input type="text" placeholder="Search...">
@@ -19,13 +20,14 @@
                   </div>
                   <div class="row w-50 mx-auto">
                       <div class="grid-container">
-                        <div class="grid-item "><img src="{% static 'images/../../media/recipe_images/cake.png' %}" alt="Cake" id="images"/><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'cake' %}" c="black">Cake</a></span></div>
-                        <div class="grid-item"><img src="{% static 'images/../../media/recipe_images/brownies.png' %}" alt="Brownies" id="images"/><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'brownies' %}" c="black">Brownies</a></span></div>
-                        <div class="grid-item"><img src="{% static 'images/../../media/recipe_images/bread.png' %}" alt="Bread" id="images"/><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'bread' %}" c="black">Bread</a></span></div>
-                         <div class="grid-item"><img src="{% static 'images/../../media/recipe_images/pastries.png' %}" alt="Pastries" id="images"/><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'pastries' %}" c="black">Pastries</a></span></div>
-                        <div class="grid-item"><img src="{% static 'images/../../media/recipe_images/cupcakes.png' %}" alt="Cupcakes" id="images"/><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'cupcakes' %}" c="black">Cupcakes</a></span></div>
-                        <div class="grid-item"><img src="{% static 'images/../../media/recipe_images/cookies.png' %}" alt="Cookies" id="images"/><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'cookies' %}" c="black">Cookies</a></span></div>
+                        <div class="grid-item"><a href="{% url 'yumyay:baking_cuisine' 'cake' %}"><img src="{% static 'images/cake.png' %}" alt="Cake" id="images"/></a><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'cake' %}" c="black">Cake</a></span></div>
+                        <div class="grid-item"><a href="{% url 'yumyay:baking_cuisine' 'brownies' %}"><img src="{% static 'images/brownies.png' %}" alt="Brownies" id="images"/></a><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'brownies' %}" c="black">Brownies</a></span></div>
+                        <div class="grid-item"><a href="{% url 'yumyay:baking_cuisine' 'bread' %}"><img src="{% static 'images/bread.png' %}" alt="Bread" id="images"/></a><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'bread' %}" c="black">Bread</a></span></div>
+                        <div class="grid-item"><a href="{% url 'yumyay:baking_cuisine' 'pastries' %}"><img src="{% static 'images/pastries.png' %}" alt="Pastries" id="images"/></a><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'pastries' %}" c="black">Pastries</a></span></div>
+                        <div class="grid-item"><a href="{% url 'yumyay:baking_cuisine' 'cupcakes' %}"><img src="{% static 'images/cupcakes.png' %}" alt="Cupcakes" id="images"/></a><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'cupcakes' %}" c="black">Cupcakes</a></span></div>
+                        <div class="grid-item"><a href="{% url 'yumyay:baking_cuisine' 'cookies' %}"><img src="{% static 'images/cookies.png' %}" alt="Cookies" id="images"/></a><span class="caption"><a href="{% url 'yumyay:baking_cuisine' 'cookies' %}" c="black">Cookies</a></span></div>
                       </div>
+                        {% include 'yumyay/search_results.html' with recipes=all_recipes %}
                   </div>
               </div>
           </div>
@@ -36,5 +38,5 @@
          </div>
      </div>
      </div>
-
+<script src="{% static 'javascript/search.js' %}"></script>
 {% endblock %}
