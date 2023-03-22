@@ -40,7 +40,7 @@ to mark something as complete, put change `- [ ] ...` to `-[x] ...`
 
 ## Register 
 
-- [ ] CSS - Anya
+- [x] CSS - Anya
 
 ## Cuisine and Category
 
