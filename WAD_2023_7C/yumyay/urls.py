@@ -22,5 +22,5 @@ urlpatterns = [
     path('like_recipe/', views.LikeRecipeView.as_view(), name='like_recipe'),
     path('has_user_liked_recipe/', views.HasUserLikedRecipe.as_view(), name='has_user_liked_recipe'),
     path('logout/', views.user_logout, name='logout'),
-    path('delete/<int:id>', views.delete, name='delete'),
+    path('delete/', views.delete, name='delete'),
 ]

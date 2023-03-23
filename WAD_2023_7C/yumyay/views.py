@@ -172,6 +172,11 @@ class LikeRecipeView(View):
             username = request.POST['username']
             recipe_id = request.POST['recipe']
             like = request.POST['liked']
+            
+            if like == 'like':
+                like = True
+            else:
+                like = False
 
             try:
                 recipe = Recipe.objects.get(id=recipe_id)
@@ -189,10 +194,12 @@ class LikeRecipeView(View):
 
             try:
                 user_likes_recipe = UserLikesRecipe.objects.get_or_create(user=user, recipe=recipe)[0]
+                if user_likes_recipe.liked == like:
+                    return HttpResponse(recipe.likes)
             except ValueError:
                 return HttpResponse(-1)
 
-            if (like == 'like'):
+            if like:
                 recipe.likes = recipe.likes + 1
                 user_likes_recipe.liked = True
             else:
@@ -232,7 +239,8 @@ class HasUserLikedRecipe(View):
         else:
             return HttpResponse(0)
 
-def delete(request, id):
-      member = User.objects.get(id=id)
+def delete(request):
+      member = User.objects.get(id = request.user.id)
+      Recipe.objects.filter(author = member.username).delete()
       member.delete()
       return redirect(reverse('yumyay:home'))
