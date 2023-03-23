@@ -156,7 +156,7 @@ def recipe(request, cuisine_name_slug, recipe_id):
 def cuisine(request, cuisine_name_slug):
     context_dict = {}
     recipe_list = Recipe.objects.filter(cuisine=str.upper(cuisine_name_slug))
-    top_recipe = recipe_list.order_by('likes')
+    top_recipe = recipe_list.order_by('-likes')
     if len(top_recipe) > 0:
         context_dict['top_recipe'] = top_recipe[0]
     else:
